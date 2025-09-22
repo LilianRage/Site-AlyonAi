@@ -1,0 +1,25 @@
+{
+  "name": "ALYON AI - One AI for all your industry",
+  "short_name": "ALYON AI",
+  "description": "ALYON AI - L'intelligence artificielle au service de votre industrie : maintenance prédictive, contrôle qualité, assistance intelligente",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#5488e0",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "categories": ["business", "productivity", "technology"],
+  "lang": "fr",
+  "scope": "/"
+}

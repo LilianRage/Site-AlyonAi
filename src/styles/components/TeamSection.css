@@ -1,0 +1,369 @@
+.team-section {
+  padding: 80px 0;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Image de fond de fumée */
+.team-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/Fond_fumee.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  z-index: 0;
+}
+
+/* Suppression de l'effet de lumière */
+.team-section::after {
+  display: none;
+}
+
+/* Suppression des accents décoratifs */
+.team-container::before,
+.team-container::after {
+  display: none;
+}
+
+.team-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.team-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.team-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 16px;
+  position: relative;
+  display: inline-block;
+}
+
+.team-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: #000;
+  border-radius: 3px;
+}
+
+.team-subtitle {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 18px;
+  color: #666666;
+  line-height: 1.6;
+}
+
+.team-content {
+  position: relative;
+  z-index: 2;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+.team-card {
+  background: linear-gradient(135deg, #5488e0 0%, #4374d9 100%);
+  color: white;
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.team-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.team-card.hovered {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(84, 136, 224, 0.3);
+}
+
+.team-card.hovered::before {
+  opacity: 1;
+}
+
+.member-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 24px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.team-card.hovered .member-photo {
+  transform: scale(1.05);
+}
+
+.member-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.member-name {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: white;
+  height: 32px; /* Hauteur fixe pour alignement */
+  line-height: 32px; /* Centrage vertical */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-role {
+  font-size: 16px;
+  opacity: 0.9;
+  margin-bottom: 24px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.member-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.member-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.member-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Cadre horizontal pour les biographies */
+.bio-panel {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  min-height: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  border: 2px solid #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+.bio-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #5488e0, #4374d9);
+}
+
+.bio-panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.bio-content {
+  text-align: center;
+  width: 100%;
+}
+
+.bio-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.bio-name::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: #5488e0;
+}
+
+.bio-text {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #4b5563;
+  font-style: italic;
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.bio-text::before {
+  content: '"';
+  font-size: 60px;
+  color: #5488e0;
+  opacity: 0.3;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  font-family: serif;
+  line-height: 1;
+}
+
+.bio-text::after {
+  content: '"';
+  font-size: 60px;
+  color: #5488e0;
+  opacity: 0.3;
+  position: absolute;
+  bottom: -40px;
+  right: -20px;
+  font-family: serif;
+  line-height: 1;
+}
+
+/* Animation classes */
+.team-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.team-reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .team-section {
+    padding: 60px 0;
+  }
+  
+  .team-container {
+    padding: 0 16px;
+  }
+  
+  .team-title {
+    font-size: 32px;
+  }
+  
+  .team-subtitle {
+    font-size: 16px;
+  }
+  
+  .team-card {
+    padding: 30px 20px;
+  }
+  
+  .member-photo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+  
+  .member-name {
+    font-size: 20px;
+  }
+  
+  .member-role {
+    font-size: 14px;
+  }
+  
+  .bio-panel {
+    padding: 30px 20px;
+    min-height: 180px;
+    height: 180px;
+  }
+  
+  .bio-name {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .bio-text {
+    font-size: 16px;
+  }
+  
+  .bio-text::before {
+    font-size: 40px;
+    top: -15px;
+    left: -10px;
+  }
+  
+  .bio-text::after {
+    font-size: 40px;
+    bottom: -25px;
+    right: -10px;
+  }
+}

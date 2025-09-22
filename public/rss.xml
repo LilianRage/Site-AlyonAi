@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Alyon AI - Actualités et Innovations</title>
+    <description>Découvrez les dernières innovations d'Alyon AI en intelligence artificielle industrielle. Maintenance prédictive, contrôle qualité automatisé et assistance intelligente.</description>
+    <link>https://alyon.ai</link>
+    <atom:link href="https://alyon.ai/rss.xml" rel="self" type="application/rss+xml"/>
+    <language>fr-FR</language>
+    <lastBuildDate>Mon, 15 Sep 2025 10:00:00 GMT</lastBuildDate>
+    <pubDate>Mon, 15 Sep 2025 10:00:00 GMT</pubDate>
+    <ttl>1440</ttl>
+    <managingEditor>contact@alyon.ai (Équipe Alyon AI)</managingEditor>
+    <webMaster>contact@alyon.ai (Équipe Alyon AI)</webMaster>
+    <category>Technologie</category>
+    <category>Intelligence Artificielle</category>
+    <category>Industrie 4.0</category>
+    
+    <item>
+      <title>Lancement d'Alyon AI : L'IA au service de l'industrie</title>
+      <description>Alyon AI développe des solutions d'intelligence artificielle pensées pour répondre aux besoins concrets des entreprises industrielles. Découvrez nos trois solutions principales : maintenance prédictive, contrôle qualité automatisé et assistance intelligente.</description>
+      <link>https://alyon.ai</link>
+      <guid>https://alyon.ai/news/lancement-alyon-ai</guid>
+      <pubDate>Mon, 15 Sep 2025 10:00:00 GMT</pubDate>
+      <category>Lancement</category>
+      <category>Innovation</category>
+    </item>
+    
+    <item>
+      <title>Maintenance prédictive : Anticipez les pannes avant qu'elles ne surviennent</title>
+      <description>Notre solution de maintenance prédictive analyse l'état de vos équipements pour détecter les signaux faibles de panne. Réduisez les arrêts imprévus et prolongez la durée de vie de vos machines avec nos algorithmes d'IA avancés.</description>
+      <link>https://alyon.ai/solutions/maintenance-predictive</link>
+      <guid>https://alyon.ai/news/maintenance-predictive</guid>
+      <pubDate>Mon, 15 Sep 2025 09:00:00 GMT</pubDate>
+      <category>Maintenance prédictive</category>
+      <category>IoT</category>
+    </item>
+    
+    <item>
+      <title>Contrôle qualité automatisé : L'IA au service de la perfection</title>
+      <description>Vérifiez visuellement ou par capteurs la conformité de vos produits en temps réel. Notre système de contrôle qualité automatisé repère défauts et anomalies avec une constance et une précision inégalées, sans fatigue.</description>
+      <link>https://alyon.ai/solutions/controle-qualite</link>
+      <guid>https://alyon.ai/news/controle-qualite-automatise</guid>
+      <pubDate>Mon, 15 Sep 2025 08:00:00 GMT</pubDate>
+      <category>Contrôle qualité</category>
+      <category>Vision par ordinateur</category>
+    </item>
+    
+    <item>
+      <title>Assistance intelligente : Automatisez l'analyse de vos données</title>
+      <description>Offrez à vos équipes des outils IA capables d'analyser documents, images et données pour générer des rapports automatisés et guider la prise de décision. Gagnez du temps et améliorez la qualité de vos analyses.</description>
+      <link>https://alyon.ai/solutions/assistance-intelligente</link>
+      <guid>https://alyon.ai/news/assistance-intelligente</guid>
+      <pubDate>Mon, 15 Sep 2025 07:00:00 GMT</pubDate>
+      <category>Assistance intelligente</category>
+      <category>Analyse de données</category>
+    </item>
+  </channel>
+</rss>
