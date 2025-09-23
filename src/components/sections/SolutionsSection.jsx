@@ -461,8 +461,9 @@ const SolutionsSection = ({ data }) => {
           className="solutions-layout"
           style={{
             display: 'grid',
-            gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : '300px 1fr 300px',
-            gap: window.innerWidth <= 768 ? '30px' : '60px',
+            gridTemplateColumns: isMobile ? '1fr' : '300px 1fr 300px',
+            gridTemplateRows: isMobile ? 'auto auto auto' : '1fr',
+            gap: isMobile ? '30px' : '60px',
             width: '100%',
             maxWidth: '1200px',
             alignItems: 'center',
@@ -470,58 +471,7 @@ const SolutionsSection = ({ data }) => {
           }}
         >
           
-          {/* Colonne gauche */}
-          <div 
-            className="solutions-left"
-            style={{
-              position: 'relative',
-              height: '500px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'flex-start', // Commencer du haut pour remonter les cadrans
-              gap: '0px' // Pas de gap pour que les cartes se collent
-            }}
-          >
-            {/* Cartes précédentes rétrécies */}
-            {stepsData.slice(0, currentStep).map((step, index) => (
-              <div 
-                key={`prev-left-${index}`} 
-                style={{ 
-                  width: '100%',
-                  transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                }}
-              >
-                {renderCard(
-                  step.leftCard, 
-                  'left', 
-                  `prev-card-${index}`,
-                  false,
-                  0,
-                  index
-                )}
-              </div>
-            ))}
-            
-            {/* Carte actuelle en grand */}
-            <div 
-              style={{ 
-                width: '100%',
-                transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-              }}
-            >
-              {renderCard(
-                stepsData[currentStep].leftCard,
-                'left',
-                'current-left-card',
-                false,
-                0,
-                currentStep
-              )}
-            </div>
-          </div>
-
-          {/* Vidéo centrale */}
+          {/* Vidéo centrale - première sur mobile */}
           <div 
             className="video-container-sticky"
             style={{
@@ -532,7 +482,10 @@ const SolutionsSection = ({ data }) => {
               overflow: 'hidden',
               background: '#000000',
               boxShadow: '0 30px 80px rgba(0, 0, 0, 0.3), 0 15px 40px rgba(0, 0, 0, 0.2)',
-              position: 'relative'
+              position: 'relative',
+              gridColumn: isMobile ? '1' : '2',
+              gridRow: isMobile ? '1' : '1',
+              justifySelf: 'center'
             }}
           >
             <video 
@@ -555,54 +508,148 @@ const SolutionsSection = ({ data }) => {
             </video>
           </div>
 
-          {/* Colonne droite */}
-          <div 
-            className="solutions-right"
-            style={{
-              position: 'relative',
-              height: '500px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'flex-start', // Commencer du haut pour remonter les cadrans
-              gap: '0px' // Pas de gap pour que les cartes se collent
-            }}
-          >
-            {/* Cartes précédentes rétrécies */}
-            {stepsData.slice(0, currentStep).map((step, index) => (
-              <div 
-                key={`prev-right-${index}`} 
-                style={{ 
-                  width: '100%',
-                  transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                }}
-              >
-                {renderBenefitsCard(
-                  step.rightCard, 
-                  `prev-benefits-${index}`,
-                  false,
-                  0,
-                  index
-                )}
-              </div>
-            ))}
-            
-            {/* Carte actuelle en grand */}
+          {/* Container des cartes sur mobile */}
+          {isMobile ? (
             <div 
-              style={{ 
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '20px',
                 width: '100%',
-                transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                gridColumn: '1',
+                gridRow: '2'
               }}
             >
-              {renderBenefitsCard(
-                stepsData[currentStep].rightCard,
-                'current-right-card',
-                false,
-                0,
-                currentStep
-              )}
+              {/* Carte bleue (solution) */}
+              <div style={{ width: '100%' }}>
+                {renderCard(
+                  stepsData[currentStep].leftCard,
+                  'mobile',
+                  'current-mobile-left-card',
+                  false,
+                  0,
+                  currentStep
+                )}
+              </div>
+              
+              {/* Carte blanche (benefits) */}
+              <div style={{ width: '100%' }}>
+                {renderBenefitsCard(
+                  stepsData[currentStep].rightCard,
+                  'current-mobile-right-card',
+                  false,
+                  0,
+                  currentStep
+                )}
+              </div>
             </div>
-          </div>
+          ) : (
+            <>
+              {/* Colonne gauche - desktop seulement */}
+              <div 
+                className="solutions-left"
+                style={{
+                  position: 'relative',
+                  height: '500px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                  gap: '0px',
+                  gridColumn: '1',
+                  gridRow: '1'
+                }}
+              >
+                {/* Cartes précédentes rétrécies */}
+                {stepsData.slice(0, currentStep).map((step, index) => (
+                  <div 
+                    key={`prev-left-${index}`} 
+                    style={{ 
+                      width: '100%',
+                      transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                    }}
+                  >
+                    {renderCard(
+                      step.leftCard, 
+                      'left', 
+                      `prev-card-${index}`,
+                      false,
+                      0,
+                      index
+                    )}
+                  </div>
+                ))}
+                
+                {/* Carte actuelle en grand */}
+                <div 
+                  style={{ 
+                    width: '100%',
+                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                  }}
+                >
+                  {renderCard(
+                    stepsData[currentStep].leftCard,
+                    'left',
+                    'current-left-card',
+                    false,
+                    0,
+                    currentStep
+                  )}
+                </div>
+              </div>
+
+              {/* Colonne droite - desktop seulement */}
+              <div 
+                className="solutions-right"
+                style={{
+                  position: 'relative',
+                  height: '500px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start',
+                  gap: '0px',
+                  gridColumn: '3',
+                  gridRow: '1'
+                }}
+              >
+                {/* Cartes précédentes rétrécies */}
+                {stepsData.slice(0, currentStep).map((step, index) => (
+                  <div 
+                    key={`prev-right-${index}`} 
+                    style={{ 
+                      width: '100%',
+                      transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                    }}
+                  >
+                    {renderBenefitsCard(
+                      step.rightCard, 
+                      `prev-benefits-${index}`,
+                      false,
+                      0,
+                      index
+                    )}
+                  </div>
+                ))}
+                
+                {/* Carte actuelle en grand */}
+                <div 
+                  style={{ 
+                    width: '100%',
+                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                  }}
+                >
+                  {renderBenefitsCard(
+                    stepsData[currentStep].rightCard,
+                    'current-right-card',
+                    false,
+                    0,
+                    currentStep
+                  )}
+                </div>
+              </div>
+            </>
+          )}
 
         </div>
 
