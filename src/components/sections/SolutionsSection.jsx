@@ -33,19 +33,21 @@ const SolutionsSection = ({ data }) => {
 
   // Preload des vidéos pour améliorer la réactivité
   useEffect(() => {
+    // Capture the ref value at the beginning of the effect
+    const videosRef = videoPreloadRefs.current;
+    
     // Preload toutes les vidéos en arrière-plan
     stepsData.forEach((step, index) => {
       const video = document.createElement('video');
       video.preload = 'auto';
       video.muted = true;
       video.src = step.video;
-      videoPreloadRefs.current[index] = video;
+      videosRef[index] = video;
     });
 
     return () => {
-      // Cleanup - capture the current ref value to avoid stale closure
-      const currentVideos = videoPreloadRefs.current;
-      currentVideos.forEach(video => {
+      // Cleanup - use the captured ref value to avoid stale closure
+      videosRef.forEach(video => {
         if (video) {
           video.src = '';
           video.load();
