@@ -52,7 +52,7 @@
 
 .footer-logo:hover .logo-image {
   transform: scale(1.05);
-  filter: brightness(0) invert(1) sepia(1) saturate(5) hue-rotate(200deg); /* Effet bleu au hover */
+  filter: brightness(0) invert(1); /* Garde le logo blanc, pas de changement de couleur */
 }
 
 .logo-text {

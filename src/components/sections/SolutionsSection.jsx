@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Icon from '../ui/Icon';
@@ -11,22 +11,9 @@ const SolutionsSection = ({ data }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSticky, setIsSticky] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const videoPreloadRefs = useRef([]);
 
-  // Détection responsive
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Configuration des données pour chaque étape - utilisation de useMemo pour éviter la re-création à chaque rendu
-  const stepsData = useMemo(() => [
+  // Configuration des données pour chaque étape
+  const stepsData = [
     {
       video: "/47339-451297052_detected.mp4",
       leftCard: data.solutions[0],
@@ -42,32 +29,21 @@ const SolutionsSection = ({ data }) => {
       leftCard: data.solutions[2],
       rightCard: data.solutions[2],
     }
-  ], [data.solutions]);
+  ];
 
-  // Preload des vidéos pour améliorer la réactivité
+  // Détection mobile
   useEffect(() => {
-    // Capture the ref value at the beginning of the effect
-    const videosRef = videoPreloadRefs.current;
-    
-    // Preload toutes les vidéos en arrière-plan
-    stepsData.forEach((step, index) => {
-      const video = document.createElement('video');
-      video.preload = 'auto';
-      video.muted = true;
-      video.src = step.video;
-      videosRef[index] = video;
-    });
-
-    return () => {
-      // Cleanup - use the captured ref value to avoid stale closure
-      videosRef.forEach(video => {
-        if (video) {
-          video.src = '';
-          video.load();
-        }
-      });
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
-  }, [stepsData]);
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -484,10 +460,9 @@ const SolutionsSection = ({ data }) => {
         <div 
           className="solutions-layout"
           style={{
-            display: isMobile ? 'flex' : 'grid',
-            flexDirection: isMobile ? 'column' : 'row',
-            gridTemplateColumns: isMobile ? '1fr' : '300px 1fr 300px',
-            gap: isMobile ? '30px' : '60px',
+            display: 'grid',
+            gridTemplateColumns: window.innerWidth <= 768 ? '1fr' : '300px 1fr 300px',
+            gap: window.innerWidth <= 768 ? '30px' : '60px',
             width: '100%',
             maxWidth: '1200px',
             alignItems: 'center',
@@ -495,226 +470,139 @@ const SolutionsSection = ({ data }) => {
           }}
         >
           
-          {/* Ordre mobile : vidéo d'abord */}
-          {isMobile && (
-            <div 
-              className="video-container-sticky"
-              style={{
-                width: '100%',
-                maxWidth: '400px',
-                aspectRatio: '16/9',
-                borderRadius: '20px',
-                overflow: 'hidden',
-                background: '#000000',
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
-                position: 'relative'
-              }}
-            >
-              <video 
-                key={currentStep}
-                className="solutions-video-sticky"
-                autoPlay 
-                muted 
-                loop 
-                playsInline
-                preload="auto"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '20px'
-                }}
-              >
-                <source src={stepsData[currentStep].video} type="video/mp4" />
-                Votre navigateur ne supporte pas la lecture vidéo.
-              </video>
-            </div>
-          )}
-          
-          {/* Cartes côte à côte sur mobile */}
-          {isMobile && (
-            <div style={{ 
-              width: '100%', 
-              display: 'flex', 
-              flexDirection: 'row', 
-              gap: '15px', 
-              padding: '0 16px',
-              justifyContent: 'center'
-            }}>
-              <div style={{ width: '50%', maxWidth: '180px' }}>
-                {renderCard(
-                  stepsData[currentStep].leftCard,
-                  'mobile',
-                  'current-mobile-card',
-                  false,
-                  0,
-                  currentStep
-                )}
-              </div>
-              <div style={{ width: '50%', maxWidth: '180px' }}>
-                {renderBenefitsCard(
-                  stepsData[currentStep].rightCard,
-                  'current-mobile-benefits',
-                  false,
-                  0,
-                  currentStep
-                )}
-              </div>
-            </div>
-          )}
-          
-          {/* Layout desktop - Colonne gauche */}
-          {!isMobile && (
-            <div 
-              className="solutions-left"
-              style={{
-                position: 'relative',
-                height: '500px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                gap: '0px'
-              }}
-            >
-              {/* Cartes précédentes rétrécies */}
-              {stepsData.slice(0, currentStep).map((step, index) => (
-                <div 
-                  key={`prev-left-${index}`} 
-                  style={{ 
-                    width: '100%',
-                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
-                >
-                  {renderCard(
-                    step.leftCard, 
-                    'left', 
-                    `prev-card-${index}`,
-                    false,
-                    0,
-                    index
-                  )}
-                </div>
-              ))}
-              
-              {/* Carte actuelle en grand */}
+          {/* Colonne gauche */}
+          <div 
+            className="solutions-left"
+            style={{
+              position: 'relative',
+              height: '500px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'flex-start', // Commencer du haut pour remonter les cadrans
+              gap: '0px' // Pas de gap pour que les cartes se collent
+            }}
+          >
+            {/* Cartes précédentes rétrécies */}
+            {stepsData.slice(0, currentStep).map((step, index) => (
               <div 
+                key={`prev-left-${index}`} 
                 style={{ 
                   width: '100%',
                   transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               >
                 {renderCard(
-                  stepsData[currentStep].leftCard,
-                  'left',
-                  'current-left-card',
+                  step.leftCard, 
+                  'left', 
+                  `prev-card-${index}`,
                   false,
                   0,
-                  currentStep
+                  index
                 )}
               </div>
-            </div>
-          )}
-
-          {/* Layout desktop - Vidéo centrale */}
-          {!isMobile && (
+            ))}
+            
+            {/* Carte actuelle en grand */}
             <div 
-              className="video-container-sticky"
+              style={{ 
+                width: '100%',
+                transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
+            >
+              {renderCard(
+                stepsData[currentStep].leftCard,
+                'left',
+                'current-left-card',
+                false,
+                0,
+                currentStep
+              )}
+            </div>
+          </div>
+
+          {/* Vidéo centrale */}
+          <div 
+            className="video-container-sticky"
+            style={{
+              width: '100%',
+              maxWidth: '500px',
+              aspectRatio: '16/9',
+              borderRadius: '24px',
+              overflow: 'hidden',
+              background: '#000000',
+              boxShadow: '0 30px 80px rgba(0, 0, 0, 0.3), 0 15px 40px rgba(0, 0, 0, 0.2)',
+              position: 'relative'
+            }}
+          >
+            <video 
+              key={currentStep} // Force le rechargement de la vidéo
+              className="solutions-video-sticky"
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              preload="metadata"
               style={{
                 width: '100%',
-                maxWidth: '500px',
-                aspectRatio: '16/9',
-                borderRadius: '24px',
-                overflow: 'hidden',
-                background: '#000000',
-                boxShadow: '0 30px 80px rgba(0, 0, 0, 0.3), 0 15px 40px rgba(0, 0, 0, 0.2)',
-                position: 'relative'
+                height: '100%',
+                objectFit: 'cover',
+                borderRadius: '24px'
               }}
             >
-              <video 
-                key={currentStep}
-                className="solutions-video-sticky"
-                autoPlay 
-                muted 
-                loop 
-                playsInline
-                preload="auto"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  borderRadius: '24px'
-                }}
-              >
-                <source src={stepsData[currentStep].video} type="video/mp4" />
-                Votre navigateur ne supporte pas la lecture vidéo.
-              </video>
+              <source src={stepsData[currentStep].video} type="video/mp4" />
+              Votre navigateur ne supporte pas la lecture vidéo.
+            </video>
+          </div>
 
-              {/* Preload des vidéos suivantes en arrière-plan */}
-              {stepsData.map((step, index) => (
-                index !== currentStep && (
-                  <video
-                    key={`preload-${index}`}
-                    preload="auto"
-                    muted
-                    style={{ display: 'none' }}
-                    src={step.video}
-                  />
-                )
-              ))}
-            </div>
-          )}
-
-          {/* Layout desktop - Colonne droite */}
-          {!isMobile && (
-            <div 
-              className="solutions-right"
-              style={{
-                position: 'relative',
-                height: '500px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-                gap: '0px'
-              }}
-            >
-              {/* Cartes précédentes rétrécies */}
-              {stepsData.slice(0, currentStep).map((step, index) => (
-                <div 
-                  key={`prev-right-${index}`} 
-                  style={{ 
-                    width: '100%',
-                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
-                >
-                  {renderBenefitsCard(
-                    step.rightCard, 
-                    `prev-benefits-${index}`,
-                    false,
-                    0,
-                    index
-                  )}
-                </div>
-              ))}
-              
-              {/* Carte actuelle en grand */}
+          {/* Colonne droite */}
+          <div 
+            className="solutions-right"
+            style={{
+              position: 'relative',
+              height: '500px',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'flex-start', // Commencer du haut pour remonter les cadrans
+              gap: '0px' // Pas de gap pour que les cartes se collent
+            }}
+          >
+            {/* Cartes précédentes rétrécies */}
+            {stepsData.slice(0, currentStep).map((step, index) => (
               <div 
+                key={`prev-right-${index}`} 
                 style={{ 
                   width: '100%',
                   transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               >
                 {renderBenefitsCard(
-                  stepsData[currentStep].rightCard,
-                  'current-right-card',
+                  step.rightCard, 
+                  `prev-benefits-${index}`,
                   false,
                   0,
-                  currentStep
+                  index
                 )}
               </div>
+            ))}
+            
+            {/* Carte actuelle en grand */}
+            <div 
+              style={{ 
+                width: '100%',
+                transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+              }}
+            >
+              {renderBenefitsCard(
+                stepsData[currentStep].rightCard,
+                'current-right-card',
+                false,
+                0,
+                currentStep
+              )}
             </div>
-          )}
+          </div>
 
         </div>
 
