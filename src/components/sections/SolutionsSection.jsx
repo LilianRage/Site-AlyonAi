@@ -10,6 +10,7 @@ const SolutionsSection = ({ data }) => {
   const sectionRef = useRef(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [isSticky, setIsSticky] = useState(false);
+  const videoPreloadRefs = useRef([]);
 
   // Configuration des données pour chaque étape
   const stepsData = [
@@ -29,6 +30,28 @@ const SolutionsSection = ({ data }) => {
       rightCard: data.solutions[2],
     }
   ];
+
+  // Preload des vidéos pour améliorer la réactivité
+  useEffect(() => {
+    // Preload toutes les vidéos en arrière-plan
+    stepsData.forEach((step, index) => {
+      const video = document.createElement('video');
+      video.preload = 'auto';
+      video.muted = true;
+      video.src = step.video;
+      videoPreloadRefs.current[index] = video;
+    });
+
+    return () => {
+      // Cleanup
+      videoPreloadRefs.current.forEach(video => {
+        if (video) {
+          video.src = '';
+          video.load();
+        }
+      });
+    };
+  }, []);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -510,7 +533,7 @@ const SolutionsSection = ({ data }) => {
               muted 
               loop 
               playsInline
-              preload="metadata"
+              preload="auto"
               style={{
                 width: '100%',
                 height: '100%',
@@ -521,6 +544,19 @@ const SolutionsSection = ({ data }) => {
               <source src={stepsData[currentStep].video} type="video/mp4" />
               Votre navigateur ne supporte pas la lecture vidéo.
             </video>
+
+            {/* Preload des vidéos suivantes en arrière-plan */}
+            {stepsData.map((step, index) => (
+              index !== currentStep && (
+                <video
+                  key={`preload-${index}`}
+                  preload="auto"
+                  muted
+                  style={{ display: 'none' }}
+                  src={step.video}
+                />
+              )
+            ))}
           </div>
 
           {/* Colonne droite */}
