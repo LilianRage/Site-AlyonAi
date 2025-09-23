@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import Icon from '../ui/Icon';
 import '../../styles/components/ContactSection.css';
@@ -9,6 +9,19 @@ const ContactSection = ({ data }) => {
   const particle2Ref = useRef(null);
   const logoRef = useRef(null);
   const explosionRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Détection responsive
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (!animationRef.current) return;
@@ -18,15 +31,32 @@ const ContactSection = ({ data }) => {
     const logo = logoRef.current;
     const explosion = explosionRef.current;
 
+    // Dimensions responsive
+    const containerWidth = isMobile ? 300 : 400;
+    const containerHeight = isMobile ? 200 : 250;
+    const centerX = containerWidth / 2;
+    const centerY = containerHeight / 2;
+
     // Animation des particules qui se baladent
     const animateParticles = () => {
       // Timeline pour les particules
-      const tl = gsap.timeline({ repeat: -1 });        // Phase 1: Les particules se baladent aléatoirement
+      const tl = gsap.timeline({ repeat: -1 });
+      
+      // Ajuster les paths selon la taille
+      const path1 = isMobile 
+        ? `M 30,160 Q 100,40 180,100 T 270,70 T 220,150 T 30,160`
+        : `M 40,180 Q 120,50 200,120 T 320,80 T 280,180 T 40,180`;
+      
+      const path2 = isMobile
+        ? `M 270,50 Q 200,120 150,80 T 40,110 T 120,30 T 270,50`
+        : `M 320,60 Q 240,150 180,100 T 50,140 T 140,40 T 320,60`;
+        
+      // Phase 1: Les particules se baladent aléatoirement
       tl.set([particle1, particle2], { scale: 1, opacity: 0.7 })
         .to(particle1, {
           duration: 4,
           motionPath: {
-            path: "M 40,260 Q 150,60 250,150 T 420,100 T 350,230 T 40,260",
+            path: path1,
             autoRotate: false,
           },
           ease: "none"
@@ -34,7 +64,7 @@ const ContactSection = ({ data }) => {
         .to(particle2, {
           duration: 4,
           motionPath: {
-            path: "M 420,80 Q 300,190 230,130 T 60,180 T 180,50 T 420,80",
+            path: path2,
             autoRotate: false,
           },
           ease: "none"
@@ -43,16 +73,16 @@ const ContactSection = ({ data }) => {
         // Phase 2: Les particules convergent vers le logo (centre exact)
         .to([particle1, particle2], {
           duration: 1.5,
-          x: 250, // Centre du cadran (500px / 2)
-          y: 160, // Centre du cadran (320px / 2)
+          x: centerX,
+          y: centerY,
           scale: 0.5,
           ease: "power2.inOut"
         })
         
-        // Phase 3: Explosion de fumée organique qui se propage (plus visible)
+        // Phase 3: Explosion de fumée organique qui se propage
         .to(explosion, {
           duration: 0.6,
-          scale: 8,
+          scale: isMobile ? 5 : 6,
           rotation: 180,
           opacity: 0.9,
           borderRadius: '50% 30% 70% 40%',
@@ -60,7 +90,7 @@ const ContactSection = ({ data }) => {
         })
         .to(explosion, {
           duration: 0.8,
-          scale: 12,
+          scale: isMobile ? 7 : 8,
           rotation: 360,
           opacity: 0.7,
           borderRadius: '40% 70% 30% 60%',
@@ -81,7 +111,7 @@ const ContactSection = ({ data }) => {
         // Phase 4: Dissipation naturelle de la fumée
         .to(explosion, {
           duration: 1.2,
-          scale: 15,
+          scale: isMobile ? 9 : 10,
           rotation: 540,
           opacity: 0,
           borderRadius: '30% 80% 20% 90%',
@@ -97,21 +127,20 @@ const ContactSection = ({ data }) => {
         .to(explosion, {
           duration: 0.1,
           scale: 0,
-          rotation: 0,
           ease: "none"
         })
         .to(particle1, {
           duration: 1,
-          x: 40,
-          y: 260,
+          x: isMobile ? 30 : 40,
+          y: isMobile ? 160 : 180,
           scale: 1,
           opacity: 0.7,
           ease: "power2.inOut"
         }, "-=0.1")
         .to(particle2, {
           duration: 1,
-          x: 420,
-          y: 80,
+          x: isMobile ? 270 : 320,
+          y: isMobile ? 50 : 60,
           scale: 1,
           opacity: 0.7,
           ease: "power2.inOut"
@@ -123,7 +152,7 @@ const ContactSection = ({ data }) => {
     return () => {
       gsap.killTweensOf([particle1, particle2, logo, explosion]);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <section id="contact" className="contact-section">
@@ -139,12 +168,17 @@ const ContactSection = ({ data }) => {
 
         <div className="contact-content" style={{ 
           display: 'flex', 
-          justifyContent: 'space-between', 
+          justifyContent: isMobile ? 'center' : 'space-between', 
           alignItems: 'center',
-          gap: '40px',
+          gap: isMobile ? '30px' : '40px',
+          flexDirection: isMobile ? 'column' : 'row',
           flexWrap: 'wrap'
         }}>
-          <div className="contact-info" style={{ flex: '1', minWidth: '300px' }}>
+          <div className="contact-info" style={{ 
+            flex: isMobile ? 'none' : '1', 
+            minWidth: isMobile ? '280px' : '300px',
+            width: isMobile ? '100%' : 'auto'
+          }}>
             <div className="contact-item">
               <div className="contact-icon">
                 <Icon name="mail" size={24} color="white" />
@@ -185,8 +219,8 @@ const ContactSection = ({ data }) => {
               ref={animationRef}
               className="logo-animation-container"
               style={{
-                width: '500px',
-                height: '320px',
+                width: isMobile ? '300px' : '400px',
+                height: isMobile ? '200px' : '250px',
                 background: '#fafafa',
                 border: '2px solid #e5e7eb',
                 borderRadius: '20px',
@@ -197,7 +231,8 @@ const ContactSection = ({ data }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                margin: isMobile ? '0 auto' : '0'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
@@ -221,8 +256,8 @@ const ContactSection = ({ data }) => {
                   borderRadius: '50%',
                   background: 'linear-gradient(135deg, #2563eb, #1d4ed8)',
                   boxShadow: '0 0 20px rgba(37, 99, 235, 0.8)',
-                  left: '40px',
-                  top: '260px',
+                  left: isMobile ? '30px' : '40px',
+                  top: isMobile ? '160px' : '180px',
                   zIndex: 1
                 }}
               />
@@ -237,8 +272,8 @@ const ContactSection = ({ data }) => {
                   borderRadius: '50%',
                   background: 'linear-gradient(135deg, #fbbf24, #f59e0b)',
                   boxShadow: '0 0 15px rgba(251, 191, 36, 0.8)',
-                  left: '430px',
-                  top: '50px',
+                  left: isMobile ? '270px' : '320px',
+                  top: isMobile ? '50px' : '60px',
                   zIndex: 1
                 }}
               />
@@ -311,9 +346,9 @@ const ContactSection = ({ data }) => {
                   src="/images/logo-Alyon-Black-rogne.png" 
                   alt="Logo Alyon" 
                   style={{
-                    width: '150px',
+                    width: isMobile ? '120px' : '150px',
                     height: 'auto',
-                    maxHeight: '100px',
+                    maxHeight: isMobile ? '80px' : '100px',
                     objectFit: 'contain',
                     filter: 'drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1))'
                   }}
@@ -324,10 +359,10 @@ const ContactSection = ({ data }) => {
               <div
                 style={{
                   position: 'absolute',
-                  bottom: '25px',
+                  bottom: isMobile ? '15px' : '25px',
                   left: '50%',
                   transform: 'translateX(-50%)',
-                  fontSize: '16px',
+                  fontSize: isMobile ? '14px' : '16px',
                   color: '#6b7280',
                   fontWeight: '500',
                   textAlign: 'center',

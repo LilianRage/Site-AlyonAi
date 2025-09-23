@@ -206,7 +206,7 @@
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   padding: 40px;
   min-height: 200px;
-  height: 200px;
+  height: auto; /* Hauteur automatique pour s'adapter au contenu */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -343,7 +343,7 @@
   .bio-panel {
     padding: 30px 20px;
     min-height: 180px;
-    height: 180px;
+    height: auto; /* Hauteur automatique aussi sur mobile */
   }
   
   .bio-name {

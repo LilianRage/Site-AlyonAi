@@ -10,7 +10,20 @@ const SolutionsSection = ({ data }) => {
   const sectionRef = useRef(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [isSticky, setIsSticky] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const videoPreloadRefs = useRef([]);
+
+  // Détection responsive
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Configuration des données pour chaque étape - utilisation de useMemo pour éviter la re-création à chaque rendu
   const stepsData = useMemo(() => [
@@ -405,14 +418,14 @@ const SolutionsSection = ({ data }) => {
         style={{
           maxWidth: '1400px',
           margin: '0 auto',
-          padding: '0 24px',
-          height: '100vh',
+          padding: isMobile ? '0 16px' : '0 24px',
+          height: isMobile ? 'auto' : '100vh',
+          minHeight: isMobile ? '100vh' : 'auto',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          gap: '40px'
-          // border supprimée
+          gap: isMobile ? '30px' : '40px'
         }}
       >
         
@@ -428,7 +441,7 @@ const SolutionsSection = ({ data }) => {
           <h2 
             className="solutions-main-title"
             style={{
-              fontSize: '48px',
+              fontSize: isMobile ? '32px' : '48px',
               fontWeight: '700',
               color: '#000000',
               margin: '0 0 16px 0'
@@ -439,11 +452,12 @@ const SolutionsSection = ({ data }) => {
           <p 
             className="solutions-subtitle"
             style={{
-              fontSize: '20px',
+              fontSize: isMobile ? '16px' : '20px',
               color: '#666666',
               margin: 0,
               fontWeight: 400,
-              lineHeight: 1.5
+              lineHeight: 1.5,
+              padding: isMobile ? '0 16px' : '0'
             }}
           >
             Trois domaines d'expertise pour transformer votre industrie
@@ -454,9 +468,10 @@ const SolutionsSection = ({ data }) => {
         <div 
           className="solutions-layout"
           style={{
-            display: 'grid',
-            gridTemplateColumns: '300px 1fr 300px',
-            gap: '60px',
+            display: isMobile ? 'flex' : 'grid',
+            flexDirection: isMobile ? 'column' : 'row',
+            gridTemplateColumns: isMobile ? '1fr' : '300px 1fr 300px',
+            gap: isMobile ? '30px' : '60px',
             width: '100%',
             maxWidth: '1200px',
             alignItems: 'center',
@@ -464,152 +479,219 @@ const SolutionsSection = ({ data }) => {
           }}
         >
           
-          {/* Colonne gauche */}
-          <div 
-            className="solutions-left"
-            style={{
-              position: 'relative',
-              height: '500px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'flex-start', // Commencer du haut pour remonter les cadrans
-              gap: '0px' // Pas de gap pour que les cartes se collent
-            }}
-          >
-            {/* Cartes précédentes rétrécies */}
-            {stepsData.slice(0, currentStep).map((step, index) => (
+          {/* Ordre mobile : vidéo d'abord */}
+          {isMobile && (
+            <div 
+              className="video-container-sticky"
+              style={{
+                width: '100%',
+                maxWidth: '400px',
+                aspectRatio: '16/9',
+                borderRadius: '20px',
+                overflow: 'hidden',
+                background: '#000000',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
+                position: 'relative'
+              }}
+            >
+              <video 
+                key={currentStep}
+                className="solutions-video-sticky"
+                autoPlay 
+                muted 
+                loop 
+                playsInline
+                preload="auto"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '20px'
+                }}
+              >
+                <source src={stepsData[currentStep].video} type="video/mp4" />
+                Votre navigateur ne supporte pas la lecture vidéo.
+              </video>
+            </div>
+          )}
+          
+          {/* Cartes empilées sur mobile */}
+          {isMobile && (
+            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '20px', padding: '0 20px' }}>
+              <div style={{ width: '100%' }}>
+                {renderCard(
+                  stepsData[currentStep].leftCard,
+                  'mobile',
+                  'current-mobile-card',
+                  false,
+                  0,
+                  currentStep
+                )}
+              </div>
+              <div style={{ width: '100%' }}>
+                {renderBenefitsCard(
+                  stepsData[currentStep].rightCard,
+                  'current-mobile-benefits',
+                  false,
+                  0,
+                  currentStep
+                )}
+              </div>
+            </div>
+          )}
+          
+          {/* Layout desktop - Colonne gauche */}
+          {!isMobile && (
+            <div 
+              className="solutions-left"
+              style={{
+                position: 'relative',
+                height: '500px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                gap: '0px'
+              }}
+            >
+              {/* Cartes précédentes rétrécies */}
+              {stepsData.slice(0, currentStep).map((step, index) => (
+                <div 
+                  key={`prev-left-${index}`} 
+                  style={{ 
+                    width: '100%',
+                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                  }}
+                >
+                  {renderCard(
+                    step.leftCard, 
+                    'left', 
+                    `prev-card-${index}`,
+                    false,
+                    0,
+                    index
+                  )}
+                </div>
+              ))}
+              
+              {/* Carte actuelle en grand */}
               <div 
-                key={`prev-left-${index}`} 
                 style={{ 
                   width: '100%',
                   transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               >
                 {renderCard(
-                  step.leftCard, 
-                  'left', 
-                  `prev-card-${index}`,
+                  stepsData[currentStep].leftCard,
+                  'left',
+                  'current-left-card',
                   false,
                   0,
-                  index
+                  currentStep
                 )}
               </div>
-            ))}
-            
-            {/* Carte actuelle en grand */}
-            <div 
-              style={{ 
-                width: '100%',
-                transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-              }}
-            >
-              {renderCard(
-                stepsData[currentStep].leftCard,
-                'left',
-                'current-left-card',
-                false,
-                0,
-                currentStep
-              )}
             </div>
-          </div>
+          )}
 
-          {/* Vidéo centrale */}
-          <div 
-            className="video-container-sticky"
-            style={{
-              width: '100%',
-              maxWidth: '500px',
-              aspectRatio: '16/9',
-              borderRadius: '24px',
-              overflow: 'hidden',
-              background: '#000000',
-              boxShadow: '0 30px 80px rgba(0, 0, 0, 0.3), 0 15px 40px rgba(0, 0, 0, 0.2)',
-              position: 'relative'
-            }}
-          >
-            <video 
-              key={currentStep} // Force le rechargement de la vidéo
-              className="solutions-video-sticky"
-              autoPlay 
-              muted 
-              loop 
-              playsInline
-              preload="auto"
+          {/* Layout desktop - Vidéo centrale */}
+          {!isMobile && (
+            <div 
+              className="video-container-sticky"
               style={{
                 width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '24px'
+                maxWidth: '500px',
+                aspectRatio: '16/9',
+                borderRadius: '24px',
+                overflow: 'hidden',
+                background: '#000000',
+                boxShadow: '0 30px 80px rgba(0, 0, 0, 0.3), 0 15px 40px rgba(0, 0, 0, 0.2)',
+                position: 'relative'
               }}
             >
-              <source src={stepsData[currentStep].video} type="video/mp4" />
-              Votre navigateur ne supporte pas la lecture vidéo.
-            </video>
+              <video 
+                key={currentStep}
+                className="solutions-video-sticky"
+                autoPlay 
+                muted 
+                loop 
+                playsInline
+                preload="auto"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '24px'
+                }}
+              >
+                <source src={stepsData[currentStep].video} type="video/mp4" />
+                Votre navigateur ne supporte pas la lecture vidéo.
+              </video>
 
-            {/* Preload des vidéos suivantes en arrière-plan */}
-            {stepsData.map((step, index) => (
-              index !== currentStep && (
-                <video
-                  key={`preload-${index}`}
-                  preload="auto"
-                  muted
-                  style={{ display: 'none' }}
-                  src={step.video}
-                />
-              )
-            ))}
-          </div>
+              {/* Preload des vidéos suivantes en arrière-plan */}
+              {stepsData.map((step, index) => (
+                index !== currentStep && (
+                  <video
+                    key={`preload-${index}`}
+                    preload="auto"
+                    muted
+                    style={{ display: 'none' }}
+                    src={step.video}
+                  />
+                )
+              ))}
+            </div>
+          )}
 
-          {/* Colonne droite */}
-          <div 
-            className="solutions-right"
-            style={{
-              position: 'relative',
-              height: '500px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'flex-start', // Commencer du haut pour remonter les cadrans
-              gap: '0px' // Pas de gap pour que les cartes se collent
-            }}
-          >
-            {/* Cartes précédentes rétrécies */}
-            {stepsData.slice(0, currentStep).map((step, index) => (
+          {/* Layout desktop - Colonne droite */}
+          {!isMobile && (
+            <div 
+              className="solutions-right"
+              style={{
+                position: 'relative',
+                height: '500px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-start',
+                gap: '0px'
+              }}
+            >
+              {/* Cartes précédentes rétrécies */}
+              {stepsData.slice(0, currentStep).map((step, index) => (
+                <div 
+                  key={`prev-right-${index}`} 
+                  style={{ 
+                    width: '100%',
+                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
+                  }}
+                >
+                  {renderBenefitsCard(
+                    step.rightCard, 
+                    `prev-benefits-${index}`,
+                    false,
+                    0,
+                    index
+                  )}
+                </div>
+              ))}
+              
+              {/* Carte actuelle en grand */}
               <div 
-                key={`prev-right-${index}`} 
                 style={{ 
                   width: '100%',
                   transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
                 }}
               >
                 {renderBenefitsCard(
-                  step.rightCard, 
-                  `prev-benefits-${index}`,
+                  stepsData[currentStep].rightCard,
+                  'current-right-card',
                   false,
                   0,
-                  index
+                  currentStep
                 )}
               </div>
-            ))}
-            
-            {/* Carte actuelle en grand */}
-            <div 
-              style={{ 
-                width: '100%',
-                transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-              }}
-            >
-              {renderBenefitsCard(
-                stepsData[currentStep].rightCard,
-                'current-right-card',
-                false,
-                0,
-                currentStep
-              )}
             </div>
-          </div>
+          )}
 
         </div>
 
