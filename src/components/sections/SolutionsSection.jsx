@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Icon from '../ui/Icon';
@@ -12,8 +12,8 @@ const SolutionsSection = ({ data }) => {
   const [isSticky, setIsSticky] = useState(false);
   const videoPreloadRefs = useRef([]);
 
-  // Configuration des données pour chaque étape
-  const stepsData = [
+  // Configuration des données pour chaque étape - utilisation de useMemo pour éviter la re-création à chaque rendu
+  const stepsData = useMemo(() => [
     {
       video: "/47339-451297052_detected.mp4",
       leftCard: data.solutions[0],
@@ -29,7 +29,7 @@ const SolutionsSection = ({ data }) => {
       leftCard: data.solutions[2],
       rightCard: data.solutions[2],
     }
-  ];
+  ], [data.solutions]);
 
   // Preload des vidéos pour améliorer la réactivité
   useEffect(() => {
@@ -43,15 +43,16 @@ const SolutionsSection = ({ data }) => {
     });
 
     return () => {
-      // Cleanup
-      videoPreloadRefs.current.forEach(video => {
+      // Cleanup - capture the current ref value to avoid stale closure
+      const currentVideos = videoPreloadRefs.current;
+      currentVideos.forEach(video => {
         if (video) {
           video.src = '';
           video.load();
         }
       });
     };
-  }, []);
+  }, [stepsData]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
