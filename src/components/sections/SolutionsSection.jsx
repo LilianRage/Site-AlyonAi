@@ -242,32 +242,33 @@ const SolutionsSection = ({ data }) => {
       className={`solution-card ${className} step-${stepIndex}`}
       style={{
         background: 'linear-gradient(135deg, #5488e0 0%, #4374d9 100%)',
-        borderRadius: '20px',
-        padding: '24px',
+        borderRadius: isMobile ? '16px' : '20px',
+        padding: isMobile && position === 'mobile' ? '16px' : '24px',
         color: 'white',
         boxShadow: '0 15px 40px rgba(84, 136, 224, 0.3)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
-        transform: 'translateY(0)', // Pas de scale
-        opacity: 1, // Pas de changement d'opacité
+        transform: 'translateY(0)',
+        opacity: 1,
         marginBottom: '0',
         overflow: 'hidden',
         transition: 'none',
-        height: 'auto', // Hauteur automatique par défaut, sera animée par GSAP
-        minHeight: '100px' // Hauteur minimale pour les cartes rétrécies
+        height: 'auto',
+        minHeight: isMobile && position === 'mobile' ? '180px' : '100px'
       }}
     >
       <div className="solution-card-content">
         <div className="solution-header" style={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: '16px', 
-          marginBottom: '8px' // Marge réduite par défaut
+          gap: isMobile && position === 'mobile' ? '12px' : '16px',
+          marginBottom: '8px',
+          flexDirection: isMobile && position === 'mobile' ? 'column' : 'row'
         }}>
           <div 
             className="solution-icon"
             style={{
-              width: '48px', // Taille constante
-              height: '48px', // Taille constante
+              width: isMobile && position === 'mobile' ? '36px' : '48px',
+              height: isMobile && position === 'mobile' ? '36px' : '48px',
               borderRadius: '50%',
               background: 'rgba(255, 255, 255, 0.2)',
               display: 'flex',
@@ -278,17 +279,18 @@ const SolutionsSection = ({ data }) => {
           >
             <Icon 
               name={getSolutionIcon(data.solutions.indexOf(solution))} 
-              size={20} // Taille constante
+              size={isMobile && position === 'mobile' ? 16 : 20}
               color="white" 
               className="solution-icon-svg"
             />
           </div>
           <h3 className="solution-title" style={{ 
-            fontSize: '18px', // Taille constante
+            fontSize: isMobile && position === 'mobile' ? '14px' : '18px',
             fontWeight: '600', 
             color: 'white', 
             margin: 0,
-            lineHeight: 1.2
+            lineHeight: 1.2,
+            textAlign: isMobile && position === 'mobile' ? 'center' : 'left'
           }}>
             {solution.title}
           </h3>
@@ -296,13 +298,15 @@ const SolutionsSection = ({ data }) => {
         <div 
           className="solution-description" 
           style={{ 
-            fontSize: '14px', 
+            fontSize: isMobile && position === 'mobile' ? '11px' : '14px',
             color: 'rgba(255, 255, 255, 0.9)', 
             margin: 0,
             opacity: 1,
             height: 'auto',
             overflow: 'hidden',
-            marginTop: '8px'
+            marginTop: '8px',
+            textAlign: isMobile && position === 'mobile' ? 'center' : 'left',
+            lineHeight: 1.3
           }}
         >
           {solution.description}
@@ -316,31 +320,32 @@ const SolutionsSection = ({ data }) => {
       className={`benefits-card ${className} step-${stepIndex}`}
       style={{
         background: '#ffffff',
-        borderRadius: '20px',
-        padding: '24px',
+        borderRadius: isMobile ? '16px' : '20px',
+        padding: isMobile && className.includes('mobile') ? '16px' : '24px',
         boxShadow: '0 15px 40px rgba(0, 0, 0, 0.1)',
         border: '2px solid #e5e7eb',
-        transform: 'translateY(0)', // Pas de scale
-        opacity: 1, // Pas de changement d'opacité
+        transform: 'translateY(0)',
+        opacity: 1,
         marginBottom: '0',
         overflow: 'hidden',
         transition: 'none',
-        height: 'auto', // Hauteur automatique par défaut, sera animée par GSAP
-        minHeight: '100px' // Hauteur minimale pour les cartes rétrécies
+        height: 'auto',
+        minHeight: isMobile && className.includes('mobile') ? '180px' : '100px'
       }}
     >
       <div className="benefits-card-content">
         <div className="benefits-header" style={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: '16px', 
-          marginBottom: '8px' // Marge réduite par défaut
+          gap: isMobile && className.includes('mobile') ? '12px' : '16px',
+          marginBottom: '8px',
+          flexDirection: isMobile && className.includes('mobile') ? 'column' : 'row'
         }}>
           <div 
             className="benefits-icon"
             style={{
-              width: '48px', // Taille constante
-              height: '48px', // Taille constante
+              width: isMobile && className.includes('mobile') ? '36px' : '48px',
+              height: isMobile && className.includes('mobile') ? '36px' : '48px',
               borderRadius: '50%',
               background: 'linear-gradient(135deg, #5488e0 0%, #4374d9 100%)',
               display: 'flex',
@@ -351,17 +356,18 @@ const SolutionsSection = ({ data }) => {
           >
             <Icon 
               name="check" 
-              size={40} 
+              size={isMobile && className.includes('mobile') ? 20 : 40} 
               color="white" 
               className="benefits-icon-svg"
             />
           </div>
           <h4 className="benefits-title" style={{ 
-            fontSize: '18px', // Taille constante
+            fontSize: isMobile && className.includes('mobile') ? '14px' : '18px',
             fontWeight: '600', 
             color: '#1f2937', 
             margin: 0,
-            lineHeight: 1.2
+            lineHeight: 1.2,
+            textAlign: isMobile && className.includes('mobile') ? 'center' : 'left'
           }}>
             Avantages clés
           </h4>
@@ -378,20 +384,30 @@ const SolutionsSection = ({ data }) => {
             marginTop: '8px'
           }}
         >
-          {solution.benefits.map((benefit, idx) => (
+          {(isMobile && className.includes('mobile') ? 
+            solution.benefits.slice(0, 3) : 
+            solution.benefits
+          ).map((benefit, idx) => (
             <li 
               key={idx} 
               className="benefit-item"
               style={{
-                fontSize: '14px',
+                fontSize: isMobile && className.includes('mobile') ? '10px' : '14px',
                 color: '#4b5563',
-                marginBottom: '8px',
-                paddingLeft: '16px',
+                marginBottom: isMobile && className.includes('mobile') ? '4px' : '8px',
+                paddingLeft: isMobile && className.includes('mobile') ? '12px' : '16px',
                 position: 'relative',
-                transform: 'translateY(0)'
+                transform: 'translateY(0)',
+                lineHeight: 1.2
               }}
             >
-              <span style={{ position: 'absolute', left: 0, color: '#5488e0', fontWeight: 'bold' }}>•</span>
+              <span style={{ 
+                position: 'absolute', 
+                left: 0, 
+                color: '#5488e0', 
+                fontWeight: 'bold',
+                fontSize: isMobile && className.includes('mobile') ? '12px' : '14px'
+              }}>•</span>
               {benefit}
             </li>
           ))}
@@ -515,10 +531,17 @@ const SolutionsSection = ({ data }) => {
             </div>
           )}
           
-          {/* Cartes empilées sur mobile */}
+          {/* Cartes côte à côte sur mobile */}
           {isMobile && (
-            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '20px', padding: '0 20px' }}>
-              <div style={{ width: '100%' }}>
+            <div style={{ 
+              width: '100%', 
+              display: 'flex', 
+              flexDirection: 'row', 
+              gap: '15px', 
+              padding: '0 16px',
+              justifyContent: 'center'
+            }}>
+              <div style={{ width: '50%', maxWidth: '180px' }}>
                 {renderCard(
                   stepsData[currentStep].leftCard,
                   'mobile',
@@ -528,7 +551,7 @@ const SolutionsSection = ({ data }) => {
                   currentStep
                 )}
               </div>
-              <div style={{ width: '100%' }}>
+              <div style={{ width: '50%', maxWidth: '180px' }}>
                 {renderBenefitsCard(
                   stepsData[currentStep].rightCard,
                   'current-mobile-benefits',
