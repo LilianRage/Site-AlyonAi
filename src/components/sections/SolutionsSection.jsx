@@ -8,30 +8,29 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SolutionsSection = ({ data }) => {
   const sectionRef = useRef(null);
+  const videoRefs = useRef([]); // ✅ Array pour toutes les vidéos
   const [currentStep, setCurrentStep] = useState(0);
   const [isSticky, setIsSticky] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Configuration des données pour chaque étape
   const stepsData = [
     {
-      video: "/47339-451297052_detected.mp4",
+      video: "/video1-optimized.mp4",
       leftCard: data.solutions[0],
       rightCard: data.solutions[0],
     },
     {
-      video: "/sift_demo_final.mp4", // Remplacez par votre deuxième vidéo
+      video: "/video2-optimized.mp4",
       leftCard: data.solutions[1],
       rightCard: data.solutions[1],
     },
     {
-      video: "/169631-841557068.mp4", // Remplacez par votre troisième vidéo
+      video: "/video3-optimized.mp4",
       leftCard: data.solutions[2],
       rightCard: data.solutions[2],
     }
   ];
 
-  // Détection mobile
   useEffect(() => {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -39,51 +38,71 @@ const SolutionsSection = ({ data }) => {
     
     checkIsMobile();
     window.addEventListener('resize', checkIsMobile);
-    
-    return () => {
-      window.removeEventListener('resize', checkIsMobile);
-    };
+    return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
+
+  // ✅ Préchargement de TOUTES les vidéos au montage
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (video) {
+        video.load(); // Force le préchargement
+        if (index === 0) {
+          video.play().catch(e => console.log('Autoplay prevented:', e));
+        }
+      }
+    });
+  }, []);
+
+  // ✅ Changement de vidéo SANS rechargement
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (video) {
+        if (index === currentStep) {
+          video.style.display = 'block';
+          video.style.opacity = '1';
+          video.play().catch(e => console.log('Play prevented:', e));
+        } else {
+          video.style.display = 'none';
+          video.style.opacity = '0';
+          video.pause();
+        }
+      }
+    });
+  }, [currentStep]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
 
     const section = sectionRef.current;
-    const triggerHeight = window.innerHeight * 3; // Hauteur pour les 3 étapes
+    const triggerHeight = window.innerHeight * 3;
 
-    // Fonction pour animer les cartes en fonction du scroll
     const animateCardsOnScroll = (progress) => {
       if (!sectionRef.current) return;
 
       const section = sectionRef.current;
       
-      // Calculer les transitions entre les étapes avec le scroll en temps réel
-      const step1Transition = Math.min(Math.max((progress - 0) / (1/3), 0), 1); // 0 à 1/3
-      const step2Transition = Math.min(Math.max((progress - 1/3) / (1/3), 0), 1); // 1/3 à 2/3
+      const step1Transition = Math.min(Math.max((progress - 0) / (1/3), 0), 1);
+      const step2Transition = Math.min(Math.max((progress - 1/3) / (1/3), 0), 1);
       
-      // Animer les cartes de l'étape 0 (première carte se rétrécit progressivement entre étape 0 et 1)
       const step0Cards = section.querySelectorAll('[class*="step-0"]');
       step0Cards.forEach(card => {
         animateCardTransition(card, step1Transition);
       });
 
-      // Animer les cartes de l'étape 1 (deuxième carte se rétrécit progressivement entre étape 1 et 2)
       const step1Cards = section.querySelectorAll('[class*="step-1"]');
       step1Cards.forEach(card => {
         animateCardTransition(card, step2Transition);
       });
 
-      // Les cartes de l'étape 2 (dernière étape) ne se rétrécie jamais
       const step2Cards = section.querySelectorAll('[class*="step-2"]');
       step2Cards.forEach(card => {
-        animateCardTransition(card, 0); // Toujours en grand
+        animateCardTransition(card, 0);
       });
     };
 
-    // Créer le ScrollTrigger pour rendre la section sticky
     const scrollTrigger = ScrollTrigger.create({
       trigger: section,
-      start: "top 2%", // Déclenche quand le haut de la section arrive à 80px du haut de l'écran
+      start: "top 2%",
       end: `+=${triggerHeight}`,
       pin: true,
       pinSpacing: true,
@@ -92,7 +111,6 @@ const SolutionsSection = ({ data }) => {
         const newStep = Math.floor(progress * 3);
         const clampedStep = Math.min(newStep, 2);
         
-        // Animation progressive des cartes basée sur le scroll
         animateCardsOnScroll(progress);
         
         setCurrentStep(clampedStep);
@@ -108,62 +126,51 @@ const SolutionsSection = ({ data }) => {
     };
   }, []);
 
-  // Fonction pour animer une carte individuelle
   const animateCardTransition = (card, transitionProgress) => {
     if (!card) return;
 
-    // Pour la nouvelle logique : réduction uniquement en hauteur (bidirectionnelle)
-    const minHeight = 100; // Hauteur minimale du cadran rétréci (bonne taille actuelle)
-    const maxHeight = 280; // Hauteur maximale du cadran ouvert (plus grande)
+    const minHeight = 100;
+    const maxHeight = 280;
     
-    // Interpolation bidirectionnelle - fonctionne dans les deux sens
     const currentHeight = maxHeight - (transitionProgress * (maxHeight - minHeight));
 
-    // Animer la carte - seulement la hauteur et pas de changement de scale/opacity
     gsap.set(card, {
       height: `${currentHeight}px`,
       overflow: 'hidden',
-      marginBottom: `${transitionProgress * 8}px` // Légère marge entre les cartes
+      marginBottom: `${transitionProgress * 8}px`
     });
 
-    // Animer les éléments internes - apparition/disparition progressive du contenu du bas
     const description = card.querySelector('.solution-description, .benefits-list');
     const header = card.querySelector('.solution-header, .benefits-header');
 
-    // Le header reste toujours visible et en haut
     if (header) {
       gsap.set(header, {
-        marginBottom: '8px', // Marge constante
-        opacity: 1 // Toujours visible
+        marginBottom: '8px',
+        opacity: 1
       });
     }
 
-    // La description apparaît/disparaît progressivement par le bas
     if (description) {
       gsap.set(description, {
-        opacity: 1 - (transitionProgress * 1.5), // Disparition/apparition progressive
-        height: transitionProgress > 0.4 ? 0 : 'auto', // Collapse/expand en hauteur
+        opacity: 1 - (transitionProgress * 1.5),
+        height: transitionProgress > 0.4 ? 0 : 'auto',
         overflow: 'hidden',
         marginTop: transitionProgress > 0.4 ? 0 : '8px'
       });
     }
   };
 
-  // État précédent pour détecter les cartes qui sortent
   const [previousStep, setPreviousStep] = useState(0);
 
-  // Effet séparé pour animer les cartes lors du changement d'étape
   useEffect(() => {
     if (!sectionRef.current) return;
 
     const section = sectionRef.current;
     
-    // Détecter le sens du changement
     const isMovingForward = currentStep > previousStep;
     const isMovingBackward = currentStep < previousStep;
 
     if (isMovingForward) {
-      // Animation d'entrée pour les nouvelles cartes (scroll vers le bas)
       const newCards = section.querySelectorAll(`[class*="step-${currentStep}"]`);
       newCards.forEach((card, index) => {
         gsap.fromTo(card, 
@@ -185,7 +192,6 @@ const SolutionsSection = ({ data }) => {
     } 
     
     if (isMovingBackward) {
-      // Animation de sortie pour les cartes qui disparaissent (scroll vers le haut)
       const disappearingCards = section.querySelectorAll(`[class*="step-${previousStep}"]`);
       disappearingCards.forEach((card, index) => {
         gsap.to(card, {
@@ -197,17 +203,12 @@ const SolutionsSection = ({ data }) => {
           delay: index * 0.1
         });
       });
-
-      // Pas d'animation d'entrée pour les cartes qui redeviennent actives
-      // Elles vont juste bénéficier de l'animation d'ouverture normale
     }
 
-    // Mettre à jour l'étape précédente
     setPreviousStep(currentStep);
 
   }, [currentStep, previousStep]);
 
-  // Supprimer la fonction handleStepAnimation pour l'instant
   const getSolutionIcon = (index) => {
     const iconNames = ['predictive', 'qualityControl', 'intelligentAssistance'];
     return iconNames[index] || 'predictive';
@@ -402,7 +403,6 @@ const SolutionsSection = ({ data }) => {
         background: '#ffffff',
         position: 'relative',
         overflow: 'hidden'
-        // border supprimée
       }}
     >
       <div 
@@ -421,7 +421,6 @@ const SolutionsSection = ({ data }) => {
         }}
       >
         
-        {/* Titre fixe */}
         <div 
           className="solutions-header-fixed"
           style={{
@@ -456,7 +455,6 @@ const SolutionsSection = ({ data }) => {
           </p>
         </div>
 
-        {/* Layout principal avec cartes et vidéo */}
         <div 
           className="solutions-layout"
           style={{
@@ -471,7 +469,7 @@ const SolutionsSection = ({ data }) => {
           }}
         >
           
-          {/* Vidéo centrale - première sur mobile */}
+          {/* ✅ Container avec TOUTES les vidéos préchargées */}
           <div 
             className="video-container-sticky"
             style={{
@@ -488,27 +486,36 @@ const SolutionsSection = ({ data }) => {
               justifySelf: 'center'
             }}
           >
-            <video 
-              key={currentStep} // Force le rechargement de la vidéo
-              className="solutions-video-sticky"
-              autoPlay 
-              muted 
-              loop 
-              playsInline
-              preload="metadata"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '24px'
-              }}
-            >
-              <source src={stepsData[currentStep].video} type="video/mp4" />
-              Votre navigateur ne supporte pas la lecture vidéo.
-            </video>
+            {/* ✅ Toutes les vidéos sont montées en même temps */}
+            {stepsData.map((step, index) => (
+              <video 
+                key={index} // ✅ Index fixe, pas currentStep !
+                ref={el => videoRefs.current[index] = el}
+                className="solutions-video-sticky"
+                autoPlay={index === 0}
+                muted 
+                loop 
+                playsInline
+                preload="auto"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  borderRadius: '24px',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  display: index === 0 ? 'block' : 'none',
+                  opacity: index === 0 ? 1 : 0,
+                  transition: 'opacity 0.3s ease'
+                }}
+              >
+                <source src={step.video} type="video/mp4" />
+                Votre navigateur ne supporte pas la lecture vidéo.
+              </video>
+            ))}
           </div>
 
-          {/* Container des cartes sur mobile */}
           {isMobile ? (
             <div 
               style={{
@@ -520,7 +527,6 @@ const SolutionsSection = ({ data }) => {
                 gridRow: '2'
               }}
             >
-              {/* Carte bleue (solution) */}
               <div style={{ width: '100%' }}>
                 {renderCard(
                   stepsData[currentStep].leftCard,
@@ -532,7 +538,6 @@ const SolutionsSection = ({ data }) => {
                 )}
               </div>
               
-              {/* Carte blanche (benefits) */}
               <div style={{ width: '100%' }}>
                 {renderBenefitsCard(
                   stepsData[currentStep].rightCard,
@@ -545,7 +550,6 @@ const SolutionsSection = ({ data }) => {
             </div>
           ) : (
             <>
-              {/* Colonne gauche - desktop seulement */}
               <div 
                 className="solutions-left"
                 style={{
@@ -560,7 +564,6 @@ const SolutionsSection = ({ data }) => {
                   gridRow: '1'
                 }}
               >
-                {/* Cartes précédentes rétrécies */}
                 {stepsData.slice(0, currentStep).map((step, index) => (
                   <div 
                     key={`prev-left-${index}`} 
@@ -580,7 +583,6 @@ const SolutionsSection = ({ data }) => {
                   </div>
                 ))}
                 
-                {/* Carte actuelle en grand */}
                 <div 
                   style={{ 
                     width: '100%',
@@ -598,7 +600,6 @@ const SolutionsSection = ({ data }) => {
                 </div>
               </div>
 
-              {/* Colonne droite - desktop seulement */}
               <div 
                 className="solutions-right"
                 style={{
@@ -613,7 +614,6 @@ const SolutionsSection = ({ data }) => {
                   gridRow: '1'
                 }}
               >
-                {/* Cartes précédentes rétrécies */}
                 {stepsData.slice(0, currentStep).map((step, index) => (
                   <div 
                     key={`prev-right-${index}`} 
@@ -632,7 +632,6 @@ const SolutionsSection = ({ data }) => {
                   </div>
                 ))}
                 
-                {/* Carte actuelle en grand */}
                 <div 
                   style={{ 
                     width: '100%',
@@ -653,7 +652,6 @@ const SolutionsSection = ({ data }) => {
 
         </div>
 
-        {/* Indicateur d'étape */}
         <div 
           className="step-indicator"
           style={{
