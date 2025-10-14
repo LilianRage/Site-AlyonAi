@@ -214,16 +214,25 @@ const SolutionsSection = ({ data }) => {
     return iconNames[index] || 'predictive';
   };
 
+  const getCardGradient = (stepIndex) => {
+    const gradients = [
+      'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)', // Bleu ciel
+      'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)', // Bleu vif
+      'linear-gradient(135deg, #2349c6ff 0%, #2445a2ff 100%)'  // Bleu profond
+    ];
+    return gradients[stepIndex] || gradients[0];
+  };
+
   const renderCard = (solution, position, className, isCompact = false, animationDelay = 0, stepIndex = 0) => (
     <div 
       className={`solution-card ${className} step-${stepIndex}`}
       style={{
-        background: 'linear-gradient(135deg, #5488e0 0%, #4374d9 100%)',
+        background: getCardGradient(stepIndex),
         borderRadius: isMobile ? '16px' : '20px',
         padding: isMobile && position === 'mobile' ? '16px' : '24px',
         color: 'white',
-        boxShadow: '0 15px 40px rgba(84, 136, 224, 0.3)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
+        boxShadow: `0 15px 40px ${stepIndex === 0 ? 'rgba(59, 130, 246, 0.35)' : stepIndex === 1 ? 'rgba(96, 165, 250, 0.35)' : 'rgba(30, 64, 175, 0.35)'}`,
+        border: '1px solid rgba(255, 255, 255, 0.15)',
         transform: 'translateY(0)',
         opacity: 1,
         marginBottom: '0',
@@ -292,106 +301,6 @@ const SolutionsSection = ({ data }) => {
     </div>
   );
 
-  const renderBenefitsCard = (solution, className, isCompact = false, animationDelay = 0, stepIndex = 0) => (
-    <div 
-      className={`benefits-card ${className} step-${stepIndex}`}
-      style={{
-        background: '#ffffff',
-        borderRadius: isMobile ? '16px' : '20px',
-        padding: isMobile && className.includes('mobile') ? '16px' : '24px',
-        boxShadow: '0 15px 40px rgba(0, 0, 0, 0.1)',
-        border: '2px solid #e5e7eb',
-        transform: 'translateY(0)',
-        opacity: 1,
-        marginBottom: '0',
-        overflow: 'hidden',
-        transition: 'none',
-        height: 'auto',
-        minHeight: isMobile && className.includes('mobile') ? '180px' : '100px'
-      }}
-    >
-      <div className="benefits-card-content">
-        <div className="benefits-header" style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: isMobile && className.includes('mobile') ? '12px' : '16px',
-          marginBottom: '8px',
-          flexDirection: isMobile && className.includes('mobile') ? 'column' : 'row'
-        }}>
-          <div 
-            className="benefits-icon"
-            style={{
-              width: isMobile && className.includes('mobile') ? '36px' : '48px',
-              height: isMobile && className.includes('mobile') ? '36px' : '48px',
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, #5488e0 0%, #4374d9 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0
-            }}
-          >
-            <Icon 
-              name="check" 
-              size={isMobile && className.includes('mobile') ? 20 : 40} 
-              color="white" 
-              className="benefits-icon-svg"
-            />
-          </div>
-          <h4 className="benefits-title" style={{ 
-            fontSize: isMobile && className.includes('mobile') ? '14px' : '18px',
-            fontWeight: '600', 
-            color: '#1f2937', 
-            margin: 0,
-            lineHeight: 1.2,
-            textAlign: isMobile && className.includes('mobile') ? 'center' : 'left'
-          }}>
-            Avantages clés
-          </h4>
-        </div>
-        <ul 
-          className="benefits-list" 
-          style={{ 
-            listStyle: 'none', 
-            padding: 0, 
-            margin: 0,
-            opacity: 1,
-            height: 'auto',
-            overflow: 'hidden',
-            marginTop: '8px'
-          }}
-        >
-          {(isMobile && className.includes('mobile') ? 
-            solution.benefits.slice(0, 3) : 
-            solution.benefits
-          ).map((benefit, idx) => (
-            <li 
-              key={idx} 
-              className="benefit-item"
-              style={{
-                fontSize: isMobile && className.includes('mobile') ? '10px' : '14px',
-                color: '#4b5563',
-                marginBottom: isMobile && className.includes('mobile') ? '4px' : '8px',
-                paddingLeft: isMobile && className.includes('mobile') ? '12px' : '16px',
-                position: 'relative',
-                transform: 'translateY(0)',
-                lineHeight: 1.2
-              }}
-            >
-              <span style={{ 
-                position: 'absolute', 
-                left: 0, 
-                color: '#5488e0', 
-                fontWeight: 'bold',
-                fontSize: isMobile && className.includes('mobile') ? '12px' : '14px'
-              }}>•</span>
-              {benefit}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
 
   return (
     <section 
@@ -405,6 +314,33 @@ const SolutionsSection = ({ data }) => {
         overflow: 'hidden'
       }}
     >
+      {/* Décorations bleues subtiles en arrière-plan */}
+      <div 
+        style={{
+          position: 'absolute',
+          top: '15%',
+          right: '5%',
+          width: '300px',
+          height: '300px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(96, 165, 250, 0.08) 0%, transparent 70%)',
+          pointerEvents: 'none',
+          zIndex: 0
+        }}
+      />
+      <div 
+        style={{
+          position: 'absolute',
+          bottom: '20%',
+          left: '8%',
+          width: '250px',
+          height: '250px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%)',
+          pointerEvents: 'none',
+          zIndex: 0
+        }}
+      />
       <div 
         className="solutions-sticky-container"
         style={{
@@ -426,25 +362,43 @@ const SolutionsSection = ({ data }) => {
           style={{
             textAlign: 'center',
             width: '100%',
-            maxWidth: '800px'
+            maxWidth: '800px',
+            position: 'relative',
+            zIndex: 1
           }}
         >
-          <h2 
+          <h2
             className="solutions-main-title"
             style={{
               fontSize: isMobile ? '32px' : '48px',
               fontWeight: '700',
               color: '#000000',
-              margin: '0 0 16px 0'
+              margin: '0 0 16px 0',
+              position: 'relative',
+              display: 'inline-block'
             }}
           >
             Nos solutions IA
+            <span
+              style={{
+                content: "''",
+                position: 'absolute',
+                bottom: -8,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '50%',
+                height: 3,
+                backgroundColor: '#000',
+                borderRadius: 3,
+                display: 'block'
+              }}
+            />
           </h2>
           <p 
             className="solutions-subtitle"
             style={{
               fontSize: isMobile ? '16px' : '20px',
-              color: '#666666',
+              color: '#475569',
               margin: 0,
               fontWeight: 400,
               lineHeight: 1.5,
@@ -459,8 +413,8 @@ const SolutionsSection = ({ data }) => {
           className="solutions-layout"
           style={{
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : '300px 1fr 300px',
-            gridTemplateRows: isMobile ? 'auto auto auto' : '1fr',
+            gridTemplateColumns: isMobile ? '1fr' : '300px 1fr',
+            gridTemplateRows: isMobile ? 'auto auto' : '1fr',
             gap: isMobile ? '30px' : '60px',
             width: '100%',
             maxWidth: '1200px',
@@ -474,14 +428,14 @@ const SolutionsSection = ({ data }) => {
             className="video-container-sticky"
             style={{
               width: '100%',
-              maxWidth: '500px',
+              maxWidth: isMobile ? '500px' : '900px',
               aspectRatio: '16/9',
               borderRadius: '24px',
               overflow: 'hidden',
               background: '#000000',
               boxShadow: '0 30px 80px rgba(0, 0, 0, 0.3), 0 15px 40px rgba(0, 0, 0, 0.2)',
               position: 'relative',
-              gridColumn: isMobile ? '1' : '2',
+              gridColumn: isMobile ? '1' : '2 / span 2',
               gridRow: isMobile ? '1' : '1',
               justifySelf: 'center'
             }}
@@ -517,36 +471,15 @@ const SolutionsSection = ({ data }) => {
           </div>
 
           {isMobile ? (
-            <div 
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '20px',
-                width: '100%',
-                gridColumn: '1',
-                gridRow: '2'
-              }}
-            >
-              <div style={{ width: '100%' }}>
-                {renderCard(
-                  stepsData[currentStep].leftCard,
-                  'mobile',
-                  'current-mobile-left-card',
-                  false,
-                  0,
-                  currentStep
-                )}
-              </div>
-              
-              <div style={{ width: '100%' }}>
-                {renderBenefitsCard(
-                  stepsData[currentStep].rightCard,
-                  'current-mobile-right-card',
-                  false,
-                  0,
-                  currentStep
-                )}
-              </div>
+            <div style={{ width: '100%', gridColumn: '1', gridRow: '2' }}>
+              {renderCard(
+                stepsData[currentStep].leftCard,
+                'mobile',
+                'current-mobile-left-card',
+                false,
+                0,
+                currentStep
+              )}
             </div>
           ) : (
             <>
@@ -600,53 +533,6 @@ const SolutionsSection = ({ data }) => {
                 </div>
               </div>
 
-              <div 
-                className="solutions-right"
-                style={{
-                  position: 'relative',
-                  height: '500px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  gap: '0px',
-                  gridColumn: '3',
-                  gridRow: '1'
-                }}
-              >
-                {stepsData.slice(0, currentStep).map((step, index) => (
-                  <div 
-                    key={`prev-right-${index}`} 
-                    style={{ 
-                      width: '100%',
-                      transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                    }}
-                  >
-                    {renderBenefitsCard(
-                      step.rightCard, 
-                      `prev-benefits-${index}`,
-                      false,
-                      0,
-                      index
-                    )}
-                  </div>
-                ))}
-                
-                <div 
-                  style={{ 
-                    width: '100%',
-                    transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
-                >
-                  {renderBenefitsCard(
-                    stepsData[currentStep].rightCard,
-                    'current-right-card',
-                    false,
-                    0,
-                    currentStep
-                  )}
-                </div>
-              </div>
             </>
           )}
 

@@ -4,6 +4,7 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import HeroSection from '../components/sections/HeroSection';
 import SolutionsSection from '../components/sections/SolutionsSection';
+import ResearchSection from '../components/sections/ResearchSection';
 import PressSection from '../components/sections/PressSection';
 import TeamSection from '../components/sections/TeamSection';
 import ContactSection from '../components/sections/ContactSection';
@@ -79,6 +80,7 @@ const HomePage = () => {
         <main>
           <HeroSection data={siteData} />
           <SolutionsSection data={siteData} />
+          <ResearchSection />
           <PressSection />
           <TeamSection />
           <ContactSection data={siteData} />

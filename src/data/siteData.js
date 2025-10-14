@@ -23,7 +23,7 @@ export const siteData = {
       id: "analyse-detection-image",
       icon: "predictive",
       title: "Vision par IA",
-      description: "Déploiement de modèles de vision avancés (VLM, CNN, YOLO) pour identifier, classer et analyser automatiquement des éléments visuels complexes. Reconnaissance d'objets, détection d'anomalies et comparaison avec standards de référence en temps réel.",
+      description: "Déploiement de modèles de vision avancés pour identifier, classer et analyser automatiquement des éléments visuels complexes. Reconnaissance d'objets, détection d'anomalies et comparaison avec standards de référence en temps réel.",
       benefits: ["Reconnaissance précise des composants", "Comparaison automatique avec les standards", "Détection instantanée d'anomalies visuelles", "Traitement précis en temps réel"]
     },
     {

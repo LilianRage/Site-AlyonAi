@@ -46,6 +46,18 @@ const TeamSection = () => {
     }
   ];
   
+  const getCardGradient = (memberId) => {
+    return memberId === 1 
+      ? 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)' 
+      : 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)';
+  };
+
+  const getCardShadow = (memberId) => {
+    return memberId === 1
+      ? '0 15px 40px rgba(59, 130, 246, 0.35)'
+      : '0 15px 40px rgba(96, 165, 250, 0.35)';
+  };
+
   return (
     <section id="team" className="team-section">
       <div className="team-container">
@@ -66,7 +78,13 @@ const TeamSection = () => {
                 onMouseEnter={() => setHoveredMember(member)}
                 onMouseLeave={() => setHoveredMember(null)}
               >
-                <div className={`team-card ${hoveredMember?.id === member.id ? 'hovered' : ''}`}>
+                <div 
+                  className={`team-card ${hoveredMember?.id === member.id ? 'hovered' : ''}`}
+                  style={{
+                    background: getCardGradient(member.id),
+                    boxShadow: getCardShadow(member.id)
+                  }}
+                >
                   <div className="member-photo">
                     <img src={member.photo} alt={member.name} />
                   </div>

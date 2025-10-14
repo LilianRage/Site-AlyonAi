@@ -11,7 +11,7 @@ const HeroSection = ({ data }) => {
   };
 
   return (
-    <section id="hero" className="hero-section">
+  <section id="hero" className="hero-section">
       {/* Particules flottantes pour enrichir l'effet */}
       <div className="hero-particles">
         <div className="particle particle-1"></div>
@@ -22,7 +22,7 @@ const HeroSection = ({ data }) => {
       
       <div className="hero-container">
         <div className="hero-content">
-          <h1 className="hero-tagline-new">Une IA pour toute votre industrie</h1>
+          <h1 className="hero-tagline-new">L'IA pour chaque défi</h1>
           
           <div className="hero-logo-container">
             <img 
@@ -40,6 +40,7 @@ const HeroSection = ({ data }) => {
               <Icon name="arrow" size={20} color="white" />
               Démarrer avec ALYON AI
             </button>
+            
           </div>
         </div>
       </div>

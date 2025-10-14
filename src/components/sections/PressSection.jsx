@@ -70,7 +70,7 @@ const PressSection = () => {
                     <img src={article.logo} alt={article.mediaName} />
                   </div>
                   <h3 className="press-card-title">{article.title}</h3>
-                  <p className="press-quote">"{article.quote}"</p>
+                  <p className="press-quote">{article.quote}</p>
                   <div className="press-footer">
                     <div className="press-date">{article.date}</div>
                     <a href={article.link} className="press-link" target="_blank" rel="noopener noreferrer">

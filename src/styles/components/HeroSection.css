@@ -9,6 +9,42 @@
   overflow: hidden;
 }
 
+/* Fumée jaune en arrière-plan */
+.yellow-smoke-bg {
+  position: absolute;
+  top: 10%;
+  left: 40%;
+  width: 60vw;
+  height: 60vw;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 60% 40%, rgba(255, 230, 0, 0.28) 0%, transparent 60%),
+    radial-gradient(circle at 30% 70%, rgba(255, 200, 0, 0.22) 0%, transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 0, 0.13) 0%, transparent 80%);
+  filter: blur(65px) brightness(1.05) saturate(1.1);
+  z-index: 1;
+  animation: yellowSmokeFloat 18s ease-in-out infinite;
+}
+
+@keyframes yellowSmokeFloat {
+  0%, 100% {
+    transform: translateX(0px) translateY(0px) scale(1);
+    opacity: 0.7;
+  }
+  25% {
+    transform: translateX(40px) translateY(-30px) scale(1.1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(-30px) translateY(40px) scale(0.95);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateX(-50px) translateY(-20px) scale(1.05);
+    opacity: 0.6;
+  }
+}
+
 /* Effet de fumée/flou en arrière-plan */
 .hero-section::before {
   content: '';
@@ -335,5 +371,73 @@
   .hero-button {
     padding: 14px 28px;
     font-size: 15px;
+  }
+}
+
+/* Bandeau de logos clients défilant */
+.hero-clients-banner {
+  position: absolute;
+  bottom: -100px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.hero-clients-track {
+  display: flex;
+  align-items: center;
+  gap: 100px;
+  animation: scrollLogos 25s linear infinite;
+  will-change: transform;
+}
+
+.hero-client-logo {
+  flex-shrink: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: grayscale(100%) opacity(0.4);
+  transition: filter 0.3s ease;
+}
+
+.hero-client-logo:hover {
+  filter: grayscale(0%) opacity(1);
+}
+
+.hero-client-logo img {
+  max-height: 80px;
+  width: auto;
+  object-fit: contain;
+}
+
+@keyframes scrollLogos {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive pour le bandeau */
+@media (max-width: 768px) {
+  .hero-clients-banner {
+    bottom: 60px;
+  }
+  
+  .hero-clients-track {
+    gap: 70px;
+  }
+  
+  .hero-client-logo {
+    height: 50px;
+  }
+  
+  .hero-client-logo img {
+    max-height: 50px;
   }
 }
