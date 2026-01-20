@@ -1,8 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '../ui/Button';
-import { Badge } from '../ui/Badge';
-import { FadeIn, SlideInLeft, SlideInRight } from '../ui/Animations';
+import { FadeIn } from '../ui/Animations';
 import { siteData } from '../../data/siteData';
 
 const ContactSection = () => {
