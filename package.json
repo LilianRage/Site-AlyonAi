@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.9.1",
+    "ajv": "^8.17.1",
+    "ajv-keywords": "^5.1.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.27.0",
     "gsap": "^3.13.0",
     "lucide-react": "^0.263.1",
     "react": "^18.2.0",
@@ -10,7 +18,9 @@
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^7.6.1",
     "react-scripts": "5.0.1",
-    "styled-components": "^6.1.18"
+    "styled-components": "^6.1.18",
+    "three": "^0.182.0",
+    "tsparticles": "^3.9.1"
   },
   "scripts": {
     "start": "react-scripts start",

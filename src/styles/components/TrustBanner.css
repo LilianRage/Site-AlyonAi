@@ -1,0 +1,117 @@
+/* Trust Banner - Section avec fond uni bleu */
+.trust-banner-section {
+  padding: 4rem 2rem 8rem;
+  background: rgba(10, 25, 47, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.trust-banner-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.trust-banner-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.trust-banner-title {
+  font-size: 1.5rem;
+  font-weight: 200;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
+}
+
+.trust-banner-logos-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.trust-banner-logo-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 3rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  will-change: transform;
+  backdrop-filter: blur(10px);
+}
+
+.trust-banner-logo-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.trust-banner-logo-wrapper {
+  width: 200px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trust-banner-logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  opacity: 0.95;
+  transition: opacity 0.3s ease;
+}
+
+.trust-banner-logo-card:hover .trust-banner-logo {
+  opacity: 1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .trust-banner-section {
+    padding: 3rem 1.5rem 6rem;
+  }
+
+  .trust-banner-title {
+    font-size: 1.25rem;
+  }
+
+  .trust-banner-logo-wrapper {
+    width: 160px;
+    height: 70px;
+  }
+
+  .trust-banner-logo-card {
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .trust-banner-section {
+    padding: 2.5rem 1rem 5rem;
+  }
+
+  .trust-banner-title {
+    font-size: 1.125rem;
+  }
+
+  .trust-banner-logo-wrapper {
+    width: 140px;
+    height: 60px;
+  }
+
+  .trust-banner-logo-card {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .trust-banner-header {
+    margin-bottom: 1.5rem;
+  }
+}

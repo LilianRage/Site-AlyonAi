@@ -1,114 +1,106 @@
-// Données de contenu pour le site Alyon AI
+// Données de contenu pour le site Alyon AI - Satellites LEO Autonomes
 export const siteData = {
   meta: {
-    title: "ALYON AI - One AI for all your industry",
-    description: "ALYON AI développe des solutions d'IA pour l'industrie : maintenance prédictive, contrôle qualité automatisé, assistance intelligente. L'intelligence artificielle au service de votre entreprise.",
-    keywords: "intelligence artificielle, IA, maintenance prédictive, contrôle qualité, industrie, automatisation, entreprise",
+    title: "ALYON AI - Autonomous LEO Satellites for Europe",
+    description: "Alyon AI développe la prochaine génération de satellites LEO autonomes pour l'Europe. Plateforme logicielle modulaire pour des constellations véritablement autonomes.",
+    keywords: "satellites LEO, intelligence artificielle embarquée, constellations autonomes, espace, Europe, OPEX, space tech",
     ogImage: "/images/alyon-ai-og.jpg",
     url: "https://alyon-ai.com"
   },
   
   company: {
     name: "ALYON AI",
-    tagline: "One AI for all your industry",
-    heroTagline: "Une IA pour toute votre industrie",
-    heroTitle: "Prenez ALYON.",
-    description: "ALYON AI développe des solutions d'intelligence artificielle pensées pour répondre aux besoins concrets des entreprises.",
-    mission: "Mettre l'IA au service des organisations pour anticiper les problèmes, renforcer le contrôle qualité et simplifier le quotidien des équipes.",
-    differentiator: "Nous proposons des solutions concrètes, intégrées et personnalisées. ALYON AI conçoit des systèmes clés en main, faciles à utiliser, qui s'adaptent aux réalités du terrain."
+    tagline: "Autonomous LEO Satellites",
+    heroTagline: "The Next Generation of European Autonomous Satellites",
+    heroTitle: "Making Space Economically Viable",
+    description: "Alyon AI développe la prochaine génération de satellites autonomes pour l'Europe, en réponse à la crise OPEX que traverse l'industrie spatiale.",
+    mission: "Intégrer l'intelligence artificielle embarquée directement dans les satellites via une plateforme logicielle modulaire qui rend les constellations véritablement autonomes.",
+    differentiator: "Réduction drastique des interventions humaines et des coûts tout en prolongeant la durée de vie opérationnelle des constellations."
   },
 
-  solutions: [
+  stats: [
+    { value: "45-60%", label: "Réduction OPEX" },
+    { value: "40-60%", label: "Extension durée de vie" },
+    { value: "90%+", label: "Taux de succès captures" },
+    { value: "65-75%", label: "Réduction bande passante" }
+  ],
+
+  modules: [
     {
-      id: "analyse-detection-image",
-      icon: "predictive",
-      title: "Vision par IA",
-      description: "Déploiement de modèles de vision avancés pour identifier, classer et analyser automatiquement des éléments visuels complexes. Reconnaissance d'objets, détection d'anomalies et comparaison avec standards de référence en temps réel.",
-      benefits: ["Reconnaissance précise des composants", "Comparaison automatique avec les standards", "Détection instantanée d'anomalies visuelles", "Traitement précis en temps réel"]
+      id: "smartfleet",
+      name: "SmartFleet",
+      tagline: "Fleet Health Monitoring",
+      description: "Monitoring continu de la santé des satellites avec détection d'anomalies par machine learning. Supervision automatisée des flottes entières.",
+      features: ["Détection d'anomalies ML", "Monitoring continu 24/7", "Supervision automatisée", "Alertes prédictives"]
     },
     {
-      id: "controle-qualite-ia",
-      icon: "qualityControl",
-      title: "Contrôles qualité assistés par IA",
-      description: "Solutions d'IA combinant vision par ordinateur et analyse prédictive pour détecter automatiquement défauts et anomalies. Surveillance continue des processus avec alertes instantanées et rapports détaillés de conformité.",
-      benefits: ["Inspection automatisée 24/7", "Détection précoce des écarts qualité", "Zéro défaut sur chaîne de production", "Rapports automatiques de conformité"]
+      id: "powermind",
+      name: "PowerMind",
+      tagline: "Intelligent Energy Management",
+      description: "Optimisation intelligente de la gestion énergétique via reinforcement learning pour maximiser la durée de vie des batteries.",
+      features: ["Reinforcement learning", "Extension missions +40-60%", "Optimisation batteries", "Gestion ressources adaptative"]
     },
     {
-      id: "accompagnement-digitalisation",
-      icon: "intelligentAssistance",
-      title: "Accompagnement digitalisation & IA",
-      description: "Conseil stratégique, intégration technique et formation personnalisés. De l'audit des besoins au déploiement complet de solutions IA adaptées à votre secteur. Formation équipes pour une adoption réussie et durable.",
-      benefits: ["Stratégie IA sur mesure", "Formation équipes opérationnelle", "ROI rapide et mesurable", "Support technique continu", "Solutions clés en main personnalisées"]
+      id: "intellitask",
+      name: "IntelliTask",
+      tagline: "Autonomous Mission Planning",
+      description: "Les satellites décident autonomiquement quoi capturer en fonction du contexte temps-réel : météo, géométrie, ressources disponibles.",
+      features: ["Décision autonome", "Analyse contexte temps-réel", "Taux succès 60% → 90%+", "Planification dynamique"]
+    },
+    {
+      id: "fusioneye",
+      name: "FusionEye",
+      tagline: "Multimodal Data Fusion",
+      description: "Fusion multimodale SAR + optique pour extraire des insights de haute valeur à partir des données Sentinel avec traitement embarqué intelligent.",
+      features: ["Fusion SAR + optique", "Données Sentinel", "Réduction bande passante 65-75%", "Edge processing"]
+    },
+    {
+      id: "guardianeye",
+      name: "GuardianEye",
+      tagline: "Autonomous Collision Avoidance",
+      description: "Évitement de collisions autonome en temps réel. Essentiel face à la prolifération des débris spatiaux et bientôt obligatoire selon les directives ESA 2027.",
+      features: ["Évitement temps réel", "Conformité ESA 2027", "Protection débris spatiaux", "Décision autonome"]
+    },
+    {
+      id: "meshmind",
+      name: "MeshMind",
+      tagline: "Inter-Satellite Communications",
+      description: "Optimisation des communications inter-satellites via des algorithmes de routage basés sur des Graph Neural Networks.",
+      features: ["Graph Neural Networks", "Routage optimisé", "Réduction latence", "Résilience mesh"]
     }
   ],
 
-  targetSectors: [
-    {
-      icon: "🏭",
-      name: "Industrie",
-      description: "Aéronautique, automobile, électronique, agroalimentaire"
-    },
-    {
-      icon: "🚗",
-      name: "Services techniques",
-      description: "Concessionnaires automobiles, gestion des retours"
-    },
-    {
-      icon: "🏥",
-      name: "Santé et collectivités",
-      description: "Assistance pour le suivi et l'analyse des processus"
-    }
-  ],
+  platform: {
+    title: "Plateforme Software SaaS",
+    features: [
+      "ITAR-free et souveraine",
+      "Installation sur satellites existants ou nouveaux",
+      "Architecture modulaire",
+      "Réduction OPEX 45-60%"
+    ],
+    description: "Une plateforme software commercialisable en mode SaaS qui permet aux opérateurs européens de rendre leurs constellations scalables et économiquement viables face à la concurrence américaine et chinoise."
+  },
 
-  benefits: [
-    {
-      icon: "⏱️",
-      title: "Temps gagné",
-      description: "Automatisation des tâches et réduction des temps d'arrêt"
-    },
-    {
-      icon: "📈",
-      title: "Efficacité accrue",
-      description: "Analyses rapides et objectives"
-    },
-    {
-      icon: "🔒",
-      title: "Fiabilité renforcée",
-      description: "Moins d'erreurs humaines, sécurité optimisée"
-    },
-    {
-      icon: "💰",
-      title: "Optimisation des coûts",
-      description: "Meilleure prévention et réduction des défauts"
-    }
-  ],
-
-  socialProof: [
-    {
-      company: "Industrie Aéronautique Leader",
-      testimonial: "Grâce à Alyon AI, nous avons réduit nos arrêts de production de 40% et optimisé notre maintenance.",
-      author: "Directeur Technique",
-      sector: "Aéronautique"
-    },
-    {
-      company: "Groupe Automobile",
-      testimonial: "Le contrôle qualité automatisé nous permet de détecter 99.8% des défauts en temps réel.",
-      author: "Responsable Qualité",
-      sector: "Automobile"
-    },
-    {
-      company: "Laboratoire Pharmaceutique",
-      testimonial: "L'assistance intelligente a transformé notre processus de validation et de documentation.",
-      author: "Chef de Projet",
-      sector: "Pharmaceutique"
-    }
+  navigation: [
+    { label: "Accueil", href: "#hero" },
+    { label: "Modules", href: "#modules" },
+    { label: "R&D", href: "#achievements" },
+    { label: "Contact", href: "#contact" }
   ],
 
   contact: {
     email: "contact@alyon.ai",
-    phone: "+33 (0)1 XX XX XX XX",
     address: "Paris, France",
-    linkedIn: "https://linkedin.com/company/alyon-ai",
-    rss: "/rss.xml"
+    linkedIn: "https://linkedin.com/company/alyon-ai"
+  },
+
+  trust: {
+    title: "Écosystème",
+    partners: [
+      {
+        name: "ECE Ilab",
+        logo: "/images/Logo_ECE_Ilab.webp"
+      }
+    ]
   }
 };

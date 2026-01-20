@@ -3,10 +3,11 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import HeroSection from '../components/sections/HeroSection';
-import SolutionsSection from '../components/sections/SolutionsSection';
-import ResearchSection from '../components/sections/ResearchSection';
-import PressSection from '../components/sections/PressSection';
-import TeamSection from '../components/sections/TeamSection';
+import HeroGradientOverlay from '../components/sections/HeroGradientOverlay';
+import TrustBanner from '../components/sections/TrustBanner';
+import VisionSection from '../components/sections/VisionSection';
+import ModulesSection from '../components/sections/ModulesSection';
+import AchievementsSection from '../components/sections/AchievementsSection';
 import ContactSection from '../components/sections/ContactSection';
 import { siteData } from '../data/siteData';
 import '../styles/globals.css';
@@ -21,11 +22,10 @@ const HomePage = () => {
     "logo": `${siteData.meta.url}/images/alyon-ai-logo.png`,
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": siteData.contact.phone,
       "contactType": "customer service",
       "email": siteData.contact.email,
-      "areaServed": "FR",
-      "availableLanguage": "French"
+      "areaServed": "EU",
+      "availableLanguage": ["French", "English"]
     },
     "address": {
       "@type": "PostalAddress",
@@ -66,8 +66,8 @@ const HomePage = () => {
           
           {/* Polices */}
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
           
           {/* Données structurées */}
           <script type="application/ld+json">
@@ -75,18 +75,20 @@ const HomePage = () => {
           </script>
         </Helmet>
         
-        <Header data={siteData} />
+        <Header />
         
         <main>
-          <HeroSection data={siteData} />
-          <SolutionsSection data={siteData} />
-          <ResearchSection />
-          <PressSection />
-          <TeamSection />
-          <ContactSection data={siteData} />
+          <HeroSection />
+          
+          <VisionSection />
+          <ModulesSection />
+          <AchievementsSection />
+          <ContactSection />
+          <HeroGradientOverlay />
+          <TrustBanner />
         </main>
         
-        <Footer data={siteData} />
+        <Footer />
       </div>
     </HelmetProvider>
   );

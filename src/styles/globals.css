@@ -1,5 +1,6 @@
-/* Global styles pour ALYON AI - Style inspiré de CTRL */
+/* Global styles pour ALYON AI - Clean B&W Design */
 @import './variables.css';
+@import './utilities.css';
 
 * {
   margin: 0;
@@ -18,68 +19,120 @@ body {
   background-color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */ /* Désactivé pour permettre sticky positioning */
 }
 
 .app {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  /* Retiré flex pour permettre le sticky positioning */
 }
 
-main {
-  flex: 1;
-}
 
-/* Animations globales */
-@keyframes gentleFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
 
-@keyframes shimmer {
-  0% { background-position: -200px 0; }
-  100% { background-position: calc(200px + 100%) 0; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideInFromLeft {
-  from { 
-    opacity: 0; 
-    transform: translateX(-50px); 
+/* Smoke Animation Keyframes */
+@keyframes smoke {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
   }
-  to { 
-    opacity: 1; 
-    transform: translateX(0); 
+  25% { 
+    transform: translate(10%, 5%) scale(1.1);
+    opacity: 0.4;
+  }
+  50% { 
+    transform: translate(-5%, 10%) scale(0.95);
+    opacity: 0.35;
+  }
+  75% { 
+    transform: translate(-10%, -5%) scale(1.05);
+    opacity: 0.3;
   }
 }
 
-@keyframes slideInFromRight {
-  from { 
-    opacity: 0; 
-    transform: translateX(50px); 
-  }
-  to { 
-    opacity: 1; 
-    transform: translateX(0); 
-  }
+/* Animation Classes */
+.animate-smoke {
+  animation: smoke 20s ease-in-out infinite;
 }
 
-/* Boutons */
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.animate-smoke-slow {
+  animation: smoke 30s ease-in-out infinite reverse;
+}
+
+/* Transition utilities */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Focus styles */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Scrollbar styling - noir et blanc uniquement */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #fff;
+}
+
+/* Remove any blue focus/selection colors */
+*:focus {
+  outline-color: #000 !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline-color: #000 !important;
+  border-color: #000 !important;
+}
+
+/* Remove blue tap highlight on mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Link colors - no blue */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:visited {
+  color: inherit;
 }
 
 button:focus-visible {
-  outline: 2px solid #5488e0;
+  outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
 
@@ -92,7 +145,7 @@ a {
 
 /* Selection */
 ::selection {
-  background-color: #5488e0;
+  background-color: #333333;
   color: white;
 }
 
@@ -102,16 +155,16 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #111111;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #5488e0;
+  background: #444444;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4374d9;
+  background: #666666;
 }
 
 /* Responsive utilities */

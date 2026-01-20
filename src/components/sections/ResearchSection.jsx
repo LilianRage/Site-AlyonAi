@@ -186,24 +186,25 @@ const ResearchSection = () => {
               alignItems: 'center',
               gap: '12px',
               padding: '16px 36px',
-              background: 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)',
+              background: '#000000',
               color: 'white',
               textDecoration: 'none',
               borderRadius: '50px',
               fontWeight: '600',
               fontSize: '16px',
-              boxShadow: '0 10px 30px rgba(59, 130, 246, 0.4)',
+              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
               transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
               cursor: 'pointer',
-              willChange: 'transform'
+              willChange: 'transform',
+              border: '1px solid rgba(255, 255, 255, 0.2)'
             }}
             onMouseEnter={e => {
               e.currentTarget.style.transform = 'translateY(-5px) scale(1.04)';
-              e.currentTarget.style.boxShadow = '0 15px 40px rgba(59, 130, 246, 0.5)';
+              e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.4)';
             }}
             onMouseLeave={e => {
               e.currentTarget.style.transform = 'none';
-              e.currentTarget.style.boxShadow = '0 10px 30px rgba(59, 130, 246, 0.4)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
             }}
           >
             <img src="/images/hf-logo.svg" alt="Hugging Face" style={{ width: 30, height: 30, marginRight: 8, verticalAlign: 'middle' }} />
@@ -235,11 +236,11 @@ const ResearchSection = () => {
                 style={{
                   display: 'inline-block',
                   padding: '6px 14px',
-                  background: '#5386df1a',
+                  background: 'rgba(0, 0, 0, 0.1)',
                   borderRadius: '50px',
                   fontSize: '12px',
                   fontWeight: '600',
-                  color: '#5488e0',
+                  color: '#333333',
                   textTransform: 'uppercase',
                   marginBottom: '16px'
                 }}
@@ -296,7 +297,7 @@ const ResearchSection = () => {
                         width: '6px',
                         height: '6px',
                         borderRadius: '50%',
-                        background: index === 0 ? '#60a5fa' : index === 1 ? '#3b82f6' : '#2349c6ff',
+                        background: '#333333',
                         flexShrink: 0,
                         marginTop: '7px'
                       }}
@@ -315,22 +316,22 @@ const ResearchSection = () => {
                   alignItems: 'center',
                   gap: '8px',
                   padding: '12px 24px',
-                  background: index === 0 ? '#60a5fa' : index === 1 ? '#3b82f6' : '#2349c6ff',
+                  background: '#000000',
                   color: 'white',
                   textDecoration: 'none',
                   borderRadius: '50px',
                   fontWeight: '600',
                   fontSize: '14px',
-                  boxShadow: index === 0 ? '0 5px 15px rgba(59, 130, 246, 0.35)' : index === 1 ? '0 5px 15px rgba(96, 165, 250, 0.35)' : '0 5px 15px rgba(30, 64, 175, 0.35)',
+                  boxShadow: '0 5px 15px rgba(0, 0, 0, 0.25)',
                   transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = index === 0 ? '0 8px 20px rgba(59, 130, 246, 0.45)' : index === 1 ? '0 8px 20px rgba(96, 165, 250, 0.45)' : '0 8px 20px rgba(30, 64, 175, 0.45)';
+                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.35)';
                 }}
                 onMouseLeave={e => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = index === 0 ? '0 5px 15px rgba(59, 130, 246, 0.35)' : index === 1 ? '0 5px 15px rgba(96, 165, 250, 0.35)' : '0 5px 15px rgba(30, 64, 175, 0.35)';
+                  e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.25)';
                 }}
               >
                 Découvrir

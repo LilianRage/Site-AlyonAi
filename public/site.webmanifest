@@ -1,7 +1,7 @@
 {
-  "name": "ALYON AI - One AI for all your industry",
-  "short_name": "ALYON AI",
-  "description": "ALYON AI - L'intelligence artificielle au service de votre industrie : maintenance prédictive, contrôle qualité, assistance intelligente",
+  "name": "ALYON AI - Satellites Autonomes et IA Embarquée",
+  "short_name": "ALYON",
+  "description": "ALYON AI : modules d'IA autonome pour satellites.",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,0 +1,90 @@
+import React from 'react';
+import { Badge } from '../ui/Badge';
+import { FadeIn, SlideInLeft, SlideInRight } from '../ui/Animations';
+
+const AboutSection = () => {
+  return (
+    <section id="about" className="py-32 bg-gray-50 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left Content */}
+          <SlideInLeft>
+            <div className="space-y-8">
+              <Badge variant="outline">
+                Notre Mission
+              </Badge>
+              
+              <h2 className="text-4xl md:text-5xl font-bold text-black leading-tight">
+                Rendre l'espace économiquement viable
+              </h2>
+              
+              <div className="space-y-6 text-gray-600 leading-relaxed">
+                <p>
+                  Alyon AI développe la prochaine génération de satellites LEO autonomes 
+                  pour l'Europe, en réponse à la crise OPEX que traverse l'industrie spatiale 
+                  où les coûts d'exploitation explosent à mesure que les constellations grandissent.
+                </p>
+                <p>
+                  Notre approche consiste à intégrer l'intelligence artificielle embarquée 
+                  directement dans les satellites via une plateforme logicielle modulaire 
+                  qui rend les constellations véritablement autonomes.
+                </p>
+                <p className="font-medium text-black">
+                  Réduction drastique des interventions humaines et des coûts tout en 
+                  prolongeant la durée de vie opérationnelle.
+                </p>
+              </div>
+            </div>
+          </SlideInLeft>
+
+          {/* Right Content - Key Points */}
+          <SlideInRight>
+            <div className="grid grid-cols-2 gap-6">
+              <FadeIn delay={100}>
+                <div className="p-8 bg-white border border-gray-200 hover:border-black transition-all duration-300">
+                  <div className="text-4xl font-bold text-black mb-3">LEO</div>
+                  <div className="text-sm text-gray-500 uppercase tracking-wider mb-4">Low Earth Orbit</div>
+                  <p className="text-gray-600 text-sm">
+                    Satellites en orbite basse pour une couverture optimale
+                  </p>
+                </div>
+              </FadeIn>
+              
+              <FadeIn delay={200}>
+                <div className="p-8 bg-white border border-gray-200 hover:border-black transition-all duration-300">
+                  <div className="text-4xl font-bold text-black mb-3">AI</div>
+                  <div className="text-sm text-gray-500 uppercase tracking-wider mb-4">Embedded Intelligence</div>
+                  <p className="text-gray-600 text-sm">
+                    IA embarquée pour l'autonomie complète
+                  </p>
+                </div>
+              </FadeIn>
+              
+              <FadeIn delay={300}>
+                <div className="p-8 bg-white border border-gray-200 hover:border-black transition-all duration-300">
+                  <div className="text-4xl font-bold text-black mb-3">EU</div>
+                  <div className="text-sm text-gray-500 uppercase tracking-wider mb-4">European Sovereign</div>
+                  <p className="text-gray-600 text-sm">
+                    Solution 100% européenne et souveraine
+                  </p>
+                </div>
+              </FadeIn>
+              
+              <FadeIn delay={400}>
+                <div className="p-8 bg-black text-white">
+                  <div className="text-4xl font-bold mb-3">SaaS</div>
+                  <div className="text-sm text-gray-400 uppercase tracking-wider mb-4">Platform Model</div>
+                  <p className="text-gray-300 text-sm">
+                    Modèle software-as-a-service flexible
+                  </p>
+                </div>
+              </FadeIn>
+            </div>
+          </SlideInRight>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default AboutSection;

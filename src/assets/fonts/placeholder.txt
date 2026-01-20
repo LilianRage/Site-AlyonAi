@@ -1,2 +1,0 @@
-/* Fichier placeholder pour la police Aileron Regular */
-/* Remplacez ce fichier par la vraie police Aileron-Regular.woff2 */

@@ -1,53 +1,134 @@
-# Alyon AI - Site Vitrine
+# 🛰️ ALYON AI - Satellites Autonomes et IA Embarquée
 
-Site vitrine moderne et épuré pour Alyon AI, spécialisé dans les solutions d'intelligence artificielle pour l'industrie.
+Site vitrine innovant pour **ALYON**, spécialisé dans les modules d'IA autonome pour constellations de satellites.
 
-## 🚀 Fonctionnalités
+## 🚀 Fonctionnalités Principales
 
-- **Design moderne** avec charte graphique noir/bleu et effets de fumée
-- **Hero Section** attractive avec présentation des apports concrets
-- **Section Solutions** détaillant les 3 offres principales :
-  - 🔧 Maintenance prédictive
-  - ✅ Contrôle qualité automatisé
-  - 🤖 Assistance intelligente
-- **Preuves sociales** avec témoignages clients et carrousel interactif
+- **Hero Section époustouflante** avec animation de particules (gris, bleu, jaune)
+- **Page Technologie interactive** - Cliquez sur les points du satellite pour découvrir 6 modules d'IA :
+  - 🔋 **PowerMind** - Gestion énergétique intelligente
+  - 🔗 **MeshMind** - Communications inter-satellites
+  - 📡 **SmartFleet** - Monitoring de la santé de flotte
+  - 👁️ **FusionEye** - Fusion de données multi-sources
+  - 🛡️ **GuardianEye** - Évitement autonome de collisions
+  - 🎯 **IntelliTask** - Planification autonome de mission
+- **Page Recherche** - Publications, papiers scientifiques et partenariats
+- **Navigation fluide** - Cliquez sur un module dans la nav pour accéder à sa page technologie
 - **Formulaire de contact** complet avec validation
-- **Optimisation SEO/GEO** complète
-- **Design responsive** pour tous les appareils
-- **Performance optimisée** avec lazy loading et optimisations
+- **Design responsive** sur tous les appareils
+- **SEO optimisé** avec sitemap et métadonnées satellites
 
 ## 🎨 Charte Graphique
 
-- **Typographie** : Aileron (avec fallback Inter)
-- **Couleurs principales** :
+- **Typographie** : Inter
+- **Couleurs** :
   - Noir : `#000000`
-  - Bleu principal : `#1a3d5c`
-  - Bleu accent : `#3b82f6`
-  - Effets de fumée : dégradés bleus avec opacité
+  - Bleu principal : `#0066cc` / `#0099ff`
+  - Jaune accent : `#FFD700`
+  - Gris particules : `#888888` / `#999999` / `#aaaaaa`
+  - Blanc : `#ffffff`
 
 ## 📁 Structure du Projet
 
 ```
 src/
 ├── assets/
-│   ├── images/          # Images du site
-│   └── fonts/           # Police Aileron
+│   ├── Fond_fumee.png           # Image de fond fumée
+│   └── fonts/                   # Polices
 ├── components/
-│   ├── layout/          # Header, Footer
-│   ├── sections/        # Sections principales
-│   └── ui/              # Composants réutilisables
+│   ├── layout/
+│   │   ├── Header.jsx           # Navigation + modules dropdown
+│   │   └── Footer.jsx           # Pied de page
+│   ├── sections/
+│   │   ├── HeroSection.jsx      # Hero avec particules
+│   │   ├── VisionSection.jsx    # Vision ALYON
+│   │   ├── ModulesSection.jsx   # Aperçu des 6 modules
+│   │   ├── AchievementsSection.jsx # R&D et publications
+│   │   ├── ContactSection.jsx   # Formulaire de contact
+│   │   ├── TrustBanner.jsx      # Partenaires
+│   │   ├── ResearchSection.jsx  # Recherche détaillée
+│   │   └── HeroGradientOverlay.jsx
+│   └── ui/
+│       ├── ParticlesBackground.jsx  # Fond animé (gris/bleu/jaune)
+│       ├── WaveParticles.jsx
+│       ├── Animations.jsx       # FadeIn, SlideIn...
+│       ├── Button.jsx
+│       ├── Badge.jsx
+│       ├── Separator.jsx
+│       └── Icon.jsx
 ├── data/
-│   └── siteData.js      # Données du site
+│   └── siteData.js              # Données (modules, partenaires, etc.)
 ├── pages/
-│   └── HomePage.jsx     # Page principale
+│   ├── HomePage.jsx             # Page d'accueil
+│   ├── TechnologyPage.jsx       # Interactif satellite (avec params URL)
+│   └── ResearchPage.jsx         # Page R&D
 ├── styles/
-│   ├── components/      # Styles des composants
-│   ├── variables.css    # Variables CSS
-│   ├── globals.css      # Styles globaux
-│   └── placeholders.css # Styles pour le développement
-├── hooks/               # Hooks React personnalisés
-└── utils/               # Utilitaires
+│   ├── globals.css              # Styles globaux
+│   ├── utilities.css            # Utilitaires Tailwind
+│   ├── variables.css            # Variables CSS
+│   └── components/              # CSS spécifiques
+├── lib/
+│   └── utils.js                 # Utilitaires (cn...)
+├── App.jsx                      # Composant racine
+├── AppRouter.jsx                # Routage (/, /technologie, /recherche)
+└── index.js                     # Point d'entrée
 ```
+
+## 🔧 Installation et Démarrage
+
+```bash
+# Installation des dépendances
+npm install --legacy-peer-deps
+
+# Mode développement
+npm start
+
+# Build pour production
+npm run build
+```
+
+## 📦 Dépendances Principales
+
+- **React 18** - Framework UI
+- **React Router v6** - Navigation
+- **Framer Motion** - Animations avancées
+- **Tailwind CSS** - Styling
+- **TSParticles** - Fond animé de particules
+- **Lucide React** - Icônes
+- **GSAP** - Animations avancées
+
+## 🎯 Pages & Routes
+
+| Route | Page | Description |
+|-------|------|-------------|
+| `/` | HomePage | Accueil avec modules |
+| `/technologie` | TechnologyPage | Satellite interactif (paramètre `?module=1-6`) |
+| `/recherche` | ResearchPage | Recherche et publications |
+
+## 💡 Points Clés
+
+- **ParticlesBackground** affiche des particules **gris dominant** avec **quelques bleus et jaunes**
+- **TechnologyPage** lit le paramètre URL `?module=X` et sélectionne automatiquement le module
+- Navigation Header permet de cliquer sur un module pour accéder à sa page dédiée
+- **Sitemap** et **robots.txt** configurés pour Google
+- **Favicon** SVG pour meilleure visibilité
+
+## 📄 Fichiers à Ignorer (Inutilisés)
+
+Les fichiers suivants peuvent être supprimés :
+- `src/components/ui/Card.jsx`
+- `src/components/ui/NavigationMenu.jsx`
+- `src/components/sections/PlatformSection.jsx`
+- `src/components/sections/SocialProofSection.jsx`
+- `src/components/sections/PressSection.jsx`
+- Fichiers CSS associés non-importés
+- `yarn.lock`
+
+## 🚀 Déployement
+
+- **Netlify** : Configuration via `netlify.toml`
+- **Build** : `npm run build` génère le dossier `/build`
+- **Optimisations** : Lazy loading, code splitting, image optimization
 
 ## 🛠️ Installation et Développement
 
