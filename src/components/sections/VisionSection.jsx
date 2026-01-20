@@ -99,7 +99,7 @@ const VisionSection = () => {
                 {/* Stat 1 */}
                 <div className="group">
                   <div className="text-3xl md:text-4xl font-bold text-black mb-1 inline-block relative">
-                    45-60%
+                    45%
                     <span className="absolute bottom-0 left-0 w-full h-0.5 bg-black transform origin-left transition-transform duration-300 group-hover:scale-x-110"></span>
                   </div>
                   <div className="text-xs text-gray-500 uppercase tracking-wider mt-2 mb-1">Réduction OPEX</div>
@@ -111,7 +111,7 @@ const VisionSection = () => {
                 {/* Stat 2 */}
                 <div className="group">
                   <div className="text-3xl md:text-4xl font-bold text-black mb-1 inline-block relative">
-                    40-60%
+                    30%
                     <span className="absolute bottom-0 left-0 w-full h-0.5 bg-black transform origin-left transition-transform duration-300 group-hover:scale-x-110"></span>
                   </div>
                   <div className="text-xs text-gray-500 uppercase tracking-wider mt-2 mb-1">Durée de vie étendue</div>
