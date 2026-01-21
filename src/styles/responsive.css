@@ -1,0 +1,506 @@
+/* ===========================================
+   RESPONSIVE STYLES - Mobile & Tablet
+   Breakpoints: 
+   - Mobile: max-width 480px
+   - Tablet: max-width 768px
+   - Small desktop: max-width 1024px
+   =========================================== */
+
+/* ----------------------------------------
+   VISION SECTION - Responsive
+   ---------------------------------------- */
+@media (max-width: 768px) {
+
+    /* Réduire le gap */
+    .vision-content-wrapper {
+        gap: 20px !important;
+    }
+
+    /* Réduire le padding gauche */
+    .vision-text-left {
+        padding-right: 15px !important;
+    }
+
+    .vision-stats-right {
+        padding-left: 15px !important;
+    }
+
+    /* Réduire la taille du texte */
+    #vision p {
+        font-size: 0.75rem !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Réduire les stats */
+    .vision-stats-right .text-2xl,
+    .vision-stats-right .md\:text-3xl {
+        font-size: 1rem !important;
+    }
+
+    .vision-stats-right .text-xs {
+        font-size: 0.5rem !important;
+    }
+
+    .vision-stats-right .text-sm {
+        font-size: 0.65rem !important;
+    }
+
+    /* Ajuster le séparateur vertical - positionné à 68% */
+    .vision-separator {
+        left: 68% !important;
+    }
+
+    /* Points décoratifs plus petits */
+    .vision-separator>div {
+        width: 6px !important;
+        height: 6px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .vision-content-wrapper {
+        gap: 15px !important;
+    }
+
+    .vision-text-left {
+        padding-right: 10px !important;
+    }
+
+    .vision-stats-right {
+        padding-left: 10px !important;
+    }
+
+    #vision p {
+        font-size: 0.65rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .vision-stats-right .text-2xl,
+    .vision-stats-right .md\:text-3xl {
+        font-size: 0.85rem !important;
+    }
+
+    .vision-stats-right .text-xs {
+        font-size: 0.45rem !important;
+    }
+
+    .vision-stats-right .text-sm {
+        font-size: 0.55rem !important;
+    }
+
+    /* Points décoratifs encore plus petits */
+    .vision-separator>div {
+        width: 4px !important;
+        height: 4px !important;
+    }
+}
+
+/* ----------------------------------------
+   MODULES SECTION - Responsive
+   ---------------------------------------- */
+@media (max-width: 1024px) {
+    #modules .lg\:grid-cols-2 {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Réduire la hauteur du scroll container */
+    .modules-scroll-container {
+        height: 180vh !important;
+    }
+
+    /* Ajuster le padding top du sticky container */
+    .modules-sticky-container {
+        padding-top: 5rem !important;
+    }
+
+    /* Réduire les margins sur mobile */
+    .modules-text-content,
+    .modules-satellite-visual,
+    .modules-discover-btn {
+        margin-top: 2rem !important;
+    }
+
+    /* Satellite container - taille réduite */
+    #modules .w-80,
+    #modules .h-80 {
+        width: 16rem !important;
+        height: 16rem !important;
+    }
+
+    #modules .md\:w-96,
+    #modules .md\:h-96 {
+        width: 18rem !important;
+        height: 18rem !important;
+    }
+
+    /* Image satellite plus petite */
+    #modules .w-64,
+    #modules .h-64 {
+        width: 12rem !important;
+        height: 12rem !important;
+    }
+
+    #modules .md\:w-80,
+    #modules .md\:h-80 {
+        width: 14rem !important;
+        height: 14rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .modules-scroll-container {
+        height: 150vh !important;
+    }
+
+    .modules-sticky-container {
+        padding-top: 4rem !important;
+    }
+
+    .modules-text-content,
+    .modules-satellite-visual,
+    .modules-discover-btn {
+        margin-top: 1.5rem !important;
+    }
+
+    /* Satellite encore plus petit sur mobile */
+    #modules .w-80,
+    #modules .h-80,
+    #modules .md\:w-96,
+    #modules .md\:h-96 {
+        width: 12rem !important;
+        height: 12rem !important;
+    }
+
+    #modules .w-64,
+    #modules .h-64,
+    #modules .md\:w-80,
+    #modules .md\:h-80 {
+        width: 10rem !important;
+        height: 10rem !important;
+    }
+
+    /* Masquer les anneaux orbitaux sur très petit écran */
+    #modules .animate-spin {
+        display: none !important;
+    }
+}
+
+/* ----------------------------------------
+   ACHIEVEMENTS SECTION - Responsive
+   ---------------------------------------- */
+@media (max-width: 768px) {
+    #achievements {
+        padding: 80px 0 !important;
+    }
+
+    /* Carousel container */
+    #achievements [style*="minHeight: '450px'"] {
+        min-height: 380px !important;
+    }
+
+    /* Image height */
+    #achievements [style*="height: '200px'"] {
+        height: 160px !important;
+    }
+
+    /* Title size */
+    #achievements h3[style*="fontSize: '28px'"] {
+        font-size: 22px !important;
+    }
+
+    /* Navigation arrows - positionnement */
+    #achievements button[style*="left: '24px'"] {
+        left: 12px !important;
+        padding: 8px !important;
+    }
+
+    #achievements button[style*="right: '24px'"] {
+        right: 12px !important;
+        padding: 8px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #achievements {
+        padding: 60px 0 !important;
+    }
+
+    #achievements [style*="minHeight: '450px'"] {
+        min-height: 360px !important;
+    }
+
+    #achievements [style*="height: '200px'"] {
+        height: 140px !important;
+    }
+
+    #achievements h3[style*="fontSize: '28px'"] {
+        font-size: 18px !important;
+    }
+
+    #achievements [style*="padding: '32px'"] {
+        padding: 20px !important;
+    }
+
+    /* Hide arrows on very small screens, use swipe */
+    #achievements button[style*="left: '24px'"],
+    #achievements button[style*="right: '24px'"] {
+        display: none !important;
+    }
+}
+
+/* ----------------------------------------
+   CONTACT SECTION - Responsive
+   ---------------------------------------- */
+@media (max-width: 768px) {
+    #contact h2 {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+    }
+
+    #contact .text-4xl,
+    #contact .md\:text-6xl,
+    #contact .lg\:text-7xl {
+        font-size: 2rem !important;
+    }
+
+    #contact button[style*="padding: '16px 48px'"] {
+        padding: 14px 32px !important;
+        font-size: 16px !important;
+    }
+
+    /* Contact info positioning */
+    #contact [class*="absolute bottom-12 left-12"] {
+        position: relative !important;
+        bottom: auto !important;
+        left: auto !important;
+        text-align: center !important;
+        margin-top: 2rem !important;
+    }
+
+    /* Vidéo zoomée pour couvrir toute la hauteur sur mobile */
+    .contact-video {
+        object-fit: cover !important;
+        object-position: center center !important;
+        min-height: 100% !important;
+        min-width: 100% !important;
+        width: auto !important;
+        height: 100% !important;
+        transform: scale(1.2) !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    #contact .text-4xl,
+    #contact .md\:text-6xl,
+    #contact .lg\:text-7xl {
+        font-size: 1.5rem !important;
+    }
+
+    #contact button[style*="padding: '16px 48px'"] {
+        padding: 12px 24px !important;
+        font-size: 14px !important;
+    }
+
+    /* Zoom encore plus important sur très petit écran */
+    .contact-video {
+        transform: scale(1.5) !important;
+    }
+}
+
+/* ----------------------------------------
+   FOOTER - Responsive
+   ---------------------------------------- */
+@media (max-width: 768px) {
+
+    /* Forcer la grille à 4 colonnes comme sur desktop */
+    footer .grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 1rem !important;
+    }
+
+    /* Logo prend 2 colonnes */
+    footer .md\:col-span-2 {
+        grid-column: span 2 !important;
+    }
+
+    /* Réduction de la taille du texte */
+    footer p,
+    footer a,
+    footer button,
+    footer li {
+        font-size: 0.75rem !important;
+    }
+
+    footer h4 {
+        font-size: 0.65rem !important;
+    }
+
+    footer img[alt="ALYON AI"] {
+        height: 45px !important;
+    }
+
+    /* Réduire le padding global */
+    footer>div {
+        padding: 2rem 1rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Réduction plus importante pour très petits écrans */
+    footer p,
+    footer a,
+    footer button,
+    footer li {
+        font-size: 0.65rem !important;
+    }
+
+    footer h4 {
+        font-size: 0.55rem !important;
+    }
+
+    footer img[alt="ALYON AI"] {
+        height: 35px !important;
+    }
+
+    footer>div {
+        padding: 1.5rem 0.75rem !important;
+    }
+
+    footer .grid {
+        gap: 0.5rem !important;
+    }
+}
+
+/* ----------------------------------------
+   HEADER - Responsive enhancements
+   ---------------------------------------- */
+@media (max-width: 768px) {
+    header img[alt="ALYON AI Logo"] {
+        height: 70px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    header img[alt="ALYON AI Logo"] {
+        height: 60px !important;
+    }
+
+    header>div {
+        padding: 0 16px !important;
+    }
+}
+
+/* ----------------------------------------
+   HERO SECTION - Responsive
+   ---------------------------------------- */
+@media (max-width: 768px) {
+
+    /* Forcer la section Hero à prendre toute la hauteur de l'écran */
+    #hero {
+        min-height: 100vh !important;
+        height: 100vh !important;
+    }
+
+    /* Container des particules prend toute la hauteur */
+    #hero>div.absolute {
+        min-height: 100vh !important;
+        height: 100% !important;
+    }
+
+    /* Canvas des particules */
+    #hero #tsparticles {
+        min-height: 100vh !important;
+        height: 100% !important;
+    }
+
+    #hero h1 {
+        font-size: 2.5rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    #hero .text-4xl,
+    #hero .sm\:text-5xl,
+    #hero .md\:text-7xl,
+    #hero .lg\:text-8xl {
+        font-size: 2.5rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #hero {
+        min-height: 100vh !important;
+        height: 100vh !important;
+    }
+
+    #hero>div.absolute,
+    #hero #tsparticles {
+        min-height: 100vh !important;
+        height: 100% !important;
+    }
+
+    #hero h1,
+    #hero .text-4xl,
+    #hero .sm\:text-5xl,
+    #hero .md\:text-7xl,
+    #hero .lg\:text-8xl {
+        font-size: 1.875rem !important;
+    }
+}
+
+/* ----------------------------------------
+   GENERAL UTILITIES - Mobile
+   ---------------------------------------- */
+@media (max-width: 768px) {
+
+    /* Reduce section paddings */
+    section {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+    }
+
+    /* Text sizes */
+    .text-xl {
+        font-size: 1rem !important;
+    }
+
+    .text-2xl {
+        font-size: 1.25rem !important;
+    }
+
+    .text-3xl {
+        font-size: 1.5rem !important;
+    }
+
+    /* Max width containers */
+    .max-w-7xl,
+    .max-w-6xl,
+    .max-w-5xl {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    section {
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+
+    .text-xl {
+        font-size: 0.875rem !important;
+    }
+
+    .text-2xl {
+        font-size: 1.125rem !important;
+    }
+
+    .text-3xl {
+        font-size: 1.25rem !important;
+    }
+}

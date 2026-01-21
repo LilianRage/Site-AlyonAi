@@ -11,36 +11,36 @@ const VisionSection = () => {
             <span className="text-xl font-medium text-gray-500 uppercase tracking-wider mb-4 block">
               Notre Vision
             </span>
-            
+
           </div>
         </FadeIn>
 
         {/* Vision Story + Stats - côte à côte */}
-        <div style={{ display: 'flex', flexDirection: 'row', gap: '60px', alignItems: 'flex-start', marginTop: '50px', position: 'relative' }}>
+        <div className="vision-content-wrapper" style={{ display: 'flex', gap: '40px', alignItems: 'flex-start', marginTop: '50px', position: 'relative', flexDirection: 'row' }}>
           {/* Texte à gauche */}
-          <div style={{ flex: '0 0 65%', paddingRight: '30px' }}>
+          <div className="vision-text-left" style={{ flex: '0 0 65%', paddingRight: '20px' }}>
             <FadeIn>
               <div className="space-y-6 text-left">
                 <p className="text-base md:text-lg text-gray-700 leading-relaxed font-light">
-                  L'Europe spatiale fait face à un défi majeur. Alors que les géants américains et chinois 
-                  déploient des constellations de milliers de satellites, nos opérateurs européens peinent 
+                  L'Europe spatiale fait face à un défi majeur. Alors que les géants américains et chinois
+                  déploient des constellations de milliers de satellites, nos opérateurs européens peinent
                   à rester compétitifs.
                 </p>
                 <p className="text-base md:text-lg text-gray-700 leading-relaxed font-light">
-                  Le problème n'est pas le lancement — c'est ce qui vient après. Les <strong className="text-black font-semibold">coûts opérationnels</strong> explosent. 
-                  Chaque satellite nécessite des équipes au sol pour le piloter, le surveiller, anticiper les pannes, 
-                  éviter les collisions. Cette approche, héritée des débuts de l'ère spatiale, n'est tout simplement 
+                  Le problème n'est pas le lancement — c'est ce qui vient après. Les <strong className="text-black font-semibold">coûts opérationnels</strong> explosent.
+                  Chaque satellite nécessite des équipes au sol pour le piloter, le surveiller, anticiper les pannes,
+                  éviter les collisions. Cette approche, héritée des débuts de l'ère spatiale, n'est tout simplement
                   plus viable à l'échelle des constellations modernes.
                 </p>
                 <p className="text-base md:text-lg text-gray-700 leading-relaxed font-light">
-                  Chez <strong className="text-black font-semibold">ALYON AI</strong>, nous avons une conviction : 
-                  les satellites doivent devenir autonomes. Pas demain, pas dans dix ans — maintenant. Notre plateforme 
-                  d'intelligence artificielle embarquée transforme chaque satellite en un agent capable de prendre 
-                  ses propres décisions, de gérer son énergie, d'éviter les débris, et de communiquer intelligemment 
+                  Chez <strong className="text-black font-semibold">ALYON AI</strong>, nous avons une conviction :
+                  les satellites doivent devenir autonomes. Pas demain, pas dans dix ans — maintenant. Notre plateforme
+                  d'intelligence artificielle embarquée transforme chaque satellite en un agent capable de prendre
+                  ses propres décisions, de gérer son énergie, d'éviter les débris, et de communiquer intelligemment
                   avec sa constellation.
                 </p>
                 <p className="text-base md:text-lg text-gray-700 leading-relaxed font-light">
-                  Notre ambition ? <strong className="text-black font-semibold">Donner à l'Europe les moyens de son indépendance spatiale</strong>, 
+                  Notre ambition ? <strong className="text-black font-semibold">Donner à l'Europe les moyens de son indépendance spatiale</strong>,
                   avec une technologie souveraine, sans compromis sur les performances.
                 </p>
               </div>
@@ -48,7 +48,7 @@ const VisionSection = () => {
           </div>
 
           {/* Séparateur vertical élégant */}
-          <div style={{ 
+          <div className="vision-separator" style={{
             position: 'absolute',
             left: 'calc(70% - 30px)',
             top: 0,
@@ -57,10 +57,10 @@ const VisionSection = () => {
             background: 'linear-gradient(to bottom, transparent 0%, #d1d5db 10%, #d1d5db 90%, transparent 100%)'
           }}>
             {/* Points décoratifs */}
-            <div style={{ 
-              position: 'absolute', 
-              top: '20%', 
-              left: '50%', 
+            <div style={{
+              position: 'absolute',
+              top: '20%',
+              left: '50%',
               transform: 'translate(-50%, -50%)',
               width: '8px',
               height: '8px',
@@ -68,10 +68,10 @@ const VisionSection = () => {
               background: '#000',
               boxShadow: '0 0 10px rgba(0,0,0,0.1)'
             }} />
-            <div style={{ 
-              position: 'absolute', 
-              top: '50%', 
-              left: '50%', 
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
               transform: 'translate(-50%, -50%)',
               width: '8px',
               height: '8px',
@@ -79,10 +79,10 @@ const VisionSection = () => {
               background: '#000',
               boxShadow: '0 0 10px rgba(0,0,0,0.1)'
             }} />
-            <div style={{ 
-              position: 'absolute', 
-              top: '80%', 
-              left: '50%', 
+            <div style={{
+              position: 'absolute',
+              top: '80%',
+              left: '50%',
               transform: 'translate(-50%, -50%)',
               width: '8px',
               height: '8px',
@@ -93,7 +93,7 @@ const VisionSection = () => {
           </div>
 
           {/* Stats à droite */}
-          <div style={{ flex: '0 0 30%', paddingLeft: '30px' }}>
+          <div className="vision-stats-right" style={{ flex: '0 0 25%', paddingLeft: '20px' }}>
             <FadeIn delay={200}>
               <div className="flex flex-col gap-8">
                 {/* Point 1 : Économie & Scalabilité */}

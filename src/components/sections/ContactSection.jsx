@@ -9,7 +9,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
+    <section id="contact" className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: 'rgba(10, 25, 47, 1)' }}>
       {/* Background Video */}
       <div className="absolute inset-0 w-full h-full">
         <video
@@ -17,14 +17,14 @@ const ContactSection = () => {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-60"
+          className="contact-video w-full h-full object-cover opacity-60"
         >
           <source src="/Video_terre_nuit.mp4" type="video/mp4" />
         </video>
         {/* Overlay gradient for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
       </div>
-      
+
       <div className="relative z-10 w-full h-full flex flex-col justify-center items-center px-6 lg:px-8 py-32">
         <div className="max-w-5xl mx-auto text-center mb-16">
           <FadeIn>
@@ -42,7 +42,7 @@ const ContactSection = () => {
             viewport={{ once: true }}
             className="mt-12"
           >
-            <button 
+            <button
               onClick={handleContact}
               style={{
                 backgroundColor: 'white',
@@ -77,7 +77,7 @@ const ContactSection = () => {
           viewport={{ once: true }}
           className="absolute bottom-12 left-12 text-white"
         >
-        
+
         </motion.div>
       </div>
     </section>
