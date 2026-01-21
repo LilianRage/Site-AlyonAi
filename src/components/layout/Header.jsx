@@ -39,15 +39,14 @@ const Header = () => {
 
   const handleModuleClick = (moduleIndex) => {
     // Mapping des modules de siteData vers TechnologyPage
-    // siteData: SmartFleet(0), PowerMind(1), IntelliTask(2), FusionEye(3), GuardianEye(4), MeshMind(5)
-    // TechnologyPage: PowerMind(1), MeshMind(2), SmartFleet(3), FusionEye(4), GuardianEye(5), IntelliTask(6)
+
     const moduleMapping = {
-      0: 3, // SmartFleet -> 3
-      1: 1, // PowerMind -> 1
-      2: 6, // IntelliTask -> 6
-      3: 4, // FusionEye -> 4
-      4: 5, // GuardianEye -> 5
-      5: 2  // MeshMind -> 2
+      0: 3, // Module 1 -> 3
+      1: 1, // Module 2 -> 1
+      2: 6, // Module 2 -> 6
+      3: 4, // Module 3 -> 4
+      4: 5, // Module 4 -> 5
+      5: 2  // Module 5 -> 2
     };
     navigate('/technologie?module=' + moduleMapping[moduleIndex]);
     setIsMobileMenuOpen(false);

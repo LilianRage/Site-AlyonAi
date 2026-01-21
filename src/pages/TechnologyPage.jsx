@@ -14,94 +14,94 @@ const satelliteImage = '/images/satellite_alyon.png';
 const modules = [
   {
     id: 1,
-    name: 'PowerMind',
+    name: 'Module 2',
     category: 'Gestion Énergétique',
     position: { x: 43, y: 55 },
-    description: 'Notre module PowerMind révolutionne la gestion énergétique des satellites grâce au reinforcement learning. En analysant continuellement les cycles orbitaux, l\'exposition solaire et la consommation de chaque sous-système, l\'IA prédit et optimise la charge des batteries en temps réel.',
+    description: 'Notre module Module 2 révolutionne la gestion énergétique des satellites grâce au reinforcement learning. En analysant continuellement les cycles orbitaux, l\'exposition solaire et la consommation de chaque sous-système, l\'IA prédit et optimise la charge des batteries en temps réel.',
     highlights: [
       'Prédiction de consommation par Machine Learning',
       'Optimisation dynamique des cycles charge/décharge',
       'Gestion thermique adaptative intelligente',
-      'Extension de 50% de la durée de vie des batteries'
+      'Extension de la durée de vie des batteries'
     ],
-    stats: { value: '+50%', label: 'Durée de vie' }
+    impact: 'Prolonge significativement la durée de vie opérationnelle de la mission'
   },
   {
     id: 2,
-    name: 'MeshMind',
+    name: 'Module 6',
     category: 'Communications Inter-Satellites',
     position: { x: 40, y: 70 },
-    description: 'MeshMind optimise les communications inter-satellites grâce aux Graph Neural Networks (GNN). Notre algorithme de routage intelligent analyse en permanence la topologie dynamique de la constellation pour trouver le chemin optimal à travers des centaines de satellites.',
+    description: 'Module 6 optimise les communications inter-satellites grâce aux Graph Neural Networks (GNN). Notre algorithme de routage intelligent analyse en permanence la topologie dynamique de la constellation pour trouver le chemin optimal à travers des centaines de satellites.',
     highlights: [
       'Routage intelligent par Graph Neural Networks',
       'Compression adaptative et contextuelle des données',
       'Redondance automatique multi-chemins',
       'Handover prédictif sans interruption de service'
     ],
-    stats: { value: '-40%', label: 'Latence' }
+    impact: 'Garantit une connectivité permanente à travers la constellation'
   },
   {
     id: 3,
-    name: 'SmartFleet',
+    name: 'Module 1',
     category: 'Monitoring & Santé de Flotte',
     position: { x: 50, y: 60 },
-    description: 'SmartFleet assure le monitoring continu et intelligent de la santé de chaque satellite de la constellation. Grâce aux algorithmes de deep learning entraînés sur des millions de points de télémétrie, le système détecte les anomalies subtiles jusqu\'à 72 heures avant qu\'elles ne deviennent critiques.',
+    description: 'Module 1 assure le monitoring continu et intelligent de la santé de chaque satellite de la constellation. Grâce aux algorithmes de deep learning entraînés sur des millions de points de télémétrie, le système détecte les anomalies subtiles jusqu\'à 72 heures avant qu\'elles ne deviennent critiques.',
     highlights: [
       'Détection d\'anomalies par Deep Learning avancé',
       'Monitoring automatisé 24/7 de tous les sous-systèmes',
       'Alertes prédictives avec 72h d\'anticipation',
       'Diagnostic embarqué autonome et recommandations'
     ],
-    stats: { value: '72h', label: 'Prédiction' }
+    impact: 'Prévient les défaillances avant qu\'elles ne deviennent critiques'
   },
   {
     id: 4,
-    name: 'FusionEye',
+    name: 'Module 4',
     category: 'Fusion de Données Multi-Sources',
     position: { x: 50, y: 80 },
-    description: 'FusionEye combine les données SAR (radar à synthèse d\'ouverture) et optiques pour extraire des insights de haute valeur directement à bord du satellite. Le traitement embarqué intelligent utilise des réseaux de neurones optimisés pour filtrer, compresser et enrichir les données.',
+    description: 'Module 4 combine les données SAR (radar à synthèse d\'ouverture) et optiques pour extraire des insights de haute valeur directement à bord du satellite. Le traitement embarqué intelligent utilise des réseaux de neurones optimisés pour filtrer, compresser et enrichir les données.',
     highlights: [
       'Fusion SAR + optique en temps réel à bord',
       'Edge processing haute performance embarqué',
       'Filtrage intelligent basé sur la pertinence',
-      'Compression sémantique réduisant 70% du volume'
+      'Compression sémantique réduisant drastiquement du volume'
     ],
-    stats: { value: '-70%', label: 'Volume données' }
+    impact: 'Transforme les données brutes en intelligence actionnable à bord'
   },
   {
     id: 5,
-    name: 'GuardianEye',
+    name: 'Module 5',
     category: 'Évitement de Collisions Autonome',
     position: { x: 65, y: 45 },
-    description: 'GuardianEye protège le satellite contre les collisions avec les débris spatiaux et autres objets en orbite. Le système utilise des algorithmes de tracking multi-objets et prend des décisions d\'évitement en temps réel, sans attendre les instructions du sol.',
+    description: 'Module 5 protège le satellite contre les collisions avec les débris spatiaux et autres objets en orbite. Le système utilise des algorithmes de tracking multi-objets et prend des décisions d\'évitement en temps réel, sans attendre les instructions du sol.',
     highlights: [
       'Détection et tracking de menaces en temps réel',
-      'Manœuvre d\'évitement autonome en moins d\'1 seconde',
+      'Manœuvre d\'évitement autonome',
       'Calcul de trajectoire optimale multi-contraintes',
       'Coordination automatique avec la constellation'
     ],
-    stats: { value: '<1s', label: 'Réaction' }
+    impact: 'Assure une protection continue sans dépendance au contrôle sol'
   },
   {
     id: 6,
-    name: 'IntelliTask',
+    name: 'Module 3',
     category: 'Planification Autonome de Mission',
     position: { x: 52, y: 43 },
-    description: 'IntelliTask permet au satellite de décider autonomement quoi capturer, quand et comment. En analysant le contexte temps-réel incluant les conditions météorologiques, la géométrie solaire, les ressources disponibles à bord et les priorités de mission.',
+    description: 'Module 3 permet au satellite de décider autonomement quoi capturer, quand et comment. En analysant le contexte temps-réel incluant les conditions météorologiques, la géométrie solaire, les ressources disponibles à bord et les priorités de mission.',
     highlights: [
       'Décision contextuelle multi-facteurs intelligente',
       'Optimisation en temps réel des opportunités',
       'Re-planification dynamique en vol automatique',
       'Apprentissage continu des performances mission'
     ],
-    stats: { value: '3x', label: 'Productivité' }
+    impact: 'Maximise la valeur scientifique de chaque opportunité d\'observation'
   }
 ];
 
 // Composant Point Interactif
 const ModulePoint = ({ module, isSelected, onSelect, onHover, isHovered }) => {
   const pointSize = isSelected ? 20 : 16;
-  
+
   return (
     <div
       style={{
@@ -123,14 +123,14 @@ const ModulePoint = ({ module, isSelected, onSelect, onHover, isHovered }) => {
           width: '100%',
           height: '100%',
           borderRadius: '50%',
-          background: isSelected 
-            ? 'linear-gradient(135deg, #0066cc 0%, #0099ff 100%)' 
+          background: isSelected
+            ? 'linear-gradient(135deg, #0066cc 0%, #0099ff 100%)'
             : isHovered
               ? 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)'
               : 'linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%)',
           border: '3px solid white',
-          boxShadow: isSelected 
-            ? '0 0 0 4px rgba(96, 165, 250, 0.3), 0 4px 20px rgba(96, 165, 250, 0.5)' 
+          boxShadow: isSelected
+            ? '0 0 0 4px rgba(96, 165, 250, 0.3), 0 4px 20px rgba(96, 165, 250, 0.5)'
             : isHovered
               ? '0 0 0 3px rgba(96, 165, 250, 0.2), 0 4px 15px rgba(96, 165, 250, 0.4)'
               : '0 2px 10px rgba(0,0,0,0.2)',
@@ -139,7 +139,7 @@ const ModulePoint = ({ module, isSelected, onSelect, onHover, isHovered }) => {
           transition: 'background 0.2s ease, box-shadow 0.2s ease'
         }}
       />
-      
+
       {/* Tooltip corrigé */}
       <AnimatePresence>
         {isHovered && !isSelected && (
@@ -164,16 +164,16 @@ const ModulePoint = ({ module, isSelected, onSelect, onHover, isHovered }) => {
               zIndex: 100
             }}
           >
-            <div style={{ 
-              fontSize: '14px', 
-              fontWeight: '700', 
+            <div style={{
+              fontSize: '14px',
+              fontWeight: '700',
               color: '#000',
               marginBottom: '2px'
             }}>
               {module.name}
             </div>
-            <div style={{ 
-              fontSize: '11px', 
+            <div style={{
+              fontSize: '11px',
               color: '#6b7280',
               textTransform: 'uppercase',
               letterSpacing: '0.5px'
@@ -250,7 +250,7 @@ const DescriptionPanel = ({ module, onClose }) => {
             {module.name}
           </h3>
         </div>
-        
+
         <button
           onClick={onClose}
           style={{
@@ -277,7 +277,7 @@ const DescriptionPanel = ({ module, onClose }) => {
           <X style={{ width: '20px', height: '20px', color: '#333' }} />
         </button>
       </div>
-      
+
       <div style={{ padding: '32px', background: 'linear-gradient(to bottom, #ffffff 0%, #f9fafb 100%)' }}>
         <p style={{
           fontSize: '15px',
@@ -288,7 +288,7 @@ const DescriptionPanel = ({ module, onClose }) => {
         }}>
           {module.description}
         </p>
-        
+
         <div style={{
           background: 'white',
           borderRadius: '16px',
@@ -343,48 +343,33 @@ const DescriptionPanel = ({ module, onClose }) => {
             ))}
           </div>
         </div>
-        
+
         <motion.div
           initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.3 }}
           style={{
-            display: 'inline-flex',
+            display: 'flex',
             alignItems: 'center',
-            gap: '16px',
-            padding: '20px 28px',
+            justifyContent: 'center',
+            padding: '24px 32px',
             background: 'white',
             borderRadius: '16px',
             border: '2px solid #e5e7eb',
             boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
           }}
         >
-          <span style={{
-            fontSize: '40px',
-            fontWeight: '900',
-            color: '#000',
-            letterSpacing: '-1px'
+          <p style={{
+            fontSize: '16px',
+            fontWeight: '600',
+            color: '#374151',
+            margin: 0,
+            lineHeight: 1.6,
+            textAlign: 'center',
+            letterSpacing: '0.2px'
           }}>
-            {module.stats.value}
-          </span>
-          <div>
-            <div style={{ 
-              fontSize: '13px', 
-              color: '#6b7280', 
-              textTransform: 'uppercase', 
-              fontWeight: '700', 
-              letterSpacing: '0.8px' 
-            }}>
-              {module.stats.label}
-            </div>
-            <div style={{ 
-              fontSize: '11px', 
-              color: '#9ca3af', 
-              marginTop: '2px' 
-            }}>
-              Impact mesuré
-            </div>
-          </div>
+            {module.impact}
+          </p>
         </motion.div>
       </div>
     </motion.div>
@@ -416,8 +401,8 @@ const TechnologyPage = () => {
   return (
     <div className="min-h-screen relative">
       <Header />
-      
-      <div 
+
+      <div
         className="fixed inset-0 z-0"
         style={{
           backgroundImage: `url(${fondFumee})`,
@@ -427,7 +412,7 @@ const TechnologyPage = () => {
           opacity: 0.15
         }}
       />
-      <div 
+      <div
         className="fixed inset-0 z-0"
         style={{
           background: 'linear-gradient(180deg, #f8f9fb 0%, #ffffff 50%, #f8f9fb 100%)'
@@ -436,8 +421,8 @@ const TechnologyPage = () => {
 
       <main className="relative z-10 pt-24 pb-24 px-8">
         <div style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '120px' }}>
-          
-          <Link 
+
+          <Link
             to="/"
             style={{
               display: 'inline-flex',
@@ -457,16 +442,16 @@ const TechnologyPage = () => {
             <ArrowLeft style={{ width: '16px', height: '16px' }} />
             Retour à l'accueil
           </Link>
-          
+
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <motion.span 
+            <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="text-xl font-medium text-gray-500 uppercase tracking-wider mb-2 block"
             >
               Nos technologies
             </motion.span>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -479,11 +464,11 @@ const TechnologyPage = () => {
                 lineHeight: 1.6
               }}
             >
-              Cliquez sur les points bleus pour découvrir nos 6 modules d'IA 
+              Cliquez sur les points bleus pour découvrir nos 6 modules d'IA
               qui transforment chaque satellite en système autonome.
             </motion.p>
           </div>
-          
+
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -505,7 +490,7 @@ const TechnologyPage = () => {
               background: 'radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%)',
               pointerEvents: 'none'
             }} />
-            
+
             <div style={{
               position: 'absolute',
               top: '50%',
@@ -517,8 +502,8 @@ const TechnologyPage = () => {
               border: '1px dashed #d1d5db',
               pointerEvents: 'none'
             }} />
-            
-            <img 
+
+            <img
               src={satelliteImage}
               alt="Satellite ALYON"
               style={{
@@ -527,7 +512,7 @@ const TechnologyPage = () => {
                 display: 'block'
               }}
             />
-            
+
             {modules.map((module) => (
               <ModulePoint
                 key={module.id}
@@ -539,16 +524,16 @@ const TechnologyPage = () => {
               />
             ))}
           </motion.div>
-          
+
           <AnimatePresence mode="wait">
             {selectedModuleData && (
-              <DescriptionPanel 
-                module={selectedModuleData} 
+              <DescriptionPanel
+                module={selectedModuleData}
                 onClose={() => setSelectedModule(null)}
               />
             )}
           </AnimatePresence>
-          
+
           {!selectedModule && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -561,9 +546,9 @@ const TechnologyPage = () => {
                 fontSize: '14px'
               }}
             >
-              <span style={{ 
-                display: 'inline-flex', 
-                alignItems: 'center', 
+              <span style={{
+                display: 'inline-flex',
+                alignItems: 'center',
                 gap: '8px',
                 background: 'white',
                 padding: '12px 20px',
@@ -581,10 +566,10 @@ const TechnologyPage = () => {
               </span>
             </motion.div>
           )}
-          
+
         </div>
       </main>
-      
+
       <div style={{ position: 'relative', zIndex: 10 }}>
         <Footer />
       </div>

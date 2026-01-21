@@ -96,39 +96,39 @@ const VisionSection = () => {
           <div style={{ flex: '0 0 30%', paddingLeft: '30px' }}>
             <FadeIn delay={200}>
               <div className="flex flex-col gap-8">
-                {/* Stat 1 */}
+                {/* Point 1 : Économie & Scalabilité */}
                 <div className="group">
-                  <div className="text-3xl md:text-4xl font-bold text-black mb-1 inline-block relative">
-                    45%
+                  <div className="text-2xl md:text-3xl font-bold text-black mb-1 inline-block relative tracking-tighter">
+                    RENTABILITÉ
                     <span className="absolute bottom-0 left-0 w-full h-0.5 bg-black transform origin-left transition-transform duration-300 group-hover:scale-x-110"></span>
                   </div>
-                  <div className="text-xs text-gray-500 uppercase tracking-wider mt-2 mb-1">Réduction OPEX</div>
+                  <div className="text-xs text-gray-500 uppercase tracking-wider mt-2 mb-1">Optimisation OPEX</div>
                   <p className="text-gray-600 text-sm">
-                    Moins d'interventions humaines, des opérations automatisées
+                    Le "cerveau" en orbite pour garantir la viabilité économique des constellations à grande échelle.
                   </p>
                 </div>
 
-                {/* Stat 2 */}
+                {/* Point 2 : Longévité */}
                 <div className="group">
-                  <div className="text-3xl md:text-4xl font-bold text-black mb-1 inline-block relative">
-                    30%
+                  <div className="text-2xl md:text-3xl font-bold text-black mb-1 inline-block relative tracking-tighter">
+                    PÉRENNITÉ
                     <span className="absolute bottom-0 left-0 w-full h-0.5 bg-black transform origin-left transition-transform duration-300 group-hover:scale-x-110"></span>
                   </div>
-                  <div className="text-xs text-gray-500 uppercase tracking-wider mt-2 mb-1">Durée de vie étendue</div>
+                  <div className="text-xs text-gray-500 uppercase tracking-wider mt-2 mb-1">Mission étendue</div>
                   <p className="text-gray-600 text-sm">
-                    Gestion intelligente de l'énergie et maintenance prédictive
+                    Une gestion autonome des ressources pour maximiser le cycle de vie de chaque satellite.
                   </p>
                 </div>
 
-                {/* Stat 3 */}
+                {/* Point 3 : Souveraineté */}
                 <div className="group">
-                  <div className="text-3xl md:text-4xl font-bold text-black mb-1 inline-block relative">
-                    100%
+                  <div className="text-2xl md:text-3xl font-bold text-black mb-1 inline-block relative tracking-tighter">
+                    SOUVERAINETÉ
                     <span className="absolute bottom-0 left-0 w-full h-0.5 bg-black transform origin-left transition-transform duration-300 group-hover:scale-x-110"></span>
                   </div>
-                  <div className="text-xs text-gray-500 uppercase tracking-wider mt-2 mb-1">Souverain européen</div>
+                  <div className="text-xs text-gray-500 uppercase tracking-wider mt-2 mb-1">Indépendance Tech</div>
                   <p className="text-gray-600 text-sm">
-                    Solution ITAR-free, sans dépendance technologique
+                    Une architecture européenne et ITAR-free pour une liberté d'action totale en orbite.
                   </p>
                 </div>
               </div>

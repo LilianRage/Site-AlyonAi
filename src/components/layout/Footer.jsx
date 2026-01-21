@@ -54,7 +54,7 @@ const Footer = () => {
                 <li key={item.label}>
                   <button
                     onClick={() => scrollToSection(item.href)}
-                    className="text-gray-500 hover:text-black transition-colors duration-300 bg-transparent border-none cursor-pointer p-0"
+                    className="text-sm text-gray-500 hover:text-black transition-colors duration-300 bg-transparent border-none cursor-pointer p-0"
                   >
                     {item.label}
                   </button>

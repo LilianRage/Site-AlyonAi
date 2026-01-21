@@ -27,43 +27,43 @@ export const siteData = {
 
   modules: [
     {
-      id: "smartfleet",
-      name: "SmartFleet",
+      id: "Module 1",
+      name: "Module 1",
       tagline: "Fleet Health Monitoring",
       description: "Monitoring continu de la santé des satellites avec détection d'anomalies par machine learning. Supervision automatisée des flottes entières.",
       features: ["Détection d'anomalies ML", "Monitoring continu 24/7", "Supervision automatisée", "Alertes prédictives"]
     },
     {
-      id: "powermind",
-      name: "PowerMind",
+      id: "Module 2",
+      name: "Module 2",
       tagline: "Intelligent Energy Management",
       description: "Optimisation intelligente de la gestion énergétique via reinforcement learning pour maximiser la durée de vie des batteries.",
       features: ["Reinforcement learning", "Extension missions +40-60%", "Optimisation batteries", "Gestion ressources adaptative"]
     },
     {
-      id: "intellitask",
-      name: "IntelliTask",
+      id: "Module 3",
+      name: "Module 3",
       tagline: "Autonomous Mission Planning",
       description: "Les satellites décident autonomiquement quoi capturer en fonction du contexte temps-réel : météo, géométrie, ressources disponibles.",
       features: ["Décision autonome", "Analyse contexte temps-réel", "Taux succès 60% → 90%+", "Planification dynamique"]
     },
     {
-      id: "fusioneye",
-      name: "FusionEye",
+      id: "Module 4",
+      name: "Module 4",
       tagline: "Multimodal Data Fusion",
       description: "Fusion multimodale SAR + optique pour extraire des insights de haute valeur à partir des données Sentinel avec traitement embarqué intelligent.",
       features: ["Fusion SAR + optique", "Données Sentinel", "Réduction bande passante 65-75%", "Edge processing"]
     },
     {
-      id: "guardianeye",
-      name: "GuardianEye",
+      id: "Module 5",
+      name: "Module 5",
       tagline: "Autonomous Collision Avoidance",
       description: "Évitement de collisions autonome en temps réel. Essentiel face à la prolifération des débris spatiaux et bientôt obligatoire selon les directives ESA 2027.",
       features: ["Évitement temps réel", "Conformité ESA 2027", "Protection débris spatiaux", "Décision autonome"]
     },
     {
-      id: "meshmind",
-      name: "MeshMind",
+      id: "Module 6",
+      name: "Module 6",
       tagline: "Inter-Satellite Communications",
       description: "Optimisation des communications inter-satellites via des algorithmes de routage basés sur des Graph Neural Networks.",
       features: ["Graph Neural Networks", "Routage optimisé", "Réduction latence", "Résilience mesh"]
