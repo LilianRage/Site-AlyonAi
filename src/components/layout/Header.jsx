@@ -66,7 +66,7 @@ const Header = () => {
         transition: 'all 0.3s ease'
       }}
     >
-      <div style={{
+      <div className="header-container" style={{
         maxWidth: '1300px',
         margin: '0 auto',
         padding: '0 24px',
@@ -76,8 +76,8 @@ const Header = () => {
         height: '64px'
       }}>
         {/* Logo à gauche */}
-        <button 
-          onClick={() => scrollToSection('hero')} 
+        <button
+          onClick={() => scrollToSection('hero')}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -87,9 +87,9 @@ const Header = () => {
             padding: 0
           }}
         >
-          <img 
-            src="/images/logo-Alyon-Black-rogne.png" 
-            alt="ALYON AI Logo" 
+          <img
+            src="/images/logo-Alyon-Black-rogne.png"
+            alt="ALYON AI Logo"
             style={{
               height: '100px',
               width: 'auto'
@@ -103,10 +103,10 @@ const Header = () => {
           alignItems: 'center',
           gap: '4px'
         }}
-        className="hidden md:flex"
+          className="hidden md:flex"
         >
           <NavLink onClick={() => scrollToSection('hero')}>Accueil</NavLink>
-          <NavDropdown 
+          <NavDropdown
             trigger="Modules"
             items={siteData.modules.map(m => ({ label: m.name, desc: m.tagline }))}
             onItemClick={handleModuleClick}
@@ -117,7 +117,7 @@ const Header = () => {
         </nav>
 
         {/* CTA Button à droite */}
-        <button 
+        <button
           onClick={() => scrollToSection('contact')}
           className="hidden md:block"
           style={{
@@ -187,8 +187,8 @@ const Header = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div 
-        className="md:hidden"
+      <div
+        className="mobile-menu-container md:hidden"
         style={{
           overflow: 'hidden',
           transition: 'all 0.3s ease',
@@ -201,6 +201,7 @@ const Header = () => {
           {siteData.navigation.map((item) => (
             <button
               key={item.label}
+              className="mobile-menu-item"
               onClick={() => scrollToSection(item.href)}
               style={{
                 display: 'block',
@@ -219,7 +220,7 @@ const Header = () => {
               {item.label}
             </button>
           ))}
-          <button 
+          <button
             onClick={() => scrollToSection('contact')}
             style={{
               width: '100%',
@@ -245,7 +246,7 @@ const Header = () => {
 // Composant NavLink simple
 const NavLink = ({ children, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
-  
+
   return (
     <button
       onClick={onClick}
@@ -272,9 +273,9 @@ const NavLink = ({ children, onClick }) => {
 const NavDropdown = ({ trigger, items, onItemClick, onViewAllClick }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  
+
   return (
-    <div 
+    <div
       style={{ position: 'relative' }}
       onMouseEnter={() => { setIsOpen(true); setIsHovered(true); }}
       onMouseLeave={() => { setIsOpen(false); setIsHovered(false); }}
@@ -296,26 +297,26 @@ const NavDropdown = ({ trigger, items, onItemClick, onViewAllClick }) => {
         }}
       >
         {trigger}
-        <svg 
-          width="12" 
-          height="12" 
-          viewBox="0 0 12 12" 
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 12 12"
           fill="none"
           style={{
             transition: 'transform 0.2s ease',
             transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
           }}
         >
-          <path 
-            d="M3 4.5L6 7.5L9 4.5" 
-            stroke="currentColor" 
-            strokeWidth="1.5" 
-            strokeLinecap="round" 
+          <path
+            d="M3 4.5L6 7.5L9 4.5"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
             strokeLinejoin="round"
           />
         </svg>
       </button>
-      
+
       {/* Dropdown Menu */}
       <div style={{
         position: 'absolute',
