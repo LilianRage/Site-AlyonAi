@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
@@ -25,9 +25,6 @@ const specs = [
 ];
 
 const TechnologyPage = () => {
-  const videoRef = useRef(null);
-  const [showControls, setShowControls] = useState(false);
-
   return (
     <div className="min-h-screen relative" style={{ backgroundColor: '#fff' }}>
       <Header />
@@ -275,8 +272,6 @@ const TechnologyPage = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: 'easeOut' }}
-              onMouseEnter={() => setShowControls(true)}
-              onMouseLeave={() => setShowControls(false)}
               style={{
                 borderRadius: '16px',
                 overflow: 'hidden',
@@ -286,15 +281,12 @@ const TechnologyPage = () => {
                 background: '#000',
               }}
             >
-              <video
-                ref={videoRef}
-                src="/videos/Video_POC_ALYON_AI_V2.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                controls={showControls}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              <iframe
+                src="https://www.youtube.com/embed/ov8o47R2wLg?autoplay=1&mute=1&loop=1&playlist=ov8o47R2wLg&controls=1"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                style={{ width: '100%', height: '100%', display: 'block', border: 'none' }}
+                title="POC ALYON AI"
               />
             </motion.div>
           </section>

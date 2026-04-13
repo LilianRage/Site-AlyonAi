@@ -1,11 +1,10 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 import fondFumee from '../../assets/Fond_fumee.png';
 
 const ModulesSection = () => {
-  const videoRef = useRef(null);
 
   return (
     <section
@@ -77,15 +76,12 @@ const ModulesSection = () => {
             background: '#000',
           }}
         >
-          <video
-            ref={videoRef}
-            src="/videos/Video_presentation.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            controls
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+          <iframe
+            src="https://www.youtube.com/embed/b76AO1A4qpY?autoplay=1&mute=1&loop=1&playlist=b76AO1A4qpY&controls=1"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            style={{ width: '100%', height: '100%', display: 'block', border: 'none' }}
+            title="Présentation ALYON"
           />
         </motion.div>
 
