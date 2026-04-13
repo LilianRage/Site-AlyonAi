@@ -29,8 +29,10 @@
 
 .trust-banner-logos-grid {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
@@ -67,10 +69,15 @@
   object-fit: contain;
   opacity: 0.95;
   transition: opacity 0.3s ease;
+  border-radius: 10px;
 }
 
 .trust-banner-logo-card:hover .trust-banner-logo {
   opacity: 1;
+}
+
+.trust-banner-logo--large {
+  transform: scale(1.25);
 }
 
 /* Responsive Design */

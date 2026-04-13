@@ -22,5 +22,8 @@ yarn-error.log*
 .idea/
 .vscode/
 *.swp
-*.swopublic/videos/Video_Lyra.mp4
-src/Videos/Video_Lyra.mp4
+*.swo
+
+# Vidéos (trop lourdes pour GitHub)
+public/videos/
+src/Videos/

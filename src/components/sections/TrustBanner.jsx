@@ -56,7 +56,7 @@ const TrustBanner = () => {
                 <img
                   src={partner.logo}
                   alt={partner.name}
-                  className="trust-banner-logo"
+                  className={`trust-banner-logo${partner.name === "CEIMIA" ? " trust-banner-logo--large" : ""}`}
                   loading="lazy"
                 />
               </div>

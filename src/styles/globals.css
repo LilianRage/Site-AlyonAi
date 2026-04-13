@@ -1,7 +1,8 @@
-/* Global styles pour ALYON AI - Clean B&W Design */
 @import './variables.css';
 @import './utilities.css';
 @import './responsive.css';
+
+/* Global styles pour ALYON AI - Clean B&W Design */
 
 * {
   margin: 0;

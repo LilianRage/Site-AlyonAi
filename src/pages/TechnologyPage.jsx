@@ -1,571 +1,330 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, X } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { ArrowLeft } from 'lucide-react';
 import fondFumee from '../assets/Fond_fumee.png';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
-const satelliteImage = '/images/satellite_alyon.png';
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut', delay: i * 0.1 }
+  })
+};
 
-// ============================================================================
-// CONFIGURATION DES POINTS - MODIFIEZ ICI LES POSITIONS
-// ============================================================================
-const modules = [
-  {
-    id: 1,
-    name: 'Module 2',
-    category: 'Gestion Énergétique',
-    position: { x: 43, y: 55 },
-    description: 'Notre module Module 2 révolutionne la gestion énergétique des satellites grâce au reinforcement learning. En analysant continuellement les cycles orbitaux, l\'exposition solaire et la consommation de chaque sous-système, l\'IA prédit et optimise la charge des batteries en temps réel.',
-    highlights: [
-      'Prédiction de consommation par Machine Learning',
-      'Optimisation dynamique des cycles charge/décharge',
-      'Gestion thermique adaptative intelligente',
-      'Extension de la durée de vie des batteries'
-    ],
-    impact: 'Prolonge significativement la durée de vie opérationnelle de la mission'
-  },
-  {
-    id: 2,
-    name: 'Module 6',
-    category: 'Communications Inter-Satellites',
-    position: { x: 40, y: 70 },
-    description: 'Module 6 optimise les communications inter-satellites grâce aux Graph Neural Networks (GNN). Notre algorithme de routage intelligent analyse en permanence la topologie dynamique de la constellation pour trouver le chemin optimal à travers des centaines de satellites.',
-    highlights: [
-      'Routage intelligent par Graph Neural Networks',
-      'Compression adaptative et contextuelle des données',
-      'Redondance automatique multi-chemins',
-      'Handover prédictif sans interruption de service'
-    ],
-    impact: 'Garantit une connectivité permanente à travers la constellation'
-  },
-  {
-    id: 3,
-    name: 'Module 1',
-    category: 'Monitoring & Santé de Flotte',
-    position: { x: 50, y: 60 },
-    description: 'Module 1 assure le monitoring continu et intelligent de la santé de chaque satellite de la constellation. Grâce aux algorithmes de deep learning entraînés sur des millions de points de télémétrie, le système détecte les anomalies subtiles jusqu\'à 72 heures avant qu\'elles ne deviennent critiques.',
-    highlights: [
-      'Détection d\'anomalies par Deep Learning avancé',
-      'Monitoring automatisé 24/7 de tous les sous-systèmes',
-      'Alertes prédictives avec 72h d\'anticipation',
-      'Diagnostic embarqué autonome et recommandations'
-    ],
-    impact: 'Prévient les défaillances avant qu\'elles ne deviennent critiques'
-  },
-  {
-    id: 4,
-    name: 'Module 4',
-    category: 'Fusion de Données Multi-Sources',
-    position: { x: 50, y: 80 },
-    description: 'Module 4 combine les données SAR (radar à synthèse d\'ouverture) et optiques pour extraire des insights de haute valeur directement à bord du satellite. Le traitement embarqué intelligent utilise des réseaux de neurones optimisés pour filtrer, compresser et enrichir les données.',
-    highlights: [
-      'Fusion SAR + optique en temps réel à bord',
-      'Edge processing haute performance embarqué',
-      'Filtrage intelligent basé sur la pertinence',
-      'Compression sémantique réduisant drastiquement du volume'
-    ],
-    impact: 'Transforme les données brutes en intelligence actionnable à bord'
-  },
-  {
-    id: 5,
-    name: 'Module 5',
-    category: 'Évitement de Collisions Autonome',
-    position: { x: 65, y: 45 },
-    description: 'Module 5 protège le satellite contre les collisions avec les débris spatiaux et autres objets en orbite. Le système utilise des algorithmes de tracking multi-objets et prend des décisions d\'évitement en temps réel, sans attendre les instructions du sol.',
-    highlights: [
-      'Détection et tracking de menaces en temps réel',
-      'Manœuvre d\'évitement autonome',
-      'Calcul de trajectoire optimale multi-contraintes',
-      'Coordination automatique avec la constellation'
-    ],
-    impact: 'Assure une protection continue sans dépendance au contrôle sol'
-  },
-  {
-    id: 6,
-    name: 'Module 3',
-    category: 'Planification Autonome de Mission',
-    position: { x: 52, y: 43 },
-    description: 'Module 3 permet au satellite de décider autonomement quoi capturer, quand et comment. En analysant le contexte temps-réel incluant les conditions météorologiques, la géométrie solaire, les ressources disponibles à bord et les priorités de mission.',
-    highlights: [
-      'Décision contextuelle multi-facteurs intelligente',
-      'Optimisation en temps réel des opportunités',
-      'Re-planification dynamique en vol automatique',
-      'Apprentissage continu des performances mission'
-    ],
-    impact: 'Maximise la valeur scientifique de chaque opportunité d\'observation'
-  }
+const specs = [
+  { label: 'AI Performance', value: '40 TOPS' },
+  { label: 'Processeur', value: 'NVIDIA Jetson Orin Nano 8GB' },
+  { label: 'Format', value: '0.5U CubeSat' },
+  { label: 'Alimentation', value: '6 – 16V DC' },
+  { label: 'Thermique', value: '-30°C à +60°C' },
+  { label: 'Origine', value: 'Made in France' },
 ];
 
-// Composant Point Interactif
-const ModulePoint = ({ module, isSelected, onSelect, onHover, isHovered }) => {
-  const pointSize = isSelected ? 20 : 16;
-
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        left: `${module.position.x}%`,
-        top: `${module.position.y}%`,
-        transform: 'translate(-50%, -50%)',
-        zIndex: 20,
-        width: `${pointSize}px`,
-        height: `${pointSize}px`
-      }}
-    >
-      {/* Le point cliquable */}
-      <button
-        onClick={() => onSelect(module.id)}
-        onMouseEnter={() => onHover(module.id)}
-        onMouseLeave={() => onHover(null)}
-        style={{
-          width: '100%',
-          height: '100%',
-          borderRadius: '50%',
-          background: isSelected
-            ? 'linear-gradient(135deg, #0066cc 0%, #0099ff 100%)'
-            : isHovered
-              ? 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)'
-              : 'linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%)',
-          border: '3px solid white',
-          boxShadow: isSelected
-            ? '0 0 0 4px rgba(96, 165, 250, 0.3), 0 4px 20px rgba(96, 165, 250, 0.5)'
-            : isHovered
-              ? '0 0 0 3px rgba(96, 165, 250, 0.2), 0 4px 15px rgba(96, 165, 250, 0.4)'
-              : '0 2px 10px rgba(0,0,0,0.2)',
-          cursor: 'pointer',
-          padding: 0,
-          transition: 'background 0.2s ease, box-shadow 0.2s ease'
-        }}
-      />
-
-      {/* Tooltip corrigé */}
-      <AnimatePresence>
-        {isHovered && !isSelected && (
-          <motion.div
-            // On ajoute x: "-50%" ici pour que Framer Motion le gère
-            initial={{ opacity: 0, y: 5, x: "-50%" }}
-            animate={{ opacity: 1, y: 0, x: "-50%" }}
-            exit={{ opacity: 0, y: 5, x: "-50%" }}
-            transition={{ duration: 0.2 }}
-            style={{
-              position: 'absolute',
-              bottom: 'calc(100% + 10px)',
-              left: '50%',
-              // On retire le transform: 'translateX(-50%)' d'ici
-              background: 'white',
-              padding: '10px 16px',
-              borderRadius: '10px',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-              border: '1px solid #e5e7eb',
-              whiteSpace: 'nowrap',
-              pointerEvents: 'none',
-              zIndex: 100
-            }}
-          >
-            <div style={{
-              fontSize: '14px',
-              fontWeight: '700',
-              color: '#000',
-              marginBottom: '2px'
-            }}>
-              {module.name}
-            </div>
-            <div style={{
-              fontSize: '11px',
-              color: '#6b7280',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px'
-            }}>
-              {module.category}
-            </div>
-            {/* Flèche */}
-            <div style={{
-              position: 'absolute',
-              bottom: '-6px',
-              left: '50%',
-              transform: 'translateX(-50%) rotate(45deg)',
-              width: '12px',
-              height: '12px',
-              background: 'white',
-              borderRight: '1px solid #e5e7eb',
-              borderBottom: '1px solid #e5e7eb'
-            }} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
-
-// Composant Panel de Description
-const DescriptionPanel = ({ module, onClose }) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 30 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      style={{
-        background: 'white',
-        borderRadius: '24px',
-        boxShadow: '0 25px 80px rgba(0,0,0,0.12)',
-        border: '2px solid #e5e7eb',
-        overflow: 'hidden',
-        maxWidth: '900px',
-        margin: '0 auto'
-      }}
-    >
-      <div style={{
-        padding: '28px 32px',
-        borderBottom: '1px solid #e5e7eb',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        background: 'linear-gradient(to bottom, #ffffff 0%, #f9fafb 100%)'
-      }}>
-        <div>
-          <div style={{
-            display: 'inline-block',
-            padding: '8px 16px',
-            background: 'linear-gradient(135deg, #000 0%, #333 100%)',
-            borderRadius: '50px',
-            fontSize: '11px',
-            fontWeight: '700',
-            color: 'white',
-            textTransform: 'uppercase',
-            letterSpacing: '0.8px',
-            marginBottom: '12px'
-          }}>
-            {module.category}
-          </div>
-          <h3 style={{
-            fontSize: '28px',
-            fontWeight: '800',
-            color: '#000',
-            margin: 0,
-            letterSpacing: '-0.5px'
-          }}>
-            {module.name}
-          </h3>
-        </div>
-
-        <button
-          onClick={onClose}
-          style={{
-            width: '44px',
-            height: '44px',
-            borderRadius: '50%',
-            border: '2px solid #e5e7eb',
-            background: 'white',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'all 0.2s ease'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#f3f4f6';
-            e.currentTarget.style.borderColor = '#000';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'white';
-            e.currentTarget.style.borderColor = '#e5e7eb';
-          }}
-        >
-          <X style={{ width: '20px', height: '20px', color: '#333' }} />
-        </button>
-      </div>
-
-      <div style={{ padding: '32px', background: 'linear-gradient(to bottom, #ffffff 0%, #f9fafb 100%)' }}>
-        <p style={{
-          fontSize: '15px',
-          color: '#4b5563',
-          lineHeight: 1.8,
-          margin: '0 0 28px 0',
-          fontWeight: '400'
-        }}>
-          {module.description}
-        </p>
-
-        <div style={{
-          background: 'white',
-          borderRadius: '16px',
-          padding: '20px',
-          marginBottom: '24px',
-          border: '1px solid #f0f0f0'
-        }}>
-          <div style={{
-            fontSize: '13px',
-            fontWeight: '700',
-            color: '#6b7280',
-            textTransform: 'uppercase',
-            letterSpacing: '0.8px',
-            marginBottom: '16px'
-          }}>
-            Points clés
-          </div>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: '14px'
-          }}>
-            {module.highlights.map((highlight, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '12px'
-                }}
-              >
-                <span style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  background: '#000',
-                  flexShrink: 0,
-                  marginTop: '6px'
-                }} />
-                <span style={{
-                  fontSize: '14px',
-                  color: '#374151',
-                  fontWeight: '500',
-                  lineHeight: 1.5
-                }}>
-                  {highlight}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        <motion.div
-          initial={{ scale: 0.95, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '24px 32px',
-            background: 'white',
-            borderRadius: '16px',
-            border: '2px solid #e5e7eb',
-            boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
-          }}
-        >
-          <p style={{
-            fontSize: '16px',
-            fontWeight: '600',
-            color: '#374151',
-            margin: 0,
-            lineHeight: 1.6,
-            textAlign: 'center',
-            letterSpacing: '0.2px'
-          }}>
-            {module.impact}
-          </p>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-};
-
 const TechnologyPage = () => {
-  const [selectedModule, setSelectedModule] = useState(null);
-  const [hoveredModule, setHoveredModule] = useState(null);
-  const [searchParams] = useSearchParams();
-
-  // Effet pour lire le paramètre 'module' dans l'URL au chargement
-  useEffect(() => {
-    const moduleParam = searchParams.get('module');
-    if (moduleParam) {
-      const moduleId = parseInt(moduleParam, 10);
-      if (modules.some(m => m.id === moduleId)) {
-        setSelectedModule(moduleId);
-      }
-    }
-  }, [searchParams]);
-
-  const handleModuleSelect = (moduleId) => {
-    setSelectedModule(selectedModule === moduleId ? null : moduleId);
-  };
-
-  const selectedModuleData = modules.find(m => m.id === selectedModule);
+  const videoRef = useRef(null);
+  const [showControls, setShowControls] = useState(false);
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative" style={{ backgroundColor: '#fff' }}>
       <Header />
 
+      {/* Background smoke */}
       <div
         className="fixed inset-0 z-0"
         style={{
           backgroundImage: `url(${fondFumee})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          opacity: 0.15
+          opacity: 0.45,
+          pointerEvents: 'none',
         }}
       />
       <div
         className="fixed inset-0 z-0"
         style={{
-          background: 'linear-gradient(180deg, #f8f9fb 0%, #ffffff 50%, #f8f9fb 100%)'
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.55) 100%)',
+          pointerEvents: 'none',
         }}
       />
 
-      <main className="relative z-10 pt-24 pb-24 px-8">
-        <div style={{ maxWidth: '1200px', margin: '0 auto', paddingTop: '120px' }}>
+      <main className="relative z-10" style={{ paddingTop: '120px', paddingBottom: '6rem' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.5rem' }}>
 
+          {/* Back link */}
           <Link
             to="/"
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontSize: '14px',
-              color: '#666',
-              textDecoration: 'none',
-              marginBottom: '40px',
-              transition: 'color 0.2s',
-              position: 'relative',
-              zIndex: 20
+              display: 'inline-flex', alignItems: 'center', gap: '8px',
+              fontSize: '14px', color: '#888', textDecoration: 'none',
+              marginBottom: '3rem', transition: 'color 0.2s',
             }}
-            onMouseEnter={(e) => e.currentTarget.style.color = '#000'}
-            onMouseLeave={(e) => e.currentTarget.style.color = '#666'}
+            onMouseEnter={e => e.currentTarget.style.color = '#000'}
+            onMouseLeave={e => e.currentTarget.style.color = '#888'}
           >
             <ArrowLeft style={{ width: '16px', height: '16px' }} />
             Retour à l'accueil
           </Link>
 
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-xl font-medium text-gray-500 uppercase tracking-wider mb-2 block"
-            >
-              Nos technologies
-            </motion.span>
+          {/* ── HERO ───────────────────────────────────────────────────── */}
+          <section style={{ marginBottom: '7rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              style={{
-                fontSize: '16px',
-                color: '#6b7280',
-                maxWidth: '600px',
-                margin: '20px auto',
-                lineHeight: 1.6
-              }}
-            >
-              Cliquez sur les points bleus pour découvrir nos 6 modules d'IA
-              qui transforment chaque satellite en système autonome.
-            </motion.p>
-          </div>
+              {/* Left: text */}
+              <div>
+                <motion.span
+                  variants={fadeUp} initial="hidden" animate="visible" custom={0}
+                  style={{ fontSize: '0.8rem', fontWeight: 500, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1rem' }}
+                >
+                  Produit
+                </motion.span>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            style={{
-              position: 'relative',
-              maxWidth: '800px',
-              margin: '0 auto 40px auto'
-            }}
-          >
-            <div style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: '90%',
-              height: '90%',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(0, 0, 0, 0.02) 0%, transparent 70%)',
-              pointerEvents: 'none'
-            }} />
+                <motion.h1
+                  variants={fadeUp} initial="hidden" animate="visible" custom={1}
+                  style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1, color: '#000', margin: '0 0 1rem 0' }}
+                >
+                  OBC-1
+                </motion.h1>
 
-            <div style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: '85%',
-              height: '85%',
-              borderRadius: '50%',
-              border: '1px dashed #d1d5db',
-              pointerEvents: 'none'
-            }} />
+                <motion.p
+                  variants={fadeUp} initial="hidden" animate="visible" custom={2}
+                  style={{ fontSize: '1.2rem', fontWeight: 300, color: '#555', marginBottom: '1.5rem', lineHeight: 1.5 }}
+                >
+                  Edge Computing Module
+                </motion.p>
 
-            <img
-              src={satelliteImage}
-              alt="Satellite ALYON"
-              style={{
-                width: '100%',
-                height: 'auto',
-                display: 'block'
-              }}
-            />
+                <motion.p
+                  variants={fadeUp} initial="hidden" animate="visible" custom={3}
+                  style={{ fontSize: '1rem', color: '#666', lineHeight: 1.75, maxWidth: '460px' }}
+                >
+                  Un ordinateur de bord compact conçu pour l'espace. L'OBC-1 embarque 40 TOPS
+                  de puissance IA directement en orbite, réduisant la latence de traitement et les
+                  besoins en bande passante descendante.
+                </motion.p>
 
-            {modules.map((module) => (
-              <ModulePoint
-                key={module.id}
-                module={module}
-                isSelected={selectedModule === module.id}
-                isHovered={hoveredModule === module.id}
-                onSelect={handleModuleSelect}
-                onHover={setHoveredModule}
-              />
-            ))}
-          </motion.div>
+                <motion.div
+                  variants={fadeUp} initial="hidden" animate="visible" custom={4}
+                  style={{ marginTop: '2rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}
+                >
+                  {['40 TOPS', '0.5U CubeSat', 'Made in France'].map(tag => (
+                    <span key={tag} style={{
+                      padding: '0.35rem 0.9rem',
+                      background: '#000',
+                      color: '#fff',
+                      borderRadius: '9999px',
+                      fontSize: '0.8rem',
+                      fontWeight: 500,
+                      letterSpacing: '0.03em',
+                    }}>{tag}</span>
+                  ))}
+                </motion.div>
+              </div>
 
-          <AnimatePresence mode="wait">
-            {selectedModuleData && (
-              <DescriptionPanel
-                module={selectedModuleData}
-                onClose={() => setSelectedModule(null)}
-              />
-            )}
-          </AnimatePresence>
+              {/* Right: product image */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+                style={{ display: 'flex', justifyContent: 'center' }}
+              >
+                <img
+                  src="/images/Boitier_Alyon_Visu.png"
+                  alt="OBC-1 ALYON"
+                  style={{
+                    width: '100%',
+                    maxWidth: '480px',
+                    objectFit: 'contain',
+                    borderRadius: '20px',
+                    maskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 55%, transparent 100%)',
+                    WebkitMaskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 55%, transparent 100%)',
+                  }}
+                />
+              </motion.div>
+            </div>
+          </section>
 
-          {!selectedModule && (
+          {/* ── SPECS ─────────────────────────────────────────────────── */}
+          <section style={{ marginBottom: '7rem' }}>
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
               style={{
-                textAlign: 'center',
-                padding: '24px',
-                color: '#9ca3af',
-                fontSize: '14px'
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '1px',
+                background: '#e5e7eb',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                border: '1px solid #e5e7eb',
               }}
             >
-              <span style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: 'white',
-                padding: '12px 20px',
-                borderRadius: '50px',
-                border: '1px solid #e5e7eb',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-              }}>
-                <span style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%)'
-                }} />
-                Cliquez sur un point pour voir les détails du module
-              </span>
+              {specs.map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i * 0.5}
+                  style={{
+                    background: '#fff',
+                    padding: '1.75rem 1.5rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.35rem',
+                  }}
+                >
+                  <span style={{ fontSize: '0.75rem', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 500 }}>
+                    {s.label}
+                  </span>
+                  <span style={{ fontSize: '1rem', fontWeight: 700, color: '#000' }}>
+                    {s.value}
+                  </span>
+                </motion.div>
+              ))}
             </motion.div>
-          )}
+          </section>
+
+          {/* ── EXPLODED VIEW ─────────────────────────────────────────── */}
+          <section style={{ marginBottom: '7rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
+
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: 'easeOut' }}
+              >
+                <img
+                  src="/images/Boitier_alyon_visu_eclate.png"
+                  alt="OBC-1 vue éclatée"
+                  style={{
+                    width: '100%',
+                    objectFit: 'contain',
+                    borderRadius: '20px',
+                    maskImage: 'radial-gradient(ellipse 90% 85% at 50% 50%, black 50%, transparent 100%)',
+                    WebkitMaskImage: 'radial-gradient(ellipse 90% 85% at 50% 50%, black 50%, transparent 100%)',
+                  }}
+                />
+              </motion.div>
+
+              <div>
+                <motion.span
+                  variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}
+                  style={{ fontSize: '0.8rem', fontWeight: 500, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1rem' }}
+                >
+                  Hardware
+                </motion.span>
+
+                <motion.h2
+                  variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}
+                  style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 800, letterSpacing: '-0.03em', color: '#000', margin: '0 0 1.25rem 0', lineHeight: 1.1 }}
+                >
+                  Conçu pour l'espace.<br />Intégré en 0.5U.
+                </motion.h2>
+
+                <motion.p
+                  variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2}
+                  style={{ fontSize: '1rem', color: '#555', lineHeight: 1.75, marginBottom: '1.5rem' }}
+                >
+                  Boîtier aluminium usiné CNC, anodisé noir. Gestion thermique entièrement passive
+                  via un spreader en cuivre — aucun ventilateur, aucune pièce mobile.
+                  Connecteurs Harwin Gecko à héritage spatial.
+                </motion.p>
+
+                <motion.div
+                  variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={3}
+                  style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}
+                >
+                  {[
+                    'Carte porteuse 4 couches FR-4, 90 × 96 mm',
+                    'Stockage M.2 NVMe PCIe Gen3 x4',
+                    'Interfaces : UART, I²C, CAN bus, USB-C',
+                    'Alimentation 6 – 16V DC (bus satellite)',
+                  ].map((line, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#000', flexShrink: 0 }} />
+                      <span style={{ fontSize: '0.95rem', color: '#444' }}>{line}</span>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+            </div>
+          </section>
+
+          {/* ── SOFTWARE / VIDEO POC ──────────────────────────────────── */}
+          <section style={{ marginBottom: '5rem' }}>
+            <motion.div
+              variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
+              style={{ textAlign: 'center', marginBottom: '3rem' }}
+            >
+              <span style={{ fontSize: '0.8rem', fontWeight: 500, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1rem' }}>
+                Software
+              </span>
+              <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 800, letterSpacing: '-0.03em', color: '#000', margin: '0 auto 1rem', lineHeight: 1.1, maxWidth: '600px' }}>
+                Une architecture IA adaptée à chaque mission
+              </h2>
+              <p style={{ fontSize: '1rem', color: '#666', maxWidth: '560px', margin: '0 auto', lineHeight: 1.7 }}>
+                Notre stack logiciel embarqué se configure pour différents cas d'usage —
+                observation terrestre, évitement de collision, gestion de constellation.
+                Le POC ci-dessous illustre nos capacités de traitement en temps réel.
+              </p>
+            </motion.div>
+
+            {/* Video */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.97 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+              onMouseEnter={() => setShowControls(true)}
+              onMouseLeave={() => setShowControls(false)}
+              style={{
+                borderRadius: '16px',
+                overflow: 'hidden',
+                boxShadow: '0 24px 64px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.06)',
+                width: '100%',
+                aspectRatio: '16 / 9',
+                background: '#000',
+              }}
+            >
+              <video
+                ref={videoRef}
+                src="/videos/Video_POC_ALYON_AI_V2.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                controls={showControls}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+              />
+            </motion.div>
+          </section>
+
+          {/* ── CTA ───────────────────────────────────────────────────── */}
+          <motion.section
+            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
+            style={{ textAlign: 'center', paddingTop: '2rem' }}
+          >
+            <p style={{ fontSize: '1rem', color: '#888', marginBottom: '1.5rem' }}>
+              Intéressé par une intégration ou un partenariat ?
+            </p>
+            <a
+              href="/#contact"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                padding: '0.7rem 2rem',
+                background: '#000', color: '#fff',
+                borderRadius: '9999px', fontWeight: 500, fontSize: '1rem',
+                textDecoration: 'none', transition: 'background 0.2s, transform 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = '#222'; e.currentTarget.style.transform = 'scale(1.04)'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = '#000'; e.currentTarget.style.transform = 'scale(1)'; }}
+            >
+              Nous contacter
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </motion.section>
 
         </div>
       </main>

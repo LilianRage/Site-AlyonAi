@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 /* Variables CSS pour la charte graphique Alyon AI - Noir & Blanc */
 :root {
   /* Couleurs principales - Grayscale uniquement */
@@ -78,8 +80,7 @@
   --z-tooltip: 1070;
 }
 
-/* Import de la police Aileron */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Import de la police Aileron (déplacé en haut du fichier) */
 
 /* Fallback si Aileron n'est pas disponible */
 /* 

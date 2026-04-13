@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Download, Calendar, Users, Target } from 'lucide-react';
+import { ArrowLeft, ExternalLink, FileText, Calendar, Users, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
 const ResearchPage = () => {
   const [selectedProject, setSelectedProject] = useState(null);
+
+  // Bloquer le scroll de la page quand le modal est ouvert
+  React.useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [selectedProject]);
 
   const rdProjects = [
     {
@@ -304,330 +314,207 @@ const ResearchPage = () => {
             onClick={(e) => e.stopPropagation()}
             style={{
               backgroundColor: '#fff',
-              borderRadius: '32px',
-              maxWidth: '900px',
+              borderRadius: '24px',
+              maxWidth: '760px',
               width: '100%',
               maxHeight: '90vh',
               overflowY: 'auto',
-              padding: '48px',
               position: 'relative'
             }}
           >
+            {/* Image banner pleine largeur */}
+            <div style={{
+              width: '100%',
+              height: '220px',
+              overflow: 'hidden',
+              borderRadius: '24px 24px 0 0',
+              flexShrink: 0
+            }}>
+              <img
+                src={selectedProject.image}
+                alt={selectedProject.title}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
+
             {/* Close Button */}
             <button
               onClick={() => setSelectedProject(null)}
               style={{
                 position: 'absolute',
-                top: '24px',
-                right: '24px',
-                width: '40px',
-                height: '40px',
+                top: '16px',
+                right: '16px',
+                width: '36px',
+                height: '36px',
                 borderRadius: '50%',
-                border: '1px solid #e5e5e5',
-                backgroundColor: '#fff',
+                border: 'none',
+                backgroundColor: 'rgba(0,0,0,0.45)',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '20px',
-                color: '#666',
-                transition: 'all 0.2s'
+                color: '#fff',
+                transition: 'background 0.2s'
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#000';
-                e.currentTarget.style.color = '#000';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '#e5e5e5';
-                e.currentTarget.style.color = '#666';
-              }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.7)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.45)'}
             >
               ×
             </button>
 
-            {/* Image Thumbnail - Top Left */}
-            <div style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '16px',
-              border: '1px solid #e5e5e5',
-              overflow: 'hidden',
-              marginBottom: '24px'
-            }}>
-              <img 
-                src={selectedProject.image}
-                alt={selectedProject.title}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }}
-              />
-            </div>
+            {/* Contenu */}
+            <div style={{ padding: '32px' }}>
 
-            {/* Title */}
-            <h2 style={{
-              fontSize: '36px',
-              fontWeight: 700,
-              color: '#000',
-              marginBottom: '16px'
-            }}>
-              {selectedProject.title}
-            </h2>
-
-            {/* Meta Info */}
-            <div style={{
-              display: 'flex',
-              gap: '24px',
-              marginBottom: '32px',
-              flexWrap: 'wrap'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Calendar style={{ width: '16px', height: '16px', color: '#666' }} />
-                <span style={{ fontSize: '14px', color: '#666' }}>{selectedProject.date}</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Users style={{ width: '16px', height: '16px', color: '#666' }} />
-                <span style={{ fontSize: '14px', color: '#666' }}>{selectedProject.team}</span>
-              </div>
-            </div>
-
-            {/* Description */}
-            <p style={{
-              fontSize: '16px',
-              color: '#666',
-              lineHeight: 1.8,
-              marginBottom: '40px'
-            }}>
-              {selectedProject.fullDescription}
-            </p>
-
-            {/* Publication Section - For first project */}
-            {selectedProject.publication && (
-                <div style={{
-                    backgroundColor: '#f8fafc', // Bleu très léger pour différencier la partie "Recherche"
-                    borderRadius: '20px',
-                    border: '1px solid #e2e8f0',
-                    padding: '40px',
-                    marginBottom: '40px',
-                    boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)'
+              {/* Titre + badge statut */}
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px', marginBottom: '12px' }}>
+                <h2 style={{ fontSize: '26px', fontWeight: 700, color: '#000', margin: 0, lineHeight: 1.3 }}>
+                  {selectedProject.title}
+                </h2>
+                <span style={{
+                  flexShrink: 0,
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  padding: '4px 12px',
+                  borderRadius: '100px',
+                  backgroundColor: selectedProject.status === 'Publié' ? '#000' : '#f0f0f0',
+                  color: selectedProject.status === 'Publié' ? '#fff' : '#555',
+                  border: '1px solid #e0e0e0'
                 }}>
-                    {/* Header Publication */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
-                    <div style={{
+                  {selectedProject.status}
+                </span>
+              </div>
+
+              {/* Meta : date + équipe */}
+              <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Calendar style={{ width: '14px', height: '14px', color: '#999' }} />
+                  <span style={{ fontSize: '13px', color: '#888' }}>{selectedProject.date}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <Users style={{ width: '14px', height: '14px', color: '#999' }} />
+                  <span style={{ fontSize: '13px', color: '#888' }}>{selectedProject.team}</span>
+                </div>
+              </div>
+
+              {/* Liens */}
+              {selectedProject.links.length > 0 && (
+                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '24px' }}>
+                  {selectedProject.links.map((link, index) => (
+                    <a
+                      key={index}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        padding: '11px 22px',
                         backgroundColor: '#000',
                         color: '#fff',
-                        padding: '6px 14px',
-                        borderRadius: '6px',
-                        fontSize: '11px',
-                        fontWeight: '800',
-                        letterSpacing: '1px'
-                    }}>
-                        {selectedProject.publication.venue}
-                    </div>
-                    <div style={{ color: '#94a3b8', fontSize: '12px', fontStyle: 'italic' }}>
-                        Peer-reviewed Publication
-                    </div>
-                    </div>
-
-                    <h3 style={{
-                    fontSize: '26px',
-                    fontWeight: '800',
-                    color: '#0f172a',
-                    marginBottom: '20px',
-                    lineHeight: '1.3',
-                    maxWidth: '90%'
-                    }}>
-                    {selectedProject.publication.title}
-                    </h3>
-
-                    {/* Grid Layout pour Abstract et Contributions */}
-                    <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1.2fr 0.8fr',
-                    gap: '40px',
-                    marginTop: '30px'
-                    }}>
-                    {/* Colonne Gauche : Abstract */}
-                    <div>
-                        <h4 style={{ fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', color: '#64748b', marginBottom: '12px', letterSpacing: '0.5px' }}>
-                        Abstract
-                        </h4>
-                        <p style={{
-                        fontSize: '15px',
-                        color: '#334155',
-                        lineHeight: '1.7',
-                        textAlign: 'justify'
-                        }}>
-                        {selectedProject.publication.abstract}
-                        </p>
-                    </div>
-
-                    {/* Colonne Droite : Contributions & Impact */}
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '24px'
-                    }}>
-                        <div>
-                        <h4 style={{ fontSize: '13px', fontWeight: '700', textTransform: 'uppercase', color: '#64748b', marginBottom: '12px' }}>
-                            Apports Scientifiques
-                        </h4>
-                        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                            {selectedProject.publication.contributions.map((contrib, index) => (
-                            <li key={index} style={{
-                                fontSize: '13px',
-                                color: '#475569',
-                                padding: '6px 0',
-                                display: 'flex',
-                                gap: '10px',
-                                alignItems: 'flex-start'
-                            }}>
-                                <span style={{ color: '#000' }}>→</span>
-                                {contrib}
-                            </li>
-                            ))}
-                        </ul>
-                        </div>
-
-                        <div style={{
-                        padding: '20px',
-                        backgroundColor: '#fff',
-                        borderRadius: '12px',
-                        borderLeft: '4px solid #000',
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
-                        }}>
-                        <span style={{ fontWeight: '800', fontSize: '12px', color: '#000', display: 'block', marginBottom: '4px', textTransform: 'uppercase' }}>
-                            Impact Opérationnel
-                        </span>
-                        <p style={{ fontSize: '13px', color: '#475569', margin: 0, lineHeight: '1.5' }}>
-                            {selectedProject.publication.impact}
-                        </p>
-                        </div>
-                    </div>
+                        borderRadius: '100px',
+                        textDecoration: 'none',
+                        fontSize: '14px',
+                        fontWeight: 600,
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = '#333';
+                        e.currentTarget.style.transform = 'scale(1.04)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = '#000';
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }}
+                    >
+                      {link.type === 'pdf' ? <FileText style={{ width: '14px', height: '14px' }} /> : <ExternalLink style={{ width: '14px', height: '14px' }} />}
+                      {link.label}
+                    </a>
+                  ))}
                 </div>
-            </div>
-            )}
+              )}
 
-            {/* Objectives */}
-            <div style={{ marginBottom: '40px' }}>
-              <h3 style={{
-                fontSize: '20px',
-                fontWeight: 600,
-                color: '#000',
-                marginBottom: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px'
-              }}>
-                <Target style={{ width: '20px', height: '20px' }} />
-                Objectifs
-              </h3>
-              <ul style={{
-                listStyle: 'none',
-                padding: 0,
-                margin: 0
-              }}>
-                {selectedProject.objectives.map((obj, index) => (
-                  <li
-                    key={index}
-                    style={{
-                      fontSize: '15px',
-                      color: '#666',
-                      padding: '12px 0',
-                      borderBottom: '1px solid #f0f0f0',
-                      display: 'flex',
-                      alignItems: 'start',
-                      gap: '12px'
-                    }}
-                  >
-                    <span style={{
-                      width: '6px',
-                      height: '6px',
-                      backgroundColor: '#000',
-                      borderRadius: '50%',
-                      marginTop: '8px',
-                      flexShrink: 0
-                    }} />
-                    {obj}
-                  </li>
-                ))}
-              </ul>
-            </div>
+              {/* Description */}
+              <p style={{ fontSize: '15px', color: '#444', lineHeight: 1.75, marginBottom: '28px' }}>
+                {selectedProject.fullDescription}
+              </p>
 
-            {/* Results */}
-            <div style={{ marginBottom: '40px' }}>
-              <h3 style={{
-                fontSize: '20px',
-                fontWeight: 600,
-                color: '#000',
-                marginBottom: '16px'
-              }}>
-                Résultats
-              </h3>
-              <div style={{
-                display: 'grid',
-                gap: '12px'
-              }}>
-                {selectedProject.results.map((result, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      padding: '16px',
-                      backgroundColor: '#fafafa',
-                      borderRadius: '12px',
-                      border: '1px solid #e5e5e5',
-                      fontSize: '14px',
-                      color: '#666'
-                    }}
-                  >
-                    {result}
+              {/* Publication */}
+              {selectedProject.publication && (
+                <div style={{
+                  backgroundColor: '#f8fafc',
+                  borderRadius: '16px',
+                  border: '1px solid #e2e8f0',
+                  padding: '24px',
+                  marginBottom: '28px'
+                }}>
+                  <span style={{
+                    display: 'inline-block',
+                    backgroundColor: '#000',
+                    color: '#fff',
+                    padding: '4px 12px',
+                    borderRadius: '6px',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    letterSpacing: '0.5px',
+                    marginBottom: '14px'
+                  }}>
+                    {selectedProject.publication.venue}
+                  </span>
+
+                  <h3 style={{ fontSize: '17px', fontWeight: 700, color: '#0f172a', marginBottom: '16px', lineHeight: 1.4 }}>
+                    {selectedProject.publication.title}
+                  </h3>
+
+                  <h4 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#94a3b8', marginBottom: '8px', letterSpacing: '0.5px' }}>
+                    Abstract
+                  </h4>
+                  <p style={{ fontSize: '14px', color: '#334155', lineHeight: 1.7, marginBottom: '20px' }}>
+                    {selectedProject.publication.abstract}
+                  </p>
+
+                  <h4 style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#94a3b8', marginBottom: '8px', letterSpacing: '0.5px' }}>
+                    Apports scientifiques
+                  </h4>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 20px 0' }}>
+                    {selectedProject.publication.contributions.map((contrib, index) => (
+                      <li key={index} style={{ fontSize: '14px', color: '#475569', padding: '5px 0', display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                        <span style={{ color: '#000', flexShrink: 0 }}>→</span>
+                        {contrib}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div style={{ borderLeft: '3px solid #000', paddingLeft: '16px' }}>
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#000', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>
+                      Impact opérationnel
+                    </span>
+                    <p style={{ fontSize: '13px', color: '#475569', margin: 0, lineHeight: 1.6 }}>
+                      {selectedProject.publication.impact}
+                    </p>
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              )}
 
-            {/* Links */}
-            {selectedProject.links.length > 0 && (
-              <div style={{
-                display: 'flex',
-                gap: '12px',
-                flexWrap: 'wrap'
-              }}>
-                {selectedProject.links.map((link, index) => (
-                  <a
-                    key={index}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '12px 24px',
-                      backgroundColor: '#000',
-                      color: '#fff',
-                      borderRadius: '100px',
-                      textDecoration: 'none',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      transition: 'all 0.2s'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#333';
-                      e.currentTarget.style.transform = 'scale(1.05)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#000';
-                      e.currentTarget.style.transform = 'scale(1)';
-                    }}
-                  >
-                    {link.type === 'pdf' ? <Download style={{ width: '14px', height: '14px' }} /> : <ExternalLink style={{ width: '14px', height: '14px' }} />}
-                    {link.label}
-                  </a>
-                ))}
+              {/* Objectifs */}
+              <div style={{ marginBottom: '28px' }}>
+                <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#000', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Target style={{ width: '16px', height: '16px' }} />
+                  Objectifs
+                </h3>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                  {selectedProject.objectives.map((obj, index) => (
+                    <li key={index} style={{ fontSize: '14px', color: '#444', padding: '10px 0', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                      <span style={{ width: '5px', height: '5px', backgroundColor: '#000', borderRadius: '50%', marginTop: '8px', flexShrink: 0 }} />
+                      {obj}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            )}
+
+
+            </div>
           </motion.div>
         </motion.div>
       )}

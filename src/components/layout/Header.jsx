@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { siteData } from '../../data/siteData';
-
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,22 +31,6 @@ const Header = () => {
         }
       }, 100);
     }
-    setIsMobileMenuOpen(false);
-  };
-
-  const handleModuleClick = (moduleIndex) => {
-    // Mapping des modules de siteData vers TechnologyPage
-
-    const moduleMapping = {
-      0: 3, // Module 1 -> 3
-      1: 1, // Module 2 -> 1
-      2: 6, // Module 2 -> 6
-      3: 4, // Module 3 -> 4
-      4: 5, // Module 4 -> 5
-      5: 2  // Module 5 -> 2
-    };
-    navigate('/technologie?module=' + moduleMapping[moduleIndex]);
-    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -91,7 +72,7 @@ const Header = () => {
             src="/images/logo-Alyon-Black-rogne.png"
             alt="ALYON AI Logo"
             style={{
-              height: '100px',
+              height: '70px',
               width: 'auto'
             }}
           />
@@ -106,12 +87,7 @@ const Header = () => {
           className="hidden md:flex"
         >
           <NavLink onClick={() => scrollToSection('hero')}>Accueil</NavLink>
-          <NavDropdown
-            trigger="Modules"
-            items={siteData.modules.map(m => ({ label: m.name, desc: m.tagline }))}
-            onItemClick={handleModuleClick}
-            onViewAllClick={() => navigate('/technologie')}
-          />
+          <NavLink onClick={() => navigate('/technologie')}>Produit</NavLink>
           <NavLink onClick={() => scrollToSection('achievements')}>R&D</NavLink>
           <NavLink onClick={() => scrollToSection('contact')}>Contact</NavLink>
         </nav>
@@ -137,107 +113,6 @@ const Header = () => {
           Nous contacter
         </button>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-          style={{
-            padding: '8px',
-            background: 'transparent',
-            border: 'none',
-            borderRadius: '6px',
-            cursor: 'pointer'
-          }}
-        >
-          <div style={{
-            width: '20px',
-            height: '14px',
-            position: 'relative',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between'
-          }}>
-            <span style={{
-              width: '100%',
-              height: '2px',
-              backgroundColor: '#333',
-              borderRadius: '1px',
-              transition: 'all 0.3s ease',
-              transform: isMobileMenuOpen ? 'rotate(45deg) translateY(6px)' : 'none'
-            }} />
-            <span style={{
-              width: '100%',
-              height: '2px',
-              backgroundColor: '#333',
-              borderRadius: '1px',
-              transition: 'all 0.3s ease',
-              opacity: isMobileMenuOpen ? 0 : 1
-            }} />
-            <span style={{
-              width: '100%',
-              height: '2px',
-              backgroundColor: '#333',
-              borderRadius: '1px',
-              transition: 'all 0.3s ease',
-              transform: isMobileMenuOpen ? 'rotate(-45deg) translateY(-6px)' : 'none'
-            }} />
-          </div>
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className="mobile-menu-container md:hidden"
-        style={{
-          overflow: 'hidden',
-          transition: 'all 0.3s ease',
-          maxHeight: isMobileMenuOpen ? '300px' : '0',
-          opacity: isMobileMenuOpen ? 1 : 0,
-          borderTop: isMobileMenuOpen ? '1px solid #f0f0f0' : 'none'
-        }}
-      >
-        <nav style={{ padding: '16px 24px' }}>
-          {siteData.navigation.map((item) => (
-            <button
-              key={item.label}
-              className="mobile-menu-item"
-              onClick={() => scrollToSection(item.href)}
-              style={{
-                display: 'block',
-                width: '100%',
-                textAlign: 'left',
-                padding: '12px 0',
-                fontSize: '15px',
-                fontWeight: 500,
-                color: '#333',
-                background: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                borderBottom: '1px solid #f5f5f5'
-              }}
-            >
-              {item.label}
-            </button>
-          ))}
-          <button
-            onClick={() => scrollToSection('contact')}
-            style={{
-              width: '100%',
-              marginTop: '16px',
-              backgroundColor: '#111',
-              color: '#fff',
-              border: 'none',
-              padding: '12px 20px',
-              borderRadius: '8px',
-              fontSize: '14px',
-              fontWeight: 500,
-              cursor: 'pointer'
-            }}
-          >
-            Nous contacter
-          </button>
-        </nav>
       </div>
     </header>
   );
@@ -266,127 +141,6 @@ const NavLink = ({ children, onClick }) => {
     >
       {children}
     </button>
-  );
-};
-
-// Composant NavDropdown
-const NavDropdown = ({ trigger, items, onItemClick, onViewAllClick }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div
-      style={{ position: 'relative' }}
-      onMouseEnter={() => { setIsOpen(true); setIsHovered(true); }}
-      onMouseLeave={() => { setIsOpen(false); setIsHovered(false); }}
-    >
-      <button
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '4px',
-          padding: '8px 16px',
-          fontSize: '14px',
-          fontWeight: 500,
-          color: isHovered ? '#000' : '#555',
-          background: isHovered ? '#f5f5f5' : 'transparent',
-          border: 'none',
-          borderRadius: '6px',
-          cursor: 'pointer',
-          transition: 'all 0.2s ease'
-        }}
-      >
-        {trigger}
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 12 12"
-          fill="none"
-          style={{
-            transition: 'transform 0.2s ease',
-            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'
-          }}
-        >
-          <path
-            d="M3 4.5L6 7.5L9 4.5"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </button>
-
-      {/* Dropdown Menu */}
-      <div style={{
-        position: 'absolute',
-        top: '100%',
-        left: 0,
-        paddingTop: '8px',
-        opacity: isOpen ? 1 : 0,
-        visibility: isOpen ? 'visible' : 'hidden',
-        transform: isOpen ? 'translateY(0)' : 'translateY(-8px)',
-        transition: 'all 0.2s ease',
-        zIndex: 100
-      }}>
-        <div style={{
-          background: '#fff',
-          borderRadius: '8px',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
-          border: '1px solid #eee',
-          padding: '8px 0',
-          minWidth: '200px'
-        }}>
-          {items.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => onItemClick(index)}
-              style={{
-                display: 'block',
-                width: '100%',
-                textAlign: 'left',
-                padding: '10px 16px',
-                fontSize: '14px',
-                color: '#333',
-                background: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                transition: 'background 0.15s ease'
-              }}
-              onMouseEnter={(e) => e.target.style.background = '#f5f5f5'}
-              onMouseLeave={(e) => e.target.style.background = 'transparent'}
-            >
-              <span style={{ fontWeight: 500 }}>{item.label}</span>
-              {item.desc && (
-                <span style={{ display: 'block', fontSize: '12px', color: '#888', marginTop: '2px' }}>
-                  {item.desc}
-                </span>
-              )}
-            </button>
-          ))}
-          <div style={{ borderTop: '1px solid #eee', margin: '4px 0' }} />
-          <button
-            onClick={onViewAllClick}
-            style={{
-              display: 'block',
-              width: '100%',
-              textAlign: 'left',
-              padding: '10px 16px',
-              fontSize: '14px',
-              color: '#333',
-              fontWeight: 500,
-              background: 'transparent',
-              border: 'none',
-              cursor: 'pointer'
-            }}
-            onMouseEnter={(e) => e.target.style.background = '#f5f5f5'}
-            onMouseLeave={(e) => e.target.style.background = 'transparent'}
-          >
-            Voir tous les modules →
-          </button>
-        </div>
-      </div>
-    </div>
   );
 };
 

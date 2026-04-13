@@ -83,7 +83,7 @@ export const siteData = {
 
   navigation: [
     { label: "Accueil", href: "#hero" },
-    { label: "Modules", href: "#modules" },
+    { label: "Produit", href: "#modules" },
     { label: "R&D", href: "#achievements" },
     { label: "Contact", href: "#contact" }
   ],
@@ -100,6 +100,14 @@ export const siteData = {
       {
         name: "ECE Ilab",
         logo: "/images/Logo_ECE_Ilab.webp"
+      },
+      {
+        name: "PDG Entreprises",
+        logo: "/images/logoPaysGex.png"
+      },
+      {
+        name: "CEIMIA",
+        logo: "/images/Logo_CEIMIA.png"
       }
     ]
   }
