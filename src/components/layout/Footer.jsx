@@ -30,7 +30,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-white border-t border-gray-100">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-8 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="md:col-span-2">
@@ -49,7 +49,7 @@ const Footer = () => {
             <h4 className="text-sm font-semibold uppercase tracking-wider text-gray-900 mb-4">
               Navigation
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3" style={{ listStyle: 'none', paddingLeft: 0 }}>
               {siteData.navigation.map((item) => (
                 <li key={item.label}>
                   <button
@@ -68,9 +68,9 @@ const Footer = () => {
             <h4 className="text-sm font-semibold uppercase tracking-wider text-gray-900 mb-4">
               Contact
             </h4>
-            <ul className="space-y-3 text-gray-500">
+            <ul className="space-y-3 text-gray-500" style={{ listStyle: 'none', paddingLeft: 0 }}>
               <li>
-                <a 
+                <a
                   href={`mailto:${siteData.contact.email}`}
                   className="hover:text-black transition-colors duration-300"
                 >
@@ -79,7 +79,7 @@ const Footer = () => {
               </li>
               <li>{siteData.contact.address}</li>
               <li>
-                <a 
+                <a
                   href={siteData.contact.linkedIn}
                   target="_blank"
                   rel="noopener noreferrer"

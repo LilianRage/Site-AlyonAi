@@ -316,14 +316,15 @@
 
 @media (max-width: 480px) {
 
-    /* 1 colonne sur très petit écran */
+    /* Garder 2 colonnes pour Nav + Contact */
     footer .grid {
-        grid-template-columns: 1fr !important;
-        gap: 2rem !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1.5rem !important;
     }
 
+    /* Brand occupe toujours les 2 colonnes */
     footer .md\:col-span-2 {
-        grid-column: span 1 !important;
+        grid-column: span 2 !important;
     }
 
     footer p,
