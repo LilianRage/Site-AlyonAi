@@ -1,9 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { siteData } from '../../data/siteData';
+import { useLanguage } from '../../contexts/LanguageContext';
 import '../../styles/components/TrustBanner.css';
 
 const TrustBanner = () => {
+  const { t } = useLanguage();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -36,7 +38,7 @@ const TrustBanner = () => {
           transition={{ duration: 0.4 }}
           className="trust-banner-header"
         >
-          <h2 className="trust-banner-title">{siteData.trust.title}</h2>
+          <h2 className="trust-banner-title">{t.trust.title}</h2>
         </motion.div>
 
         <motion.div

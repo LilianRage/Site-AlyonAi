@@ -2,8 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FadeIn } from '../ui/Animations';
 import { siteData } from '../../data/siteData';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const ContactSection = () => {
+  const { t } = useLanguage();
   const handleContact = () => {
     window.location.href = `mailto:${siteData.contact.email}`;
   };
@@ -29,8 +31,8 @@ const ContactSection = () => {
         <div className="max-w-5xl mx-auto text-center mb-16">
           <FadeIn>
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8">
-              Prêt à rendre vos satellites<br />
-              <span className="italic font-light text-white/70">véritablement autonomes ?</span>
+              {t.contact.title}<br />
+              <span className="italic font-light text-white/70">{t.contact.titleItalic}</span>
             </h2>
           </FadeIn>
 
@@ -64,7 +66,7 @@ const ContactSection = () => {
                 e.target.style.transform = 'scale(1)';
               }}
             >
-              Nous Contacter →
+              {t.contact.btn}
             </button>
           </motion.div>
         </div>

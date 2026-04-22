@@ -2,23 +2,22 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Separator } from '../ui/Separator';
 import { siteData } from '../../data/siteData';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useLanguage();
 
   const scrollToSection = (sectionId) => {
-    // Si on est sur la page d'accueil, scroll direct
     if (location.pathname === '/') {
       const element = document.getElementById(sectionId.replace('#', ''));
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      // Sinon, rediriger vers la page d'accueil avec l'ancre
       navigate('/#' + sectionId);
-      // Attendre que la page se charge puis scroller
       setTimeout(() => {
         const element = document.getElementById(sectionId.replace('#', ''));
         if (element) {
@@ -28,29 +27,36 @@ const Footer = () => {
     }
   };
 
+  const navItems = [
+    { label: t.nav.home, href: 'hero' },
+    { label: t.nav.product, href: 'modules' },
+    { label: t.nav.rd, href: 'achievements' },
+    { label: t.nav.contact, href: 'contact' },
+  ];
+
   return (
     <footer className="bg-white border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-8 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <img 
-              src="/images/logo-Alyon-Black-rogne.png" 
-              alt="ALYON AI" 
+            <img
+              src="/images/logo-Alyon-Black-rogne.png"
+              alt="ALYON AI"
               style={{ height: '60px', width: 'auto' }}
             />
             <p className="mt-4 text-gray-500 max-w-md leading-relaxed">
-              {siteData.company.description}
+              {t.footer.description}
             </p>
           </div>
 
           {/* Navigation */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-gray-900 mb-4">
-              Navigation
+              {t.footer.navigation}
             </h4>
             <ul className="space-y-3" style={{ listStyle: 'none', paddingLeft: 0 }}>
-              {siteData.navigation.map((item) => (
+              {navItems.map((item) => (
                 <li key={item.label}>
                   <button
                     onClick={() => scrollToSection(item.href)}
@@ -66,7 +72,7 @@ const Footer = () => {
           {/* Contact */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-gray-900 mb-4">
-              Contact
+              {t.footer.contact}
             </h4>
             <ul className="space-y-3 text-gray-500" style={{ listStyle: 'none', paddingLeft: 0 }}>
               <li>
@@ -95,13 +101,13 @@ const Footer = () => {
         <Separator className="my-12" />
 
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-          <p>© {currentYear} Alyon AI. Tous droits réservés.</p>
+          <p>© {currentYear} Alyon AI. {t.footer.rights}</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="/privacy" className="hover:text-black transition-colors">
-              Confidentialité
+              {t.footer.privacy}
             </a>
             <a href="/terms" className="hover:text-black transition-colors">
-              Mentions légales
+              {t.footer.legal}
             </a>
           </div>
         </div>

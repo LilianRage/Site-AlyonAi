@@ -5,26 +5,21 @@ import { ArrowLeft } from 'lucide-react';
 import fondFumee from '../assets/Fond_fumee.png';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: 'easeOut', delay: i * 0.1 }
-  })
+    transition: { duration: 0.6, ease: 'easeOut', delay: i * 0.1 },
+  }),
 };
 
-const specs = [
-  { label: 'AI Performance', value: '40 TOPS' },
-  { label: 'Processeur', value: 'NVIDIA Jetson Orin Nano 8GB' },
-  { label: 'Format', value: '0.5U CubeSat' },
-  { label: 'Alimentation', value: '6 – 16V DC' },
-  { label: 'Thermique', value: '-30°C à +60°C' },
-  { label: 'Origine', value: 'Made in France' },
-];
-
 const TechnologyPage = () => {
+  const { t } = useLanguage();
+  const tech = t.tech;
+
   return (
     <div className="min-h-screen relative" style={{ backgroundColor: '#fff' }}>
       <Header />
@@ -43,7 +38,8 @@ const TechnologyPage = () => {
       <div
         className="fixed inset-0 z-0"
         style={{
-          background: 'linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.55) 100%)',
+          background:
+            'linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.55) 100%)',
           pointerEvents: 'none',
         }}
       />
@@ -55,18 +51,23 @@ const TechnologyPage = () => {
           <Link
             to="/"
             style={{
-              display: 'inline-flex', alignItems: 'center', gap: '8px',
-              fontSize: '14px', color: '#888', textDecoration: 'none',
-              marginBottom: '3rem', transition: 'color 0.2s',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontSize: '14px',
+              color: '#888',
+              textDecoration: 'none',
+              marginBottom: '3rem',
+              transition: 'color 0.2s',
             }}
-            onMouseEnter={e => e.currentTarget.style.color = '#000'}
-            onMouseLeave={e => e.currentTarget.style.color = '#888'}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#000')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#888')}
           >
             <ArrowLeft style={{ width: '16px', height: '16px' }} />
-            Retour à l'accueil
+            {tech.back}
           </Link>
 
-          {/* ── HERO ───────────────────────────────────────────────────── */}
+          {/* ── HERO ── */}
           <section style={{ marginBottom: '7rem' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
 
@@ -76,7 +77,7 @@ const TechnologyPage = () => {
                   variants={fadeUp} initial="hidden" animate="visible" custom={0}
                   style={{ fontSize: '0.8rem', fontWeight: 500, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1rem' }}
                 >
-                  Produit
+                  {tech.productLabel}
                 </motion.span>
 
                 <motion.h1
@@ -90,23 +91,21 @@ const TechnologyPage = () => {
                   variants={fadeUp} initial="hidden" animate="visible" custom={2}
                   style={{ fontSize: '1.2rem', fontWeight: 300, color: '#555', marginBottom: '1.5rem', lineHeight: 1.5 }}
                 >
-                  Edge Computing Module
+                  {tech.subtitle}
                 </motion.p>
 
                 <motion.p
                   variants={fadeUp} initial="hidden" animate="visible" custom={3}
                   style={{ fontSize: '1rem', color: '#666', lineHeight: 1.75, maxWidth: '460px' }}
                 >
-                  Un ordinateur de bord compact conçu pour l'espace. L'OBC-1 embarque 40 TOPS
-                  de puissance IA directement en orbite, réduisant la latence de traitement et les
-                  besoins en bande passante descendante.
+                  {tech.description}
                 </motion.p>
 
                 <motion.div
                   variants={fadeUp} initial="hidden" animate="visible" custom={4}
                   style={{ marginTop: '2rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}
                 >
-                  {['40 TOPS', '0.5U CubeSat', 'Made in France'].map(tag => (
+                  {['40 TOPS', '0.5U CubeSat', 'Made in France'].map((tag) => (
                     <span key={tag} style={{
                       padding: '0.35rem 0.9rem',
                       background: '#000',
@@ -115,7 +114,9 @@ const TechnologyPage = () => {
                       fontSize: '0.8rem',
                       fontWeight: 500,
                       letterSpacing: '0.03em',
-                    }}>{tag}</span>
+                    }}>
+                      {tag}
+                    </span>
                   ))}
                 </motion.div>
               </div>
@@ -143,7 +144,7 @@ const TechnologyPage = () => {
             </div>
           </section>
 
-          {/* ── SPECS ─────────────────────────────────────────────────── */}
+          {/* ── SPECS ── */}
           <section style={{ marginBottom: '7rem' }}>
             <motion.div
               variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
@@ -157,7 +158,7 @@ const TechnologyPage = () => {
                 border: '1px solid #e5e7eb',
               }}
             >
-              {specs.map((s, i) => (
+              {tech.specs.map((s, i) => (
                 <motion.div
                   key={s.label}
                   variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i * 0.5}
@@ -180,7 +181,7 @@ const TechnologyPage = () => {
             </motion.div>
           </section>
 
-          {/* ── EXPLODED VIEW ─────────────────────────────────────────── */}
+          {/* ── EXPLODED VIEW ── */}
           <section style={{ marginBottom: '7rem' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
 
@@ -192,7 +193,7 @@ const TechnologyPage = () => {
               >
                 <img
                   src="/images/Boitier_alyon_visu_eclate.png"
-                  alt="OBC-1 vue éclatée"
+                  alt="OBC-1 exploded view"
                   style={{
                     width: '100%',
                     objectFit: 'contain',
@@ -208,35 +209,30 @@ const TechnologyPage = () => {
                   variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}
                   style={{ fontSize: '0.8rem', fontWeight: 500, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1rem' }}
                 >
-                  Hardware
+                  {tech.hardwareLabel}
                 </motion.span>
 
                 <motion.h2
                   variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}
                   style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 800, letterSpacing: '-0.03em', color: '#000', margin: '0 0 1.25rem 0', lineHeight: 1.1 }}
                 >
-                  Conçu pour l'espace.<br />Intégré en 0.5U.
+                  {tech.hardwareTitle.split('\n').map((line, i) => (
+                    <React.Fragment key={i}>{line}{i === 0 && <br />}</React.Fragment>
+                  ))}
                 </motion.h2>
 
                 <motion.p
                   variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2}
                   style={{ fontSize: '1rem', color: '#555', lineHeight: 1.75, marginBottom: '1.5rem' }}
                 >
-                  Boîtier aluminium usiné CNC, anodisé noir. Gestion thermique entièrement passive
-                  via un spreader en cuivre — aucun ventilateur, aucune pièce mobile.
-                  Connecteurs Harwin Gecko à héritage spatial.
+                  {tech.hardwareDesc}
                 </motion.p>
 
                 <motion.div
                   variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={3}
                   style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}
                 >
-                  {[
-                    'Carte porteuse 4 couches FR-4, 90 × 96 mm',
-                    'Stockage M.2 NVMe PCIe Gen3 x4',
-                    'Interfaces : UART, I²C, CAN bus, USB-C',
-                    'Alimentation 6 – 16V DC (bus satellite)',
-                  ].map((line, i) => (
+                  {tech.hardwareFeatures.map((line, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                       <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#000', flexShrink: 0 }} />
                       <span style={{ fontSize: '0.95rem', color: '#444' }}>{line}</span>
@@ -247,22 +243,20 @@ const TechnologyPage = () => {
             </div>
           </section>
 
-          {/* ── SOFTWARE / VIDEO POC ──────────────────────────────────── */}
+          {/* ── SOFTWARE / VIDEO POC ── */}
           <section style={{ marginBottom: '5rem' }}>
             <motion.div
               variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
               style={{ textAlign: 'center', marginBottom: '3rem' }}
             >
               <span style={{ fontSize: '0.8rem', fontWeight: 500, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1rem' }}>
-                Software
+                {tech.softwareLabel}
               </span>
               <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 800, letterSpacing: '-0.03em', color: '#000', margin: '0 auto 1rem', lineHeight: 1.1, maxWidth: '600px' }}>
-                Une architecture IA adaptée à chaque mission
+                {tech.softwareTitle}
               </h2>
               <p style={{ fontSize: '1rem', color: '#666', maxWidth: '560px', margin: '0 auto', lineHeight: 1.7 }}>
-                Notre stack logiciel embarqué se configure pour différents cas d'usage —
-                observation terrestre, évitement de collision, gestion de constellation.
-                Le POC ci-dessous illustre nos capacités de traitement en temps réel.
+                {tech.softwareDesc}
               </p>
             </motion.div>
 
@@ -291,27 +285,39 @@ const TechnologyPage = () => {
             </motion.div>
           </section>
 
-          {/* ── CTA ───────────────────────────────────────────────────── */}
+          {/* ── CTA ── */}
           <motion.section
             variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
             style={{ textAlign: 'center', paddingTop: '2rem' }}
           >
             <p style={{ fontSize: '1rem', color: '#888', marginBottom: '1.5rem' }}>
-              Intéressé par une intégration ou un partenariat ?
+              {tech.ctaText}
             </p>
             <a
               href="/#contact"
               style={{
-                display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
                 padding: '0.7rem 2rem',
-                background: '#000', color: '#fff',
-                borderRadius: '9999px', fontWeight: 500, fontSize: '1rem',
-                textDecoration: 'none', transition: 'background 0.2s, transform 0.2s',
+                background: '#000',
+                color: '#fff',
+                borderRadius: '9999px',
+                fontWeight: 500,
+                fontSize: '1rem',
+                textDecoration: 'none',
+                transition: 'background 0.2s, transform 0.2s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#222'; e.currentTarget.style.transform = 'scale(1.04)'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#000'; e.currentTarget.style.transform = 'scale(1)'; }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#222';
+                e.currentTarget.style.transform = 'scale(1.04)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = '#000';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
             >
-              Nous contacter
+              {tech.ctaBtn}
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>

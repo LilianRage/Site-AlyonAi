@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-
 import fondFumee from '../../assets/Fond_fumee.png';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const ModulesSection = () => {
+  const { t } = useLanguage();
 
   return (
     <section
@@ -57,7 +58,7 @@ const ModulesSection = () => {
             textTransform: 'uppercase',
             letterSpacing: '0.2em',
           }}>
-            Produit
+            {t.modules.label}
           </span>
         </motion.div>
 
@@ -111,7 +112,7 @@ const ModulesSection = () => {
             onMouseEnter={e => { e.currentTarget.style.background = '#222'; e.currentTarget.style.transform = 'scale(1.04)'; }}
             onMouseLeave={e => { e.currentTarget.style.background = '#000'; e.currentTarget.style.transform = 'scale(1)'; }}
           >
-            <span>Découvrir</span>
+            <span>{t.modules.discover}</span>
             <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
