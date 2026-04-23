@@ -37,7 +37,7 @@ const Header = () => {
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       }, 50);
     } else {
-      navigate('/#' + sectionId);
+      navigate('/');
       setTimeout(() => {
         const el = document.getElementById(sectionId.replace('#', ''));
         if (el) el.scrollIntoView({ behavior: 'smooth' });

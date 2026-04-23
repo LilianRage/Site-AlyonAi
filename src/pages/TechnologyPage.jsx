@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import fondFumee from '../assets/Fond_fumee.png';
@@ -19,6 +19,7 @@ const fadeUp = {
 const TechnologyPage = () => {
   const { t } = useLanguage();
   const tech = t.tech;
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen relative" style={{ backgroundColor: '#fff' }}>
@@ -321,7 +322,15 @@ const TechnologyPage = () => {
               {tech.ctaText}
             </p>
             <a
-              href="/#contact"
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/');
+                setTimeout(() => {
+                  const el = document.getElementById('contact');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 150);
+              }}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
