@@ -5,7 +5,7 @@ export const translations = {
       title: 'OBC-1',
       subtitle: 'The on-board brain for satellite autonomy',
       description:
-        'The OBC-1 enables satellites and constellations to run multiple critical missions at once: real-time Earth observation, on-board image analysis, autonomous collision avoidance and constellation coordination, without relying on ground stations.',
+        'The OBC-1 enables satellites and constellations to run multiple critical missions at once: on-board data processing, intelligent bus management, autonomous collision avoidance and constellation coordination, to reduce dependence on ground stations.',
       cta: 'Discover the product',
     },
     nav: {
@@ -273,7 +273,7 @@ export const translations = {
       title: 'OBC-1',
       subtitle: "Le cerveau embarqué pour l'autonomie satellitaire",
       description:
-        "L'OBC-1 permet aux satellites et aux constellations d'exécuter plusieurs missions critiques simultanément : observation terrestre en temps réel, analyse d'images embarquée, évitement autonome de collisions et coordination de constellation, sans dépendre des stations sol.",
+        "L'OBC-1 permet aux satellites et aux constellations d'exécuter plusieurs missions critiques simultanément : traitement de données embarqué, gestion intelligente du bus, évitement autonome de collisions et coordination de constellation, pour réduire la dépendance aux stations sol.",
       cta: 'Découvrir le produit',
     },
     nav: {
