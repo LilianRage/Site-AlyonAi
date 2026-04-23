@@ -44,10 +44,10 @@ const TechnologyPage = () => {
         }}
       />
 
-      <main className="relative z-10" style={{ paddingTop: '120px', paddingBottom: '6rem' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.5rem' }}>
+      <main className="relative z-10" style={{ paddingTop: '60px', paddingBottom: '6rem' }}>
 
-          {/* Back link */}
+        {/* Back link — above the video */}
+        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '1.5rem 1.5rem 0' }}>
           <Link
             to="/"
             style={{
@@ -57,7 +57,6 @@ const TechnologyPage = () => {
               fontSize: '14px',
               color: '#888',
               textDecoration: 'none',
-              marginBottom: '3rem',
               transition: 'color 0.2s',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = '#000')}
@@ -66,6 +65,34 @@ const TechnologyPage = () => {
             <ArrowLeft style={{ width: '16px', height: '16px' }} />
             {tech.back}
           </Link>
+        </div>
+
+        {/* ── VIDEO INTRO ── */}
+        <div style={{ padding: '1.5rem 1.5rem 3rem', maxWidth: '1100px', margin: '0 auto' }}>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            style={{
+              borderRadius: '16px',
+              overflow: 'hidden',
+              boxShadow: '0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08)',
+              width: '100%',
+              aspectRatio: '16 / 9',
+              background: '#000',
+            }}
+          >
+            <iframe
+              src="https://www.youtube.com/embed/b76AO1A4qpY?autoplay=1&mute=1&loop=1&playlist=b76AO1A4qpY&controls=1"
+              allow="autoplay; encrypted-media"
+              allowFullScreen
+              style={{ width: '100%', height: '100%', display: 'block', border: 'none' }}
+              title="ALYON AI Presentation"
+            />
+          </motion.div>
+        </div>
+
+        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.5rem' }}>
 
           {/* ── HERO ── */}
           <section style={{ marginBottom: '7rem' }}>

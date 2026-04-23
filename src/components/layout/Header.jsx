@@ -48,7 +48,7 @@ const Header = () => {
   const navItems = [
     { label: t.nav.home, action: () => scrollToSection('hero') },
     { label: t.nav.product, action: () => { setMenuOpen(false); navigate('/technologie'); } },
-    { label: t.nav.rd, action: () => scrollToSection('achievements') },
+    { label: t.nav.rd, action: () => { setMenuOpen(false); navigate('/recherche'); } },
     { label: t.nav.contact, action: () => scrollToSection('contact') },
   ];
 

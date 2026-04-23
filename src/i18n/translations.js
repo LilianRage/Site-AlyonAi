@@ -1,5 +1,13 @@
 export const translations = {
   en: {
+    productShowcase: {
+      label: 'Our Product',
+      title: 'OBC-1',
+      subtitle: 'The on-board brain for satellite autonomy',
+      description:
+        'The OBC-1 enables satellites and constellations to run multiple critical missions at once: real-time Earth observation, on-board image analysis, autonomous collision avoidance and constellation coordination, without relying on ground stations.',
+      cta: 'Discover the product',
+    },
     nav: {
       home: 'Home',
       product: 'Product',
@@ -106,6 +114,16 @@ export const translations = {
       softwareTitle: 'An AI architecture adapted to each mission',
       softwareDesc:
         'Our embedded software stack is configured for different use cases — Earth observation, collision avoidance, constellation management. The POC below illustrates our real-time processing capabilities.',
+      capabilitiesLabel: 'By the numbers',
+      capabilitiesTitle: 'What the OBC-1 enables',
+      capabilities: [
+        { value: '40 TOPS', label: 'Embedded AI compute' },
+        { value: '< 100ms', label: 'Collision avoidance reaction' },
+        { value: '30 img/s', label: 'On-board image processing' },
+        { value: '65–75%', label: 'Downlink bandwidth saved' },
+        { value: '6+', label: 'Simultaneous autonomous tasks' },
+        { value: '−30 / +60°C', label: 'Operating temperature range' },
+      ],
       ctaText: 'Interested in integration or partnership?',
       ctaBtn: 'Contact Us',
     },
@@ -250,6 +268,14 @@ export const translations = {
   },
 
   fr: {
+    productShowcase: {
+      label: 'Notre Produit',
+      title: 'OBC-1',
+      subtitle: "Le cerveau embarqué pour l'autonomie satellitaire",
+      description:
+        "L'OBC-1 permet aux satellites et aux constellations d'exécuter plusieurs missions critiques simultanément : observation terrestre en temps réel, analyse d'images embarquée, évitement autonome de collisions et coordination de constellation, sans dépendre des stations sol.",
+      cta: 'Découvrir le produit',
+    },
     nav: {
       home: 'Accueil',
       product: 'Produit',
@@ -356,6 +382,16 @@ export const translations = {
       softwareTitle: 'Une architecture IA adaptée à chaque mission',
       softwareDesc:
         "Notre stack logiciel embarqué se configure pour différents cas d'usage — observation terrestre, évitement de collision, gestion de constellation. Le POC ci-dessous illustre nos capacités de traitement en temps réel.",
+      capabilitiesLabel: 'En chiffres',
+      capabilitiesTitle: "Ce que permet l'OBC-1",
+      capabilities: [
+        { value: '40 TOPS', label: "Puissance IA embarquée" },
+        { value: '< 100ms', label: "Réaction évitement de collision" },
+        { value: '30 img/s', label: "Traitement d'images embarqué" },
+        { value: '65–75%', label: 'Bande passante descendante économisée' },
+        { value: '6+', label: 'Tâches autonomes simultanées' },
+        { value: '−30 / +60°C', label: "Plage de température de fonctionnement" },
+      ],
       ctaText: 'Intéressé par une intégration ou un partenariat ?',
       ctaBtn: 'Nous contacter',
     },
