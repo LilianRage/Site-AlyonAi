@@ -6,6 +6,7 @@ import fondFumee from '../assets/Fond_fumee.png';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import { useLanguage } from '../contexts/LanguageContext';
+import SatelliteGlobeAnimation from '../components/ui/SatelliteGlobeAnimation';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
@@ -68,32 +69,7 @@ const TechnologyPage = () => {
           </Link>
         </div>
 
-        {/* ── VIDEO INTRO ── */}
-        <div style={{ padding: '1.5rem 1.5rem 3rem', maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            style={{
-              borderRadius: '16px',
-              overflow: 'hidden',
-              boxShadow: '0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08)',
-              width: '100%',
-              aspectRatio: '16 / 9',
-              background: '#000',
-            }}
-          >
-            <iframe
-              src="https://www.youtube.com/embed/b76AO1A4qpY?autoplay=1&mute=1&loop=1&playlist=b76AO1A4qpY&controls=1"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
-              style={{ width: '100%', height: '100%', display: 'block', border: 'none' }}
-              title="ALYON AI Presentation"
-            />
-          </motion.div>
-        </div>
-
-        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.5rem' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '3rem 1.5rem 0' }}>
 
           {/* ── HERO ── */}
           <section style={{ marginBottom: '7rem' }}>
@@ -110,9 +86,9 @@ const TechnologyPage = () => {
 
                 <motion.h1
                   variants={fadeUp} initial="hidden" animate="visible" custom={1}
-                  style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1, color: '#000', margin: '0 0 1rem 0' }}
+                  style={{ fontSize: 'clamp(1rem, calc(3.4vw - 0.25rem), 2.1rem)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1, color: '#000', margin: '0 0 1rem 0', whiteSpace: 'nowrap' }}
                 >
-                  OBC-1
+                  {tech.title}
                 </motion.h1>
 
                 <motion.p
@@ -133,7 +109,7 @@ const TechnologyPage = () => {
                   variants={fadeUp} initial="hidden" animate="visible" custom={4}
                   style={{ marginTop: '2rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}
                 >
-                  {['40 TOPS', '0.5U CubeSat', 'Made in France'].map((tag) => (
+                  {tech.tags.map((tag) => (
                     <span key={tag} style={{
                       padding: '0.35rem 0.9rem',
                       background: '#000',
@@ -156,18 +132,9 @@ const TechnologyPage = () => {
                 transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
                 style={{ display: 'flex', justifyContent: 'center' }}
               >
-                <img
-                  src="/images/Boitier_Alyon_Visu.png"
-                  alt="OBC-1 ALYON"
-                  style={{
-                    width: '100%',
-                    maxWidth: '480px',
-                    objectFit: 'contain',
-                    borderRadius: '20px',
-                    maskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 55%, transparent 100%)',
-                    WebkitMaskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 55%, transparent 100%)',
-                  }}
-                />
+                <div style={{ width: '100%', maxWidth: '560px', aspectRatio: '1 / 1' }}>
+                  <SatelliteGlobeAnimation />
+                </div>
               </motion.div>
             </div>
           </section>
@@ -201,7 +168,7 @@ const TechnologyPage = () => {
                   <span style={{ fontSize: '0.75rem', color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 500 }}>
                     {s.label}
                   </span>
-                  <span style={{ fontSize: '1rem', fontWeight: 700, color: '#000' }}>
+                  <span style={{ fontSize: '0.95rem', fontWeight: 500, color: '#222', lineHeight: 1.5 }}>
                     {s.value}
                   </span>
                 </motion.div>
@@ -221,7 +188,7 @@ const TechnologyPage = () => {
               >
                 <img
                   src="/images/Boitier_alyon_visu_eclate.png"
-                  alt="OBC-1 exploded view"
+                  alt="Conception 3D du module de calcul ALYON AI"
                   style={{
                     width: '100%',
                     objectFit: 'contain',
@@ -288,28 +255,102 @@ const TechnologyPage = () => {
               </p>
             </motion.div>
 
-            {/* Video */}
+            {/* Detect / Act / Alert steps */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: 'easeOut' }}
+              variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
               style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '1px',
+                background: '#e5e7eb',
                 borderRadius: '16px',
                 overflow: 'hidden',
-                boxShadow: '0 24px 64px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.06)',
-                width: '100%',
-                aspectRatio: '16 / 9',
-                background: '#000',
+                border: '1px solid #e5e7eb',
               }}
             >
-              <iframe
-                src="https://www.youtube.com/embed/ov8o47R2wLg?autoplay=1&mute=1&loop=1&playlist=ov8o47R2wLg&controls=1"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-                style={{ width: '100%', height: '100%', display: 'block', border: 'none' }}
-                title="POC ALYON AI"
-              />
+              {tech.steps.map((step, i) => (
+                <motion.div
+                  key={step.title}
+                  variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i * 0.5}
+                  style={{
+                    background: '#fff',
+                    padding: '2rem 1.5rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.6rem',
+                  }}
+                >
+                  <span style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '28px',
+                    height: '28px',
+                    borderRadius: '50%',
+                    background: '#000',
+                    color: '#fff',
+                    fontSize: '0.85rem',
+                    fontWeight: 700,
+                  }}>
+                    {i + 1}
+                  </span>
+                  <span style={{ fontSize: '1.05rem', fontWeight: 700, color: '#000' }}>
+                    {step.title}
+                  </span>
+                  <span style={{ fontSize: '0.9rem', color: '#666', lineHeight: 1.6 }}>
+                    {step.desc}
+                  </span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </section>
+
+          {/* ── BY THE NUMBERS ── */}
+          <section style={{ marginBottom: '5rem' }}>
+            <motion.div
+              variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
+              style={{ textAlign: 'center', marginBottom: '2.5rem' }}
+            >
+              <span style={{ fontSize: '0.8rem', fontWeight: 500, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1rem' }}>
+                {tech.capabilitiesLabel}
+              </span>
+              <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 800, letterSpacing: '-0.03em', color: '#000', margin: '0 auto', lineHeight: 1.1, maxWidth: '600px' }}>
+                {tech.capabilitiesTitle}
+              </h2>
+            </motion.div>
+
+            <motion.div
+              variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '1px',
+                background: '#e5e7eb',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                border: '1px solid #e5e7eb',
+              }}
+            >
+              {tech.capabilities.map((c) => (
+                <div
+                  key={c.label}
+                  style={{
+                    background: '#fff',
+                    padding: '2rem 1.5rem',
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.5rem',
+                  }}
+                >
+                  <span style={{ fontSize: '1.6rem', fontWeight: 800, color: '#000', letterSpacing: '-0.02em' }}>
+                    {c.value}
+                  </span>
+                  <span style={{ fontSize: '0.85rem', color: '#666', lineHeight: 1.5 }}>
+                    {c.label}
+                  </span>
+                </div>
+              ))}
             </motion.div>
           </section>
 

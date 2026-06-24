@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
+import SatelliteGlobeAnimation from '../ui/SatelliteGlobeAnimation';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -28,7 +29,7 @@ const ProductShowcaseSection = () => {
 
   const isMobile = width < MOBILE_BP;
   const isTablet = width < TABLET_BP;
-  const imageMaxWidth = isMobile ? '180px' : isTablet ? '240px' : '300px';
+  const imageMaxWidth = isMobile ? '300px' : isTablet ? '380px' : '500px';
 
   return (
     <section
@@ -87,15 +88,15 @@ const ProductShowcaseSection = () => {
             transition={{ duration: 0.7, ease: 'easeOut' }}
             style={{ display: 'flex', justifyContent: 'center' }}
           >
-            <img
-              src="/images/Assembly_V4_2026-Apr-23_07-59-15AM-000_CustomizedView4612032673_png.png"
-              alt="OBC-1 ALYON"
+            <div
               style={{
                 width: '100%',
                 maxWidth: imageMaxWidth,
-                objectFit: 'contain',
+                aspectRatio: '1 / 1',
               }}
-            />
+            >
+              <SatelliteGlobeAnimation />
+            </div>
           </motion.div>
 
           {/* Text */}
@@ -126,12 +127,13 @@ const ProductShowcaseSection = () => {
               viewport={{ once: true }}
               custom={1}
               style={{
-                fontSize: isMobile ? 'clamp(1.4rem, 6vw, 2rem)' : 'clamp(2.5rem, 5vw, 4rem)',
+                fontSize: isMobile ? 'clamp(1rem, 4.5vw, 1.3rem)' : isTablet ? 'clamp(1.1rem, 3vw, 1.45rem)' : 'clamp(1.5rem, 2.6vw, 2rem)',
                 fontWeight: 800,
                 letterSpacing: '-0.04em',
                 lineHeight: 1,
                 color: '#000',
                 margin: '0 0 0.5rem 0',
+                whiteSpace: 'nowrap',
               }}
             >
               {ps.title}

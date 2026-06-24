@@ -1,28 +1,28 @@
 // Données de contenu pour le site Alyon AI - Satellites LEO Autonomes
 export const siteData = {
   meta: {
-    title: "ALYON AI - Autonomous LEO Satellites for Europe",
-    description: "Alyon AI développe la prochaine génération de satellites LEO autonomes pour l'Europe. Plateforme logicielle modulaire pour des constellations véritablement autonomes.",
-    keywords: "satellites LEO, intelligence artificielle embarquée, constellations autonomes, espace, Europe, OPEX, space tech",
+    title: "ALYON AI - Surveillance autonome des satellites en orbite basse",
+    description: "Alyon AI développe une intelligence embarquée qui permet aux satellites de surveiller leur propre état de santé, détecter les anomalies à bord et alerter le sol en quelques minutes, sans attendre un passage sol.",
+    keywords: "satellites LEO, détection d'anomalies embarquée, intelligence artificielle embarquée, résilience satellite, surveillance autonome, constellations, espace, Europe, space tech",
     ogImage: "/images/alyon-ai-og.jpg",
     url: "https://alyon-ai.com"
   },
-  
+
   company: {
     name: "ALYON AI",
-    tagline: "Autonomous LEO Satellites",
-    heroTagline: "The Next Generation of European Autonomous Satellites",
-    heroTitle: "Making Space Economically Viable",
-    description: "Alyon AI développe la prochaine génération de satellites autonomes pour l'Europe, en réponse à la crise OPEX que traverse l'industrie spatiale.",
-    mission: "Intégrer l'intelligence artificielle embarquée directement dans les satellites via une plateforme logicielle modulaire qui rend les constellations véritablement autonomes.",
-    differentiator: "Réduction drastique des interventions humaines et des coûts tout en prolongeant la durée de vie opérationnelle des constellations."
+    tagline: "Intelligence embarquée pour satellites autonomes",
+    heroTagline: "Des satellites qui veillent sur eux-mêmes",
+    heroTitle: "Détecter. Décider. Alerter.",
+    description: "Alyon AI développe une intelligence embarquée qui permet aux satellites de surveiller leur propre état de santé, détecter les anomalies à bord et alerter le sol en quelques minutes, même loin de toute station sol.",
+    mission: "Donner à chaque satellite l'intelligence pour surveiller son propre état de santé, détecter une anomalie à bord et alerter le sol via sa constellation, sans attendre un passage sol.",
+    differentiator: "Détection active pendant les angles morts entre deux contacts sol, là où les solutions existantes sont aveugles."
   },
 
   stats: [
-    { value: "45-60%", label: "Réduction OPEX" },
-    { value: "40-60%", label: "Extension durée de vie" },
-    { value: "90%+", label: "Taux de succès captures" },
-    { value: "65-75%", label: "Réduction bande passante" }
+    { value: "10–20 min / 90", label: "Fenêtre de contact sol, par orbite" },
+    { value: "< 10 min", label: "Entre la détection et l'alerte au sol" },
+    { value: "99,98%", label: "Taux de livraison des alertes" },
+    { value: "23%", label: "Des satellites LEO rencontrent un incident significatif en orbite" }
   ],
 
   modules: [

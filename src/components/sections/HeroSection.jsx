@@ -1,8 +1,10 @@
 import React from 'react';
 import ParticlesBackground from '../ui/ParticlesBackground';
 import { FadeIn } from '../ui/Animations';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const HeroSection = () => {
+  const { t } = useLanguage();
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -21,9 +23,9 @@ const HeroSection = () => {
         {/* Main Title */}
         <FadeIn>
           <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-black leading-[1.1] mb-6 sm:mb-8 px-2">
-            <span className="block">Autonomous Satellites. </span>
+            <span className="block">{t.hero.line1}</span>
             <span className="block mt-2 sm:mt-2 font-light italic text-gray-500">
-              Endless Horizons
+              {t.hero.line2}
             </span>
           </h1>
 

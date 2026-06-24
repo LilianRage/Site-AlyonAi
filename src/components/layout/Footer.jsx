@@ -29,7 +29,7 @@ const Footer = () => {
 
   const navItems = [
     { label: t.nav.home, href: 'hero' },
-    { label: t.nav.product, href: 'modules' },
+    { label: t.nav.product, href: 'product-showcase' },
     { label: t.nav.rd, href: 'achievements' },
     { label: t.nav.contact, href: 'contact' },
   ];
