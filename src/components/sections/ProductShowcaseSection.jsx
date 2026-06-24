@@ -14,7 +14,6 @@ const fadeUp = {
 };
 
 const MOBILE_BP = 530;
-const TABLET_BP = 768;
 
 const ProductShowcaseSection = () => {
   const { t } = useLanguage();
@@ -28,8 +27,18 @@ const ProductShowcaseSection = () => {
   }, []);
 
   const isMobile = width < MOBILE_BP;
-  const isTablet = width < TABLET_BP;
-  const imageMaxWidth = isMobile ? '300px' : isTablet ? '380px' : '500px';
+
+  // Globe and text always sit side by side; the globe shrinks continuously
+  // with the viewport so the text column never gets squeezed off-screen.
+  const contentWidth = Math.min(width, 1100) - 48;
+  const gapPx = Math.min(64, Math.max(16, contentWidth * 0.06));
+  const minTextWidth = 150;
+  let imageWidthPx = Math.min(500, contentWidth * 0.42);
+  if (contentWidth - imageWidthPx - gapPx < minTextWidth) {
+    imageWidthPx = Math.max(70, contentWidth - gapPx - minTextWidth);
+  }
+  const textWidthPx = Math.max(0, contentWidth - imageWidthPx - gapPx);
+  const titleFontPx = Math.min(textWidthPx / 15, 32);
 
   return (
     <section
@@ -75,8 +84,8 @@ const ProductShowcaseSection = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr 1fr' : '1fr 1fr',
-            gap: isMobile ? '1.5rem' : isTablet ? '2.5rem' : '4rem',
+            gridTemplateColumns: `${imageWidthPx}px 1fr`,
+            gap: `${gapPx}px`,
             alignItems: 'center',
           }}
         >
@@ -91,7 +100,6 @@ const ProductShowcaseSection = () => {
             <div
               style={{
                 width: '100%',
-                maxWidth: imageMaxWidth,
                 aspectRatio: '1 / 1',
               }}
             >
@@ -100,7 +108,7 @@ const ProductShowcaseSection = () => {
           </motion.div>
 
           {/* Text */}
-          <div>
+          <div style={{ minWidth: 0 }}>
             <motion.span
               variants={fadeUp}
               initial="hidden"
@@ -127,7 +135,7 @@ const ProductShowcaseSection = () => {
               viewport={{ once: true }}
               custom={1}
               style={{
-                fontSize: isMobile ? 'clamp(1rem, 4.5vw, 1.3rem)' : isTablet ? 'clamp(1.1rem, 3vw, 1.45rem)' : 'clamp(1.5rem, 2.6vw, 2rem)',
+                fontSize: `${titleFontPx}px`,
                 fontWeight: 800,
                 letterSpacing: '-0.04em',
                 lineHeight: 1,

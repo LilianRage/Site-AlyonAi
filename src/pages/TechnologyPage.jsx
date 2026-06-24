@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
@@ -17,10 +17,35 @@ const fadeUp = {
   }),
 };
 
+const STACK_BP = 860;
+const CARDS_STACK_BP = 640;
+
 const TechnologyPage = () => {
   const { t } = useLanguage();
   const tech = t.tech;
   const navigate = useNavigate();
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const onResize = () => setWidth(window.innerWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const isStacked = width < STACK_BP;
+  const isCardsStacked = width < CARDS_STACK_BP;
+
+  // Hero globe and text always sit side by side; the globe shrinks
+  // continuously with the viewport so the text column is never squeezed off-screen.
+  const heroContentWidth = Math.min(width, 1100) - 48;
+  const heroGapPx = Math.min(64, Math.max(16, heroContentWidth * 0.06));
+  const heroMinTextWidth = 150;
+  let heroImageWidthPx = Math.min(560, heroContentWidth * 0.42);
+  if (heroContentWidth - heroImageWidthPx - heroGapPx < heroMinTextWidth) {
+    heroImageWidthPx = Math.max(70, heroContentWidth - heroGapPx - heroMinTextWidth);
+  }
+  const heroTextWidthPx = Math.max(0, heroContentWidth - heroImageWidthPx - heroGapPx);
+  const heroTitleFontPx = Math.min(heroTextWidthPx / 15, 34);
 
   return (
     <div className="min-h-screen relative" style={{ backgroundColor: '#fff' }}>
@@ -73,10 +98,10 @@ const TechnologyPage = () => {
 
           {/* ── HERO ── */}
           <section style={{ marginBottom: '7rem' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: `1fr ${heroImageWidthPx}px`, gap: `${heroGapPx}px`, alignItems: 'center' }}>
 
               {/* Left: text */}
-              <div>
+              <div style={{ minWidth: 0 }}>
                 <motion.span
                   variants={fadeUp} initial="hidden" animate="visible" custom={0}
                   style={{ fontSize: '0.8rem', fontWeight: 500, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1rem' }}
@@ -86,7 +111,7 @@ const TechnologyPage = () => {
 
                 <motion.h1
                   variants={fadeUp} initial="hidden" animate="visible" custom={1}
-                  style={{ fontSize: 'clamp(1rem, calc(3.4vw - 0.25rem), 2.1rem)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1, color: '#000', margin: '0 0 1rem 0', whiteSpace: 'nowrap' }}
+                  style={{ fontSize: `${heroTitleFontPx}px`, fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1, color: '#000', margin: '0 0 1rem 0', whiteSpace: 'nowrap' }}
                 >
                   {tech.title}
                 </motion.h1>
@@ -132,7 +157,7 @@ const TechnologyPage = () => {
                 transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
                 style={{ display: 'flex', justifyContent: 'center' }}
               >
-                <div style={{ width: '100%', maxWidth: '560px', aspectRatio: '1 / 1' }}>
+                <div style={{ width: '100%', aspectRatio: '1 / 1' }}>
                   <SatelliteGlobeAnimation />
                 </div>
               </motion.div>
@@ -145,7 +170,7 @@ const TechnologyPage = () => {
               variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridTemplateColumns: isCardsStacked ? '1fr' : 'repeat(3, 1fr)',
                 gap: '1px',
                 background: '#e5e7eb',
                 borderRadius: '16px',
@@ -178,7 +203,7 @@ const TechnologyPage = () => {
 
           {/* ── EXPLODED VIEW ── */}
           <section style={{ marginBottom: '7rem' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: isStacked ? '1fr' : '1fr 1fr', gap: isStacked ? '2rem' : '4rem', alignItems: 'center' }}>
 
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -199,7 +224,7 @@ const TechnologyPage = () => {
                 />
               </motion.div>
 
-              <div>
+              <div style={{ minWidth: 0 }}>
                 <motion.span
                   variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}
                   style={{ fontSize: '0.8rem', fontWeight: 500, color: 'rgba(0,0,0,0.4)', textTransform: 'uppercase', letterSpacing: '0.2em', display: 'block', marginBottom: '1rem' }}
@@ -260,7 +285,7 @@ const TechnologyPage = () => {
               variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridTemplateColumns: isCardsStacked ? '1fr' : 'repeat(3, 1fr)',
                 gap: '1px',
                 background: '#e5e7eb',
                 borderRadius: '16px',
@@ -323,7 +348,7 @@ const TechnologyPage = () => {
               variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
+                gridTemplateColumns: isCardsStacked ? '1fr' : 'repeat(3, 1fr)',
                 gap: '1px',
                 background: '#e5e7eb',
                 borderRadius: '16px',
