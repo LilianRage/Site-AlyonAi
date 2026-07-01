@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Separator } from '../ui/Separator';
 import { siteData } from '../../data/siteData';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -103,12 +103,12 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
           <p>© {currentYear} Alyon AI. {t.footer.rights}</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="/privacy" className="hover:text-black transition-colors">
+            <Link to="/politique-de-confidentialite" className="hover:text-black transition-colors">
               {t.footer.privacy}
-            </a>
-            <a href="/terms" className="hover:text-black transition-colors">
+            </Link>
+            <Link to="/mentions-legales" className="hover:text-black transition-colors">
               {t.footer.legal}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
